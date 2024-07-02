@@ -1,0 +1,77 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-02 22:31:27.262036",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "warranty_address",
+  "primary_contact",
+  "phone_number",
+  "mobile",
+  "column_break_jnko",
+  "address"
+ ],
+ "fields": [
+  {
+   "fieldname": "warranty_address",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Warranty Address",
+   "options": "Address",
+   "reqd": 1
+  },
+  {
+   "fieldname": "primary_contact",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Primary Contact",
+   "options": "Contact",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "primary_contact.phone",
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Phone Number",
+   "options": "Phone",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "primary_contact.mobile_no",
+   "fieldname": "mobile",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Mobile",
+   "options": "Phone",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_jnko",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-07-02 22:31:30.565203",
+ "modified_by": "Administrator",
+ "module": "Ticketing",
+ "name": "Warranty Address",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
