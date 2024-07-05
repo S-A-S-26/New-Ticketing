@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class ServiceLog(Document):
+class VisitStatusMappingtoServiceRequest(Document):
 	pass

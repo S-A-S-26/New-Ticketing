@@ -1,95 +1,122 @@
 {
  "actions": [],
- "allow_rename": 1,
  "autoname": "naming_series:naming_series",
- "creation": "2024-07-02 22:52:03.567733",
+ "creation": "2024-07-03 23:33:24.419563",
  "default_view": "List",
  "doctype": "DocType",
+ "document_type": "Document",
  "engine": "InnoDB",
  "field_order": [
+  "visit_log_section",
   "naming_series",
-  "json_jxvr",
-  "status",
-  "creation_date",
-  "created_by",
+  "visit_completed_by",
+  "date",
   "column_break_ywqz",
-  "error",
-  "updated",
-  "updated_by"
+  "visit_request",
+  "ticket",
+  "reference_type",
+  "repair_request",
+  "service_request"
  ],
  "fields": [
   {
-   "fieldname": "naming_series",
+   "fieldname": "visit_log_section",
    "fieldtype": "Section Break",
    "label": "Visit Log"
   },
   {
-   "fieldname": "json_jxvr",
-   "fieldtype": "JSON",
-   "in_list_view": 1,
-   "label": "Json Visit Log",
-   "read_only": 1,
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "VL.MM..YY..##",
+   "print_hide": 1,
+   "report_hide": 1,
    "reqd": 1
   },
   {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "\nFailed\nSuccess"
+   "fieldname": "visit_completed_by",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Visit Completed By",
+   "options": "User",
+   "reqd": 1
   },
   {
-   "fieldname": "creation_date",
+   "fieldname": "date",
    "fieldtype": "Datetime",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Creation Date",
-   "read_only": 1,
+   "label": "Date",
    "reqd": 1
-  },
-  {
-   "fieldname": "created_by",
-   "fieldtype": "Int",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Created By"
   },
   {
    "fieldname": "column_break_ywqz",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "error",
-   "fieldtype": "JSON",
+   "fieldname": "visit_request",
+   "fieldtype": "Link",
+   "in_filter": 1,
    "in_list_view": 1,
-   "label": "Error",
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Visit Request",
+   "options": "Visit Request",
    "reqd": 1
   },
   {
-   "fieldname": "updated",
-   "fieldtype": "Datetime",
-   "in_filter": 1,
+   "fieldname": "ticket",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Updated"
+   "label": "Ticket",
+   "options": "Ticket",
+   "reqd": 1
   },
   {
-   "fieldname": "updated_by",
-   "fieldtype": "Int",
+   "fetch_from": "visit_request.reference_type",
+   "fieldname": "reference_type",
+   "fieldtype": "Select",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Updated By"
+   "label": "Reference Type",
+   "options": "Repair Request\nService Request",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.reference_type=='Repair Request'",
+   "fetch_from": "visit_request.repair_request",
+   "fieldname": "repair_request",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Repair Request",
+   "mandatory_depends_on": "eval:doc.reference_type=='Repair Request'",
+   "no_copy": 1,
+   "options": "Repair Request"
+  },
+  {
+   "fetch_from": "visit_request.service_request",
+   "fieldname": "service_request",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Service Request",
+   "options": "Issue"
   }
  ],
+ "hide_toolbar": 1,
+ "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-02 22:52:03.567733",
+ "modified": "2024-07-03 23:33:24.419563",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Log",
@@ -97,15 +124,13 @@
  "owner": "Administrator",
  "permissions": [
   {
-   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1,
-   "write": 1
+   "share": 1
   },
   {
    "email": 1,
@@ -126,10 +151,10 @@
    "share": 1
   }
  ],
+ "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
  "track_changes": 1,
- "track_seen": 1,
- "track_views": 1
+ "track_seen": 1
 }

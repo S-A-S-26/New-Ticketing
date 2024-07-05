@@ -16,11 +16,13 @@
   "type",
   "column_break_gnhg",
   "status",
+  "ticket",
   "subject",
   "priority",
   "column_break_iouw",
   "customer_address",
   "display_address",
+  "is_visit_required",
   "service_details_tab",
   "service",
   "item_name",
@@ -64,6 +66,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Series",
+   "options": "SR.####",
    "print_hide": 1,
    "report_hide": 1,
    "reqd": 1
@@ -361,11 +364,24 @@
    "fieldname": "feedback_extra",
    "fieldtype": "Small Text",
    "label": "Feedback (Extra)"
+  },
+  {
+   "fieldname": "ticket",
+   "fieldtype": "Link",
+   "label": "Ticket",
+   "options": "Ticket",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_visit_required",
+   "fieldtype": "Check",
+   "label": "Is Visit Required?"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-02 22:48:08.278918",
+ "modified": "2024-07-03 23:52:10.757720",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

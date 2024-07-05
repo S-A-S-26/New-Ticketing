@@ -1,0 +1,197 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-07-02 23:08:02.042457",
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer_info_tab",
+  "naming_series",
+  "customer",
+  "customer_name",
+  "from_date",
+  "to_date",
+  "column_break_opso",
+  "status",
+  "free_visit",
+  "visit_requested",
+  "remaining_free_visits",
+  "column_break_licd",
+  "charge_per_ticket",
+  "price_per_visit",
+  "company",
+  "location_section",
+  "contract_address_items",
+  "covered_services_tab",
+  "contract_covered_services"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer_info_tab",
+   "fieldtype": "Tab Break",
+   "label": "Customer Info"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "From Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "To Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_opso",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nIn Progress\nExpiring\nExpired\nCancelled",
+   "reqd": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "0",
+   "fieldname": "free_visit",
+   "fieldtype": "Int",
+   "label": "Free Visit",
+   "no_copy": 1,
+   "non_negative": 1
+  },
+  {
+   "fieldname": "visit_requested",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Visit Requested",
+   "non_negative": 1,
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.visit_requested>0",
+   "fieldname": "remaining_free_visits",
+   "fieldtype": "Int",
+   "label": "Remaining Free Visits",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_licd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "description": "If you want to charge the customer in this contract for every ticket he creates, then set anything greater than 0. Zero means free ticket creation.",
+   "fieldname": "charge_per_ticket",
+   "fieldtype": "Currency",
+   "label": "Charge Per Ticket",
+   "non_negative": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "description": "In case of Paid Visits",
+   "fieldname": "price_per_visit",
+   "fieldtype": "Currency",
+   "label": "Price per visit",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
+   "print_hide": 1,
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "description": "If you leave this table blank then all the addresses connected with the customer will be cosidered under this contract",
+   "fieldname": "location_section",
+   "fieldtype": "Section Break",
+   "label": "Addresses Covered"
+  },
+  {
+   "fieldname": "contract_address_items",
+   "fieldtype": "Table",
+   "label": "Contract Address Items",
+   "options": "Contract Address Items"
+  },
+  {
+   "fieldname": "covered_services_tab",
+   "fieldtype": "Tab Break",
+   "label": "Covered Services"
+  },
+  {
+   "fieldname": "contract_covered_services",
+   "fieldtype": "Table",
+   "label": "Contract Covered Services",
+   "options": "Contract Covered Services"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "options": "CC.MM..YY..##",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-07-06 01:10:14.886470",
+ "modified_by": "Administrator",
+ "module": "Ticketing",
+ "name": "Customer Contract",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

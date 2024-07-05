@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-03 23:38:24.593654",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "visit_status_mapping_to_service_request",
+  "service_request_status_mapping_with_ticket_status",
+  "visit_request_status_mapping_with_repair_request",
+  "repair_request_status_mapping_with_ticket"
+ ],
+ "fields": [
+  {
+   "fieldname": "visit_status_mapping_to_service_request",
+   "fieldtype": "Table",
+   "label": "Visit Status Mapping to Service Request",
+   "options": "Visit Status Mapping to Service Request"
+  },
+  {
+   "fieldname": "service_request_status_mapping_with_ticket_status",
+   "fieldtype": "Table",
+   "label": "Service Request Status Mapping with Ticket Status",
+   "options": "Service Request Status Mapping with Ticket Status"
+  },
+  {
+   "fieldname": "visit_request_status_mapping_with_repair_request",
+   "fieldtype": "Table",
+   "label": "Visit Request Status Mapping with Repair Request",
+   "options": "Visit Request Status Mapping with Repair Request"
+  },
+  {
+   "fieldname": "repair_request_status_mapping_with_ticket",
+   "fieldtype": "Table",
+   "label": "Repair Request Status Mapping with Ticket",
+   "options": "Repair Request Status Mapping with Ticket"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-07-03 23:38:24.593654",
+ "modified_by": "Administrator",
+ "module": "Ticketing",
+ "name": "Ticketing Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

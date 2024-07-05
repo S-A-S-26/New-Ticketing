@@ -1,0 +1,40 @@
+{
+ "based_on": "opening_date",
+ "chart_name": "Ticket Stats",
+ "chart_type": "Count",
+ "color": "#449CF0",
+ "creation": "2024-07-03 23:59:25.666515",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart",
+ "document_type": "Ticket",
+ "dynamic_filters_json": "[]",
+ "filters_json": "[[\"Ticket\",\"status\",\"not in\",[\"Cancelled\",null],false]]",
+ "group_by_type": "Count",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "last_synced_on": "2024-07-04 01:04:19.512728",
+ "modified": "2024-07-04 01:04:44.213404",
+ "modified_by": "Administrator",
+ "module": "Ticketing",
+ "name": "Ticket Stats",
+ "number_of_groups": 0,
+ "owner": "Administrator",
+ "parent_document_type": "",
+ "roles": [
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Sales Manager"
+  }
+ ],
+ "source": "",
+ "time_interval": "Daily",
+ "timeseries": 1,
+ "timespan": "Last Month",
+ "type": "Line",
+ "use_report_chart": 0,
+ "value_based_on": "",
+ "y_axis": []
+}

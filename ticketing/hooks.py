@@ -215,3 +215,23 @@ app_license = "MIT"
 # auth_hooks = [
 #	"ticketing.auth.validate"
 # ]
+
+fixtures = [
+		{"dt":"Kanban Board", "filters": [["name", "in",(
+			      "Ticket Board",
+                  "Visit Request Board",
+                  "Service Request Board",
+                  "Repair Request Board",
+		),]]} ,
+        {"dt":"Number Card", "filters": [["name", "in",(
+			      "Visits To be Scheduled",
+                  "Pending Repairs",
+                  "Open Tickets",
+		),]]} ,
+        {"dt":"Dashboard Chart", "filters": [["name", "in",(
+			      "Ticket Stats",
+                  "Tickets By Status",
+		),]]} ,
+    ]
+
+

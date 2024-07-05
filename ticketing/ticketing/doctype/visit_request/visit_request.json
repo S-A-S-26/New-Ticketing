@@ -1,47 +1,50 @@
 {
  "actions": [],
+ "allow_auto_repeat": 1,
  "allow_events_in_timeline": 1,
  "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:naming_series",
- "creation": "2024-07-02 22:49:08.476008",
- "default_view": "List",
+ "creation": "2024-07-02 23:20:17.262134",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "visit_person_name_section",
   "naming_series",
   "customer",
   "customer_name",
-  "type",
-  "column_break_vqtw",
-  "status",
-  "ticket",
-  "subject",
-  "priority",
-  "column_break_kahh",
+  "column_break_btut",
+  "reference_type",
+  "requested_date",
+  "scheduled_date",
+  "column_break_owef",
   "address",
-  "display_address",
-  "is_visit_required",
-  "equipment_details_tab",
-  "equipment",
-  "equipment_name",
-  "column_break_yfek",
-  "warranty_status",
-  "warranty_expiry_date",
-  "ticket_details_section",
-  "text_editor_uonl",
+  "company",
+  "ticket",
+  "column_break_ksxi",
+  "status",
+  "repair_request",
+  "service_request",
+  "visit_stats_section",
+  "visit_completed_by",
+  "column_break_vyux",
+  "actual_visit_date",
+  "column_break_zano",
+  "visit_duration",
+  "section_break_vvma",
+  "request_details",
   "sla_tab",
   "sla_details_section",
-  "sla",
+  "link_plym",
   "response_by",
-  "column_break_kisn",
+  "column_break_lmtx",
   "resolution_by",
   "sla_status",
   "total_hold_time",
   "resolution_tab",
   "resolution_details_section",
   "resolution_details",
-  "column_break_ggis",
+  "column_break_oark",
   "opening_date",
   "opening_time",
   "resolution_date",
@@ -50,16 +53,20 @@
   "feedback_section",
   "rating",
   "feedback_text",
-  "feedback_option",
-  "column_break_hyoh",
+  "column_break_tphe",
   "feedback_extra"
  ],
  "fields": [
   {
+   "fieldname": "visit_person_name_section",
+   "fieldtype": "Section Break",
+   "label": "Visit Details"
+  },
+  {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "options": "RR.MM..YY..##",
+   "options": "VR.MM..YY..##",
    "print_hide": 1,
    "report_hide": 1,
    "reqd": 1
@@ -79,133 +86,145 @@
    "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
-   "in_global_search": 1,
    "in_list_view": 1,
-   "in_preview": 1,
-   "label": "Customer Name"
+   "label": "Customer Name",
+   "no_copy": 1
   },
   {
-   "fieldname": "type",
+   "fieldname": "column_break_btut",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reference_type",
    "fieldtype": "Select",
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Type",
-   "no_copy": 1,
-   "options": "Repair\nReplace\nRefund",
+   "label": "Reference Type",
+   "options": "Repair Request\nService Request",
    "reqd": 1
   },
   {
-   "fieldname": "column_break_vqtw",
+   "fieldname": "requested_date",
+   "fieldtype": "Datetime",
+   "in_standard_filter": 1,
+   "label": "Requested Date",
+   "no_copy": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "scheduled_date",
+   "fieldtype": "Datetime",
+   "label": "Scheduled Date"
+  },
+  {
+   "fieldname": "column_break_owef",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Address",
+   "options": "Address",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "ticket",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Ticket",
+   "options": "Ticket",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ksxi",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "status",
    "fieldtype": "Select",
-   "label": "Status",
-   "options": "New\nOpen\nIn Progress\nHold\nResolved\nClosed\nCancelled",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "ticket.subject",
-   "fieldname": "subject",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Subject",
-   "no_copy": 1,
-   "reqd": 1
-  },
-  {
-   "fetch_from": "ticket.priority",
-   "fetch_if_empty": 1,
-   "fieldname": "priority",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Priority",
-   "options": "Low\nMedium\nHigh\nUrgent",
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_kahh",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "ticket.customer_address",
-   "fieldname": "address",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Customer Address",
-   "options": "Address",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "ticket.address_display",
-   "fieldname": "display_address",
-   "fieldtype": "Small Text",
-   "label": "Address"
-  },
-  {
-   "fieldname": "equipment_details_tab",
-   "fieldtype": "Tab Break",
-   "label": "Equipment Details"
-  },
-  {
-   "fetch_from": "ticket.equipment",
-   "fieldname": "equipment",
-   "fieldtype": "Link",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Equipment",
-   "options": "Item",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "ticket.equipment_name",
-   "fieldname": "equipment_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Equipment Name"
-  },
-  {
-   "fieldname": "column_break_yfek",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "warranty_status",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Warranty Status",
-   "no_copy": 1,
-   "options": "Draft\nActive\nExpiring\nExpired",
+   "label": "Status",
+   "options": "To Schedule\nScheduled\nIn Progress\nCompleted\nCancelled",
    "read_only": 1,
    "reqd": 1
   },
   {
-   "fieldname": "warranty_expiry_date",
+   "depends_on": "eval:doc.reference_type=='Repair Request'",
+   "fieldname": "repair_request",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Repair Request",
+   "mandatory_depends_on": "eval:doc.reference_type=='Repair Request'",
+   "options": "Repair Request"
+  },
+  {
+   "depends_on": "eval:doc.reference_type=='Service Request'",
+   "fieldname": "service_request",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Service Request",
+   "mandatory_depends_on": "eval:doc.reference_type=='Service Request'",
+   "options": "Issue"
+  },
+  {
+   "fieldname": "visit_stats_section",
+   "fieldtype": "Section Break",
+   "label": "Visit Stats"
+  },
+  {
+   "fieldname": "visit_completed_by",
+   "fieldtype": "Link",
+   "label": "Visit Completed By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_vyux",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "actual_visit_date",
    "fieldtype": "Datetime",
-   "label": "Warranty Expiry Date",
-   "no_copy": 1,
+   "in_preview": 1,
+   "label": "Actual Visit Date",
    "read_only": 1
   },
   {
-   "fieldname": "ticket_details_section",
-   "fieldtype": "Section Break",
-   "label": "Ticket Details"
+   "fieldname": "column_break_zano",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "visit_duration",
+   "fieldtype": "Duration",
+   "label": "Visit Duration"
+  },
+  {
+   "fieldname": "section_break_vvma",
+   "fieldtype": "Section Break"
   },
   {
    "fetch_from": "ticket.request_details",
    "fetch_if_empty": 1,
-   "fieldname": "text_editor_uonl",
+   "fieldname": "request_details",
    "fieldtype": "Text Editor",
-   "label": "Request Details"
+   "label": "Request Details",
+   "reqd": 1
   },
   {
    "fieldname": "sla_tab",
@@ -218,7 +237,7 @@
    "label": "SLA Details"
   },
   {
-   "fieldname": "sla",
+   "fieldname": "link_plym",
    "fieldtype": "Link",
    "in_filter": 1,
    "in_list_view": 1,
@@ -237,7 +256,7 @@
    "label": "Response By"
   },
   {
-   "fieldname": "column_break_kisn",
+   "fieldname": "column_break_lmtx",
    "fieldtype": "Column Break"
   },
   {
@@ -284,7 +303,7 @@
    "label": "Resolution Details"
   },
   {
-   "fieldname": "column_break_ggis",
+   "fieldname": "column_break_oark",
    "fieldtype": "Column Break"
   },
   {
@@ -306,7 +325,6 @@
    "fieldname": "resolution_date",
    "fieldtype": "Datetime",
    "in_list_view": 1,
-   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Resolution Date"
   },
@@ -339,39 +357,22 @@
    "label": "Feedback (Text)"
   },
   {
-   "fieldname": "feedback_option",
-   "fieldtype": "Data",
-   "label": "Feedback (Option)"
-  },
-  {
-   "fieldname": "column_break_hyoh",
+   "fieldname": "column_break_tphe",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "feedback_extra",
    "fieldtype": "Small Text",
    "label": "Feedback (Extra)"
-  },
-  {
-   "fieldname": "ticket",
-   "fieldtype": "Link",
-   "label": "Ticket",
-   "options": "Ticket",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "is_visit_required",
-   "fieldtype": "Check",
-   "label": "Is Visit Required?"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-07-03 23:51:36.795605",
+ "modified": "2024-07-02 23:20:30.825351",
  "modified_by": "Administrator",
  "module": "Ticketing",
- "name": "Repair Request",
+ "name": "Visit Request",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
@@ -389,7 +390,6 @@
   },
   {
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -398,11 +398,24 @@
    "role": "Employee",
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
   }
  ],
+ "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
  "track_changes": 1,
- "track_seen": 1
+ "track_seen": 1,
+ "track_views": 1
 }

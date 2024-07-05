@@ -1,0 +1,296 @@
+[
+ {
+  "columns": [
+   {
+    "column_name": "New",
+    "indicator": "Gray",
+    "order": "[\"TK072402\", \"TK072401\", \"TK072403\"]",
+    "parent": "Ticket Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Open",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Ticket Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "In Progress",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Ticket Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Replied",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Ticket Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Resolved",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Ticket Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Closed",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Ticket Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Cancelled",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Ticket Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "status",
+  "fields": null,
+  "filters": null,
+  "kanban_board_name": "Ticket Board",
+  "modified": "2024-07-04 19:19:06.467574",
+  "name": "Ticket Board",
+  "private": 0,
+  "reference_doctype": "Ticket",
+  "show_labels": 0
+ },
+ {
+  "columns": [
+   {
+    "column_name": "New",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Repair Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Open",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Repair Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "In Progress",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Repair Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Hold",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Repair Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Resolved",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Repair Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Closed",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Repair Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Cancelled",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Repair Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "status",
+  "fields": null,
+  "filters": null,
+  "kanban_board_name": "Repair Request Board",
+  "modified": "2024-07-04 00:03:00.371532",
+  "name": "Repair Request Board",
+  "private": 0,
+  "reference_doctype": "Repair Request",
+  "show_labels": 0
+ },
+ {
+  "columns": [
+   {
+    "column_name": "New",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Service Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Open",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Service Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "In Progress",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Service Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Hold",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Service Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Resolved",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Service Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Closed",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Service Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Cancelled",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Service Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "status",
+  "fields": null,
+  "filters": null,
+  "kanban_board_name": "Service Request Board",
+  "modified": "2024-07-04 00:03:36.939151",
+  "name": "Service Request Board",
+  "private": 0,
+  "reference_doctype": "Service Request",
+  "show_labels": 0
+ },
+ {
+  "columns": [
+   {
+    "column_name": "To Schedule",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Visit Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Scheduled",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Visit Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "In Progress",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Visit Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Completed",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Visit Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Cancelled",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Visit Request Board",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "status",
+  "fields": null,
+  "filters": null,
+  "kanban_board_name": "Visit Request Board",
+  "modified": "2024-07-04 00:04:04.096582",
+  "name": "Visit Request Board",
+  "private": 0,
+  "reference_doctype": "Visit Request",
+  "show_labels": 0
+ }
+]

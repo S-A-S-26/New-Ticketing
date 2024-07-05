@@ -1,90 +1,88 @@
 {
  "actions": [],
- "allow_rename": 1,
  "autoname": "naming_series:naming_series",
- "creation": "2024-07-02 22:31:11.169623",
- "default_view": "List",
+ "creation": "2024-07-03 23:39:04.592860",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "section_break_zrhk",
   "naming_series",
-  "json_tdiw",
-  "status",
-  "creation_date",
-  "created_by",
-  "column_break_lqhy",
-  "error",
-  "updated",
-  "updated_by"
+  "service_request",
+  "column_break_zsrb",
+  "ticket",
+  "type",
+  "amended_from"
  ],
  "fields": [
   {
-   "fieldname": "naming_series",
+   "fieldname": "section_break_zrhk",
    "fieldtype": "Section Break",
    "label": "Service Log"
   },
   {
-   "fieldname": "json_tdiw",
-   "fieldtype": "JSON",
-   "label": "Json Service Log",
-   "read_only": 1
-  },
-  {
-   "fieldname": "status",
+   "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Status",
-   "options": "\nFailed\nSuccess"
-  },
-  {
-   "fieldname": "creation_date",
-   "fieldtype": "Datetime",
-   "in_filter": 1,
    "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Creation Date",
+   "label": "Series",
+   "no_copy": 1,
+   "options": "SL.MM..YY..##",
+   "print_hide": 1,
+   "report_hide": 1,
    "reqd": 1
   },
   {
-   "fieldname": "created_by",
-   "fieldtype": "Datetime",
+   "fieldname": "service_request",
+   "fieldtype": "Link",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Created By"
+   "label": "Service Request",
+   "options": "Service Request",
+   "reqd": 1
   },
   {
-   "fieldname": "column_break_lqhy",
+   "fieldname": "column_break_zsrb",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "error",
-   "fieldtype": "JSON",
-   "label": "Error"
+   "fieldname": "ticket",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Ticket",
+   "options": "Ticket",
+   "reqd": 1
   },
   {
-   "fieldname": "updated",
-   "fieldtype": "Datetime",
+   "fetch_from": "service_request.type",
+   "fieldname": "type",
+   "fieldtype": "Select",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Updated"
+   "label": "Type",
+   "options": "Service Under Contract\nHourly Service Request",
+   "reqd": 1
   },
   {
-   "fieldname": "updated_by",
-   "fieldtype": "Datetime",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Updated By"
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Service Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2024-07-02 22:31:11.169623",
+ "modified": "2024-07-03 23:39:04.592860",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Log",
@@ -98,8 +96,7 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1,
-   "write": 1
+   "share": 1
   },
   {
    "email": 1,
@@ -108,7 +105,6 @@
    "read": 1,
    "report": 1,
    "role": "Sales Manager",
-   "select": 1,
    "share": 1
   },
   {
@@ -118,11 +114,10 @@
    "read": 1,
    "report": 1,
    "role": "Sales Master Manager",
-   "select": 1,
-   "share": 1,
-   "write": 1
+   "share": 1
   }
  ],
+ "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
