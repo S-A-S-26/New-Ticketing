@@ -13,7 +13,8 @@ from frappe.utils import (
 	time_diff_in_seconds,
 	to_timedelta,
 )
-from ticketing.api import get_sla
+from ticketing.api import get_sla,create_opportunity
+
 
 
 class Ticket(Document):
@@ -25,6 +26,25 @@ class Ticket(Document):
 			""",pluck=True)
 		# if already_ticket:
 		# 	frappe.throw(f"A ticket already exists for the customer {self.customer} with contract {self.contract}")
+
+	@frappe.whitelist()
+	def create_ticket_invoice(self):
+		charge=frappe.db.get_value("Customer Contract",self.contract,'charge_per_ticket')
+		if charge and self.contract_status == "Active":
+			sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
+			sales_inv.customer=self.customer
+			sales_inv.due_date=frappe.utils.nowdate()
+			qty=1
+			# if self.billing_based_on=="Timesheet":
+			# 	qty=round(self.total_duration/3600,1)#convert to hours
+			# contract_rate=frappe.db.get_value("Covered Services",{"item":self.service,"parent":self.contract},['rate'])
+			# print('contract rate',contract_rate)
+			sales_inv.append("items", {
+				"item_code": self.service_requested,
+				"qty": qty,
+				"rate":charge,
+			})
+			sales_inv.insert()
 	
 	@frappe.whitelist()
 	def get_contract(self):
@@ -36,3 +56,26 @@ class Ticket(Document):
 		else:
 			return False
 		return '4oefv9k1um'
+	
+
+	@frappe.whitelist()
+	def create_service_req(self):
+		print("create_service_req---")
+		if self.contract_status == "Active":
+			doc=frappe.get_doc({"doctype":"Service Request"})
+			doc.service=self.service_requested
+			doc.customer=self.customer
+			doc.type="Service Under Contract"
+			doc.ticket=self.name
+			doc.subject=self.subject
+			doc.priority=self.priority
+			doc.customer_address=self.customer_address
+			contract_status=frappe.db.get_value("Customer Contract",self.contract,'status')
+			if contract_status:
+				doc.contract_status=contract_status
+			doc.item_name=self.item_name
+			doc.request_details=self.request_details
+			doc.insert()
+		else:
+			print("opportunity creation",self.contract,self.contract_status)
+			create_opportunity(self)

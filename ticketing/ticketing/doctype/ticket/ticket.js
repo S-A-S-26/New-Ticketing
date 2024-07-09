@@ -59,15 +59,61 @@ function createButton(frm, status=undefined) {
         }, "Create");
     }
 
-   
-    frm.add_custom_button(__("Create Service"), function() {
-        
-    }, "Create");
+   if(frm.doc.type=="Service Request"){
+        frm.add_custom_button(__("Create Service"), function() {
+            frappe.call({
+                method:"create_service_req",
+                doc:frm.doc,
+                freeze:true,
+                freeze_message:"Creating service request",
+                callback: function(r, rt){
+                    console.log("r.message=",r);
+                    
+                    if(r.message){
+    
+                    }else{
+
+                    }
+                }
+            })
+        }, "Create");
+    }else{
+        frm.remove_custom_button("Create","Create Service"); 
+    }
+
     frm.add_custom_button(__("Create Ticket Invoice"), function() {
-        
+        frappe.call({
+            method:"create_ticket_invoice",
+            doc:frm.doc,
+            freeze:true,
+            freeze_message:"Creating Ticket Invoice",
+            callback: function(r, rt){
+                console.log("r.message=",r);
+                
+                if(r.message){
+
+                }else{
+
+                }
+            }
+        })
+
     }, "Create");
+
     frm.add_custom_button(__("Create Service Ticket Invoice"), function() {
         
     }, "Create");
-    
+
+    frm.add_custom_button(__("Create Warranty Invoice"), function() {
+        
+    }, "Create");
+
+    if(frm.doc.type=="Project"){
+        frm.add_custom_button(__("Create Opportunity"), function() {
+            
+        }, "Create");
+    }else{
+        frm.remove_custom_button("Create","Create Opportunity"); 
+    }
+
 }

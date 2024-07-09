@@ -275,7 +275,7 @@
   },
   {
    "fieldname": "total_hold_time",
-   "fieldtype": "Time",
+   "fieldtype": "Datetime",
    "in_list_view": 1,
    "in_preview": 1,
    "label": "Total Hold Time",
@@ -381,7 +381,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-03 23:52:10.757720",
+ "modified": "2024-07-09 21:13:46.762721",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

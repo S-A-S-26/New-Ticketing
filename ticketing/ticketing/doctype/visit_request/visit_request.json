@@ -102,6 +102,7 @@
    "reqd": 1
   },
   {
+   "default": "Today",
    "fieldname": "requested_date",
    "fieldtype": "Datetime",
    "in_standard_filter": 1,
@@ -181,7 +182,7 @@
    "in_standard_filter": 1,
    "label": "Service Request",
    "mandatory_depends_on": "eval:doc.reference_type=='Service Request'",
-   "options": "Issue"
+   "options": "Service Request"
   },
   {
    "fieldname": "visit_stats_section",
@@ -369,7 +370,7 @@
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-07-02 23:20:30.825351",
+ "modified": "2024-07-10 00:41:48.684501",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Request",

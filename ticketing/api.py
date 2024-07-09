@@ -92,3 +92,23 @@ def calc_time(
         time_required = till_start_time + time_taken
         res = add_to_date(res, seconds=time_required, as_datetime=True)
     return res
+
+@frappe.whitelist()
+def create_opportunity(self):
+    print("opportunity creation",self.contract,self.contract_status)
+    doc=frappe.get_doc({"doctype":"Opportunity"})
+    doc.opportunity_from="Customer"
+    doc.party_name=self.customer
+    doc.status="Open"
+    rate=[0]
+    if self.contract:
+        print("inside if for rate")
+        print(f"""select ccs.price from `tabCustomer Contract` as cc join `tabContract Covered Services` as ccs on cc.name = ccs.parent where cc.name = '{self.contract}' and ccs.service = '{self.service_requested}';""")
+        rate=frappe.db.sql(f"""select ccs.price from `tabCustomer Contract` as cc join `tabContract Covered Services` as ccs on cc.name = ccs.parent where cc.name = '{self.contract}' and ccs.service = '{self.service_requested}';""",pluck=True)
+        doc.append("items",{
+                "item_code":self.		service_requested,
+                "qty":1,
+                "rate":rate[0],
+                "amount":rate[0]
+                })
+    doc.insert()
