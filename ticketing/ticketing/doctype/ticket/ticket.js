@@ -16,7 +16,7 @@ frappe.ui.form.on("Ticket", {
             freeze_message:"Fetching contract",
             callback: function(r, rt){
                 console.log("r.message=",r);
-                createButton(frm)
+                
                 if(r.message){
                     frm.set_value("contract", r.message.name);
                     if (['In Progress', 'Expiring'].includes(r.message.status)){
@@ -30,6 +30,7 @@ frappe.ui.form.on("Ticket", {
                     frm.doc.contract_status=undefined
                      frm.refresh_field('contract_status')
                 }
+                createButton(frm)
             }
         })
     }
