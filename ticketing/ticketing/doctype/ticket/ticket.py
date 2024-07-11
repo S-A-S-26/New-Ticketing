@@ -19,18 +19,30 @@ from ticketing.api import get_sla,create_opportunity
 
 class Ticket(Document):
 	def validate(self):
-		if self.contract:
-			print(f"""select tk.name from `tabTicket` as tk join `tabCustomer Contract` as cc on tk.contract=cc.name where tk.creation BETWEEN cc.from_date AND cc.to_date and cc.customer='{self.customer}' AND cc.name='{self.contract}';
-			""")
-			already_ticket=frappe.db.sql(f"""select tk.name from `tabTicket` as tk join `tabCustomer Contract` as cc on tk.contract=cc.name where tk.creation BETWEEN cc.from_date AND cc.to_date and cc.customer='{self.customer}' AND cc.name='{self.contract}';
-			""",pluck=True)
+		# already_ticket = False
+		# if self.contract:
+		# 	print(f"""select tk.name from `tabTicket` as tk join `tabCustomer Contract` as cc on tk.contract=cc.name where tk.creation BETWEEN cc.from_date AND cc.to_date and cc.customer='{self.customer}' AND cc.name='{self.contract}';
+		# 	""")
+		# 	already_ticket=frappe.db.sql(f"""select tk.name from `tabTicket` as tk join `tabCustomer Contract` as cc on tk.contract=cc.name where tk.creation BETWEEN cc.from_date AND cc.to_date and cc.customer='{self.customer}' AND cc.name='{self.contract}';
+		# 	""",pluck=True)
 		# if already_ticket:
 		# 	frappe.throw(f"A ticket already exists for the customer {self.customer} with contract {self.contract}")
+		pass
+
+	@frappe.whitelist()
+	def validate_before_ticketInv(self):
+		print("validate_before_ticket",self.__dict__)
+		charge=frappe.db.get_value("Customer Contract",self.contract,'charge_per_ticket')
+		print("charge,self.contractstat,self.type",charge,self.contract_status,self.type)
+		if charge and charge>0 and self.contract_status == "Active" and self.type == "Service Request":
+			return True
+		else:
+			return False
 
 	@frappe.whitelist()
 	def create_ticket_invoice(self):
-		charge=frappe.db.get_value("Customer Contract",self.contract,'charge_per_ticket')
-		if charge and self.contract_status == "Active":
+		charge=frappe.db.get_value("Customer Contract",{"name":self.contract},'charge_per_ticket')
+		if charge and charge>0 and self.contract_status == "Active" and self.type == "Service Request":
 			sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
 			sales_inv.customer=self.customer
 			sales_inv.due_date=frappe.utils.nowdate()

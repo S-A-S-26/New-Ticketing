@@ -10,7 +10,7 @@
   }
  ],
  "content": "[{\"id\":\"dkmA8eu-4Q\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Ticketing</span>\",\"col\":12}},{\"id\":\"0dDvrxrHRp\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Open Tickets\",\"col\":3}},{\"id\":\"RTgJGwXI9Y\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Visits To be Scheduled\",\"col\":3}},{\"id\":\"sFiy1MFPr5\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Pending Repairs\",\"col\":3}},{\"id\":\"YDbotRi9Tw\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Ticket Stats\",\"col\":6}},{\"id\":\"kXootMMEjW\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Tickets By Status\",\"col\":6}},{\"id\":\"UczIK0fT82\",\"type\":\"paragraph\",\"data\":{\"text\":\"<span class=\\\"h3\\\">Shortcuts</span>\",\"col\":12}},{\"id\":\"ZDwd2dldQY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Ticket\",\"col\":3}},{\"id\":\"CezcLDXKbp\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Repair Request\",\"col\":3}},{\"id\":\"IfJjjxPE2M\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Request\",\"col\":3}},{\"id\":\"buiu9FtMUv\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Visit Request\",\"col\":3}},{\"id\":\"qaLDgfKUh4\",\"type\":\"paragraph\",\"data\":{\"text\":\"<span class=\\\"h3\\\">Ticket Management</span>\",\"col\":12}},{\"id\":\"ptPHWvptMl\",\"type\":\"card\",\"data\":{\"card_name\":\"Ticket\",\"col\":3}},{\"id\":\"U88ojRIFQO\",\"type\":\"card\",\"data\":{\"card_name\":\"Repairs\",\"col\":3}},{\"id\":\"y30tkby8mC\",\"type\":\"card\",\"data\":{\"card_name\":\"Site Visits\",\"col\":3}},{\"id\":\"vkhKZWR_B3\",\"type\":\"card\",\"data\":{\"card_name\":\"Service Requests\",\"col\":3}},{\"id\":\"vlXyo_ZbMu\",\"type\":\"card\",\"data\":{\"card_name\":\"Master Data\",\"col\":3}},{\"id\":\"YPT3wsvOkg\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":3}}]",
- "creation": "2024-07-04 00:04:12.757500",
+ "creation": "2024-07-11 18:34:00.081925",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -29,7 +29,6 @@
    "link_count": 2,
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Card Break"
   },
   {
@@ -40,7 +39,6 @@
    "link_to": "Ticket",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -51,7 +49,6 @@
    "link_to": "Ticket Type",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -61,7 +58,6 @@
    "link_count": 2,
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Card Break"
   },
   {
@@ -72,7 +68,6 @@
    "link_to": "Repair Request",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -83,7 +78,6 @@
    "link_to": "Warranty",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -93,7 +87,6 @@
    "link_count": 4,
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Card Break"
   },
   {
@@ -104,7 +97,6 @@
    "link_to": "Customer",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -115,7 +107,6 @@
    "link_to": "Address",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -126,7 +117,6 @@
    "link_to": "Contact",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -137,7 +127,6 @@
    "link_to": "Floor",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -147,7 +136,6 @@
    "link_count": 1,
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Card Break"
   },
   {
@@ -158,7 +146,6 @@
    "link_to": "Ticketing Settings",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -168,7 +155,6 @@
    "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Card Break"
   },
   {
@@ -179,7 +165,6 @@
    "link_to": "Service Request",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -190,7 +175,6 @@
    "link_to": "Service Log",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -201,7 +185,6 @@
    "link_to": "Customer Contract",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -211,7 +194,6 @@
    "link_count": 2,
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Card Break"
   },
   {
@@ -222,7 +204,6 @@
    "link_to": "Visit Request",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   },
   {
@@ -233,12 +214,11 @@
    "link_to": "Visit Log",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "India",
    "type": "Link"
   }
  ],
- "modified": "2024-07-04 20:47:52.764951",
- "modified_by": "Administrator",
+ "modified": "2024-07-11 18:34:00.081925",
+ "modified_by": "sas@gmail.com",
  "module": "Ticketing",
  "name": "Ticketing",
  "number_cards": [
@@ -255,7 +235,7 @@
    "number_card_name": "Open Tickets"
   }
  ],
- "owner": "Administrator",
+ "owner": "sas@gmail.com",
  "parent_page": "",
  "public": 1,
  "quick_lists": [],

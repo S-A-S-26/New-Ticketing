@@ -16,7 +16,7 @@ frappe.ui.form.on("Ticket", {
             freeze_message:"Fetching contract",
             callback: function(r, rt){
                 console.log("r.message=",r);
-                
+                createButton(frm)
                 if(r.message){
                     frm.set_value("contract", r.message.name);
                     if (['In Progress', 'Expiring'].includes(r.message.status)){
@@ -27,7 +27,8 @@ frappe.ui.form.on("Ticket", {
                 }else{
                     frappe.msgprint("No contract found for this ticket.");
                     frm.set_value("contract", null);
-                    createButton(frm)
+                    frm.doc.contract_status=undefined
+                     frm.refresh_field('contract_status')
                 }
             }
         })
@@ -50,7 +51,7 @@ function createButton(frm, status=undefined) {
                     
                 }, "Create");
             }else{
-                frm.remove_custom_button("Create","Create Opportunity");
+                frm.remove_custom_button("Create Opportunity","Create");
             }
         })
     }else{
@@ -70,50 +71,64 @@ function createButton(frm, status=undefined) {
                     console.log("r.message=",r);
                     
                     if(r.message){
-    
+                        frappe.msgprint("Service request created successfully.");
                     }else{
-
+                        frappe.msgprint("Service request creation failed.");
                     }
                 }
             })
         }, "Create");
     }else{
-        frm.remove_custom_button("Create","Create Service"); 
+        frm.remove_custom_button("Create Service","Create"); 
     }
 
-    frm.add_custom_button(__("Create Ticket Invoice"), function() {
-        frappe.call({
-            method:"create_ticket_invoice",
-            doc:frm.doc,
-            freeze:true,
-            freeze_message:"Creating Ticket Invoice",
-            callback: function(r, rt){
-                console.log("r.message=",r);
-                
-                if(r.message){
-
-                }else{
-
-                }
+    frappe.call({
+        method:"validate_before_ticketInv",
+        doc:frm.doc,
+        freeze:true,
+        freeze_message:"Validating before ticket invoice",
+        callback: function(r, rt){
+            console.log("validate before ticket",r);
+            if (r.message){
+                frm.add_custom_button(__("Create Ticket Invoice"), function() {
+                    frappe.call({
+                        method:"create_ticket_invoice",
+                        doc:frm.doc,
+                        freeze:true,
+                        freeze_message:"Creating Ticket Invoice",
+                        callback: function(r, rt){
+                            console.log("r.message=",r);
+                            
+                            if(r.message){
+                                frappe.msgprint("Ticket Invoice created successfully.");
+                            }else{
+                                frappe.msgprint("Failed to create Ticket Invoice.");
+                            }
+                        }
+                    })
+            
+                }, "Create");
+            }else{
+                frm.remove_custom_button("Create Ticket Invoice","Create");
             }
-        })
+        }
+    })
+    
 
-    }, "Create");
-
-    frm.add_custom_button(__("Create Service Ticket Invoice"), function() {
+    // frm.add_custom_button(__("Create Service Ticket Invoice"), function() {
         
-    }, "Create");
+    // }, "Create");
 
-    frm.add_custom_button(__("Create Warranty Invoice"), function() {
+    // frm.add_custom_button(__("Create Warranty Invoice"), function() {
         
-    }, "Create");
+    // }, "Create");
 
-    if(frm.doc.type=="Project"){
+    if(frm.doc.type=="Project" || frm.doc.contract_status=="Inactive"){
         frm.add_custom_button(__("Create Opportunity"), function() {
             
         }, "Create");
     }else{
-        frm.remove_custom_button("Create","Create Opportunity"); 
+        frm.remove_custom_button("Create Opportunity","Create"); 
     }
 
 }

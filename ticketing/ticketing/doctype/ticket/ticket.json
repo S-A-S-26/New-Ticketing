@@ -9,15 +9,15 @@
  "default_view": "Kanban",
  "doctype": "DocType",
  "document_type": "Document",
+ "email_append_to": 1,
  "engine": "InnoDB",
  "field_order": [
-  "progress_section",
-  "document_progress",
   "ticket_info_section",
   "naming_series",
   "auto_repeat",
   "customer",
   "customer_name",
+  "created_by",
   "column_break_wcvq",
   "subject",
   "ticket_type",
@@ -409,21 +409,16 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "progress_section",
-   "fieldtype": "Section Break",
-   "label": "Progress"
-  },
-  {
-   "fieldname": "document_progress",
+   "fieldname": "created_by",
    "fieldtype": "Data",
-   "label": "Progress",
-   "read_only": 1
+   "label": "Created By",
+   "options": "Email"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-07-05 21:51:21.220656",
+ "modified": "2024-07-12 00:29:46.070712",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",
@@ -456,11 +451,14 @@
   }
  ],
  "quick_entry": 1,
+ "sender_field": "created_by",
+ "sender_name_field": "customer",
  "show_name_in_global_search": 1,
  "show_preview_popup": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
+ "subject_field": "subject",
  "track_changes": 1,
  "track_seen": 1,
  "track_views": 1
