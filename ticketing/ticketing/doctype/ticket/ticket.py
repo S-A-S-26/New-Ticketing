@@ -34,7 +34,7 @@ class Ticket(Document):
 		print("validate_before_ticket",self.__dict__)
 		charge=frappe.db.get_value("Customer Contract",self.contract,'charge_per_ticket')
 		print("charge,self.contractstat,self.type",charge,self.contract_status,self.type)
-		if charge and charge>0 and self.contract_status == "Active" and self.type == "Service Request":
+		if charge and charge>0 and self.contract_status == "Active" and self.type == "Service Request" and self.ticket_invoice == 0:
 			return True
 		else:
 			return False
@@ -56,7 +56,11 @@ class Ticket(Document):
 				"qty": qty,
 				"rate":charge,
 			})
+			sales_inv.custom_ticket=self.name
 			sales_inv.insert()
+			self.ticket_invoice=1
+			self.save()
+			return True
 	
 	@frappe.whitelist()
 	def get_contract(self):

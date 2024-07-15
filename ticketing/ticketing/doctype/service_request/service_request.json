@@ -14,11 +14,13 @@
   "customer",
   "customer_name",
   "type",
+  "recent_log",
   "column_break_gnhg",
   "status",
   "ticket",
   "subject",
   "priority",
+  "duration",
   "column_break_iouw",
   "customer_address",
   "display_address",
@@ -377,11 +379,31 @@
    "fieldname": "is_visit_required",
    "fieldtype": "Check",
    "label": "Is Visit Required?"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Hourly Service Request\"",
+   "fieldname": "duration",
+   "fieldtype": "Duration",
+   "label": "Duration",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.type==\"Hourly Service Request\"",
+   "fieldname": "recent_log",
+   "fieldtype": "Datetime",
+   "label": "Recent Time Log",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-07-09 21:13:46.762721",
+ "links": [
+  {
+   "group": "Sales Invoice",
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "custom_service_request"
+  }
+ ],
+ "modified": "2024-07-16 01:02:01.134597",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

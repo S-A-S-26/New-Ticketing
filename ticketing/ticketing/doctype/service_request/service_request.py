@@ -17,3 +17,17 @@ class ServiceRequest(Document):
 		doc.sla=self.sla
 		doc.sla_status=self.sla_status
 		doc.insert()
+
+	@frappe.whitelist()
+	def check_if_service_is_paid(self):
+		data=frappe.db.sql(f"""select cs.name,ccs.item_name,ccs.service_type,ccs.remaining_free_service  from `tabService Request` as sr join `tabTicket` as tk on sr.ticket = tk.name join `tabCustomer Contract` as cs on tk.contract=cs.name join `tabContract Covered Services` as ccs on cs.name=ccs.parent where tk.name="{self.ticket}" and ccs.service="{self.service}";""",as_dict=True)
+		if data:
+			data=data[0]
+		print("data",data,data.service_type)
+		if data.service_type == "Free Service":
+			return False
+		elif data.service_type != "Free Service" and data.remaining_free_service == 0:
+			return True
+		else:
+			return False
+		

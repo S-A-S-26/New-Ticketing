@@ -6,3 +6,10 @@
 
 // 	},
 // });
+
+frappe.ui.form.on("Contract Covered Services", {
+        max_free_services:function(frm) {
+            frm.selected_doc.remaining_free_service=frm.selected_doc.max_free_services
+            frm.refresh_field("contract_covered_services")
+    	},
+    });

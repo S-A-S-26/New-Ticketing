@@ -46,7 +46,7 @@ function createButton(frm, status=undefined) {
         frappe.db.get_value('Customer Contract', frm.doc.contract,'status')
         .then(val => {
             console.log('doc',val)
-            if(['Expired'].includes(val.message.status)){
+            if(['Expired'].includes(val.message.status) || frm.doc.type=="Project" || frm.doc.contract_status=="Inactive"){
                 console.log("inside if createButton")
                 frm.add_custom_button(__("Create Opportunity"), function() {
                     
@@ -62,7 +62,7 @@ function createButton(frm, status=undefined) {
     }
 
    if(frm.doc.type=="Service Request"){
-        frm.add_custom_button(__("Create Service"), function() {
+        frm.add_custom_button(__("Create Service Request"), function() {
             frappe.call({
                 method:"create_service_req",
                 doc:frm.doc,
@@ -80,7 +80,7 @@ function createButton(frm, status=undefined) {
             })
         }, "Create");
     }else{
-        frm.remove_custom_button("Create Service","Create"); 
+        frm.remove_custom_button("Create Service Request","Create"); 
     }
 
     frappe.call({
@@ -91,7 +91,7 @@ function createButton(frm, status=undefined) {
         callback: function(r, rt){
             console.log("validate before ticket",r);
             if (r.message){
-                frm.add_custom_button(__("Create Ticket Invoice"), function() {
+                frm.add_custom_button(__("Create Pay Per Ticket Invoice"), function() {
                     frappe.call({
                         method:"create_ticket_invoice",
                         doc:frm.doc,
@@ -110,7 +110,7 @@ function createButton(frm, status=undefined) {
             
                 }, "Create");
             }else{
-                frm.remove_custom_button("Create Ticket Invoice","Create");
+                frm.remove_custom_button("Create Pay Per Ticket Invoice","Create");
             }
         }
     })
@@ -124,12 +124,12 @@ function createButton(frm, status=undefined) {
         
     // }, "Create");
 
-    if(frm.doc.type=="Project" || frm.doc.contract_status=="Inactive"){
-        frm.add_custom_button(__("Create Opportunity"), function() {
+    // if(frm.doc.type=="Project" || frm.doc.contract_status=="Inactive"){
+    //     frm.add_custom_button(__("Create Opportunity"), function() {
             
-        }, "Create");
-    }else{
-        frm.remove_custom_button("Create Opportunity","Create"); 
-    }
+    //     }, "Create");
+    // }else{
+    //     frm.remove_custom_button("Create Opportunity","Create"); 
+    // }
 
 }

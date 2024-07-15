@@ -232,6 +232,10 @@ fixtures = [
 			      "Ticket Stats",
                   "Tickets By Status",
 		),]]} ,
+     {"dt":"Custom Field", "filters": [["name", "in",(
+         "Sales Invoice-custom_ticket",
+         "Sales Invoice-custom_service_request",
+      ),]]}
     ]
 
 

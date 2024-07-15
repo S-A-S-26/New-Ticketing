@@ -29,6 +29,8 @@
   "status",
   "company",
   "priority",
+  "created_documents_section",
+  "ticket_invoice",
   "request_details_tab",
   "contract_section",
   "contract",
@@ -413,12 +415,29 @@
    "fieldtype": "Data",
    "label": "Created By",
    "options": "Email"
+  },
+  {
+   "fieldname": "created_documents_section",
+   "fieldtype": "Section Break",
+   "label": "Created Documents"
+  },
+  {
+   "default": "0",
+   "fieldname": "ticket_invoice",
+   "fieldtype": "Check",
+   "label": "Ticket Invoice"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
- "links": [],
- "modified": "2024-07-12 00:29:46.070712",
+ "links": [
+  {
+   "group": "Sales Invoice",
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "custom_ticket"
+  }
+ ],
+ "modified": "2024-07-15 22:31:45.209076",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",

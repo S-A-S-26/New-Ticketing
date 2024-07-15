@@ -69,14 +69,13 @@
    "fieldname": "remaining_free_service",
    "fieldtype": "Int",
    "label": "Remaining Free Service",
-   "non_negative": 1,
-   "read_only": 1
+   "non_negative": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-02 22:29:54.794485",
+ "modified": "2024-07-15 23:51:55.116549",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Contract Covered Services",

@@ -3,6 +3,12 @@
 
 frappe.ui.form.on('Service Request', {
 	refresh: function(frm) {
+		if (frm.doc.service){
+			validateServiceInvoiceBtn(frm)
+		}
+		frm.trigger('is_visit_required')
+	
+		addLogTime(frm)
 
 	},
 
@@ -28,5 +34,73 @@ frappe.ui.form.on('Service Request', {
         }else{
             frm.remove_custom_button("Create Visit Request","Create"); 
         }
+	},
+
+	type:function(frm){
+		addLogTime(frm)
 	}
 });
+
+function validateServiceInvoiceBtn(frm){
+	frappe.call({
+		method:"check_if_service_is_paid",
+		doc:frm.doc,
+		freeze:true,
+		freeze_message:"Checking service info",
+		callback: function(r, rt){
+			console.log("r.message=",r);
+			
+			if(r.message){
+				frm.add_custom_button(__("Create Service Ticket Invoice"), function() {
+					
+				}, "Create");
+			}else{
+				frm.remove_custom_button("Create Service Ticket Invoice","Create");
+			}
+		}
+	})
+}
+
+function addLogTime(frm){
+	if(frm.doc.type == "Hourly Service Request"){
+		frm.add_custom_button(__("Log Time"), function (){
+			if (frm.doc.recent_log== undefined) {
+				frm.doc.recent_log= frappe.datetime.now_datetime()
+			}else{
+				console.log(typeof frm.doc.recent_log,frm.doc.recent_log,)
+				const datetimeString = frm.doc.recent_log;
+
+				// Convert the static datetime string to a Date object
+				const staticDatetime = new Date(datetimeString.replace(" ", "T"));
+
+				// Get the current datetime
+				const now = new Date();
+
+				// Calculate the difference in milliseconds
+				const differenceInMillis = now - staticDatetime;
+				console.log(differenceInMillis)
+				let final_duration = Math.floor(differenceInMillis / 1000);
+				if (frm.doc.duration){
+					console.log("duration",frm.doc.duration)
+					final_duration=frm.doc.duration+final_duration
+				}
+				frm.doc.duration=final_duration
+				frm.doc.recent_log=frappe.datetime.now_datetime()
+			}
+			frm.refresh_field("recent_log")
+			frm.refresh_field("duration")
+			frm.dirty()
+		},"Time")
+		frm.add_custom_button(__("Reset Time"), function (){
+			frm.doc.duration=undefined
+			frm.doc.recent_log= undefined
+			frm.refresh_field("recent_log")
+			frm.refresh_field("duration")
+			frm.dirty()
+		},"Time")
+	}else{
+		frm.remove_custom_button("Log Time","Time")
+		frm.remove_custom_button("Reset Time","Time")
+	}
+	
+}
