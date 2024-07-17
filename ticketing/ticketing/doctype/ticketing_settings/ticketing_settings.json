@@ -5,32 +5,32 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "visit_status_mapping_to_service_request",
-  "service_request_status_mapping_with_ticket_status",
-  "visit_request_status_mapping_with_repair_request",
-  "repair_request_status_mapping_with_ticket"
+  "visit_to_service",
+  "service_to_ticket",
+  "visit_to_repair",
+  "repair_to_ticket"
  ],
  "fields": [
   {
-   "fieldname": "visit_status_mapping_to_service_request",
+   "fieldname": "visit_to_service",
    "fieldtype": "Table",
    "label": "Visit Status Mapping to Service Request",
    "options": "Visit Status Mapping to Service Request"
   },
   {
-   "fieldname": "service_request_status_mapping_with_ticket_status",
+   "fieldname": "service_to_ticket",
    "fieldtype": "Table",
    "label": "Service Request Status Mapping with Ticket Status",
    "options": "Service Request Status Mapping with Ticket Status"
   },
   {
-   "fieldname": "visit_request_status_mapping_with_repair_request",
+   "fieldname": "visit_to_repair",
    "fieldtype": "Table",
    "label": "Visit Request Status Mapping with Repair Request",
    "options": "Visit Request Status Mapping with Repair Request"
   },
   {
-   "fieldname": "repair_request_status_mapping_with_ticket",
+   "fieldname": "repair_to_ticket",
    "fieldtype": "Table",
    "label": "Repair Request Status Mapping with Ticket",
    "options": "Repair Request Status Mapping with Ticket"
@@ -39,7 +39,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-07-17 23:17:34.401155",
+ "modified": "2024-07-17 23:47:15.131575",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticketing Settings",

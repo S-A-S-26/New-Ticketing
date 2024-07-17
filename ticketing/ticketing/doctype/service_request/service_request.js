@@ -38,6 +38,21 @@ frappe.ui.form.on('Service Request', {
 
 	type:function(frm){
 		addLogTime(frm)
+	},
+
+	status:function(frm){
+		// frappe.call({
+		// 	method:"ticketing.api.set_status",
+		// 	args:{
+		// 		status:frm.doc.status,
+		// 		doctype:frm.doctype,
+        //         name:frm.doc.name,
+        //         target_doc:"Ticket",
+		// 		target_doc_name:frm.doc.ticket
+		// 	},
+        //     freeze:true,
+        //     freeze_message:"Updating status",
+		// })
 	}
 });
 

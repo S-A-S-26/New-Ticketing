@@ -6,14 +6,18 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "service_request_status",
+  "source",
   "column_break_wizp",
-  "mapped_ticket_status"
+  "destination"
  ],
  "fields": [
   {
+   "fieldname": "column_break_wizp",
+   "fieldtype": "Column Break"
+  },
+  {
    "columns": 5,
-   "fieldname": "service_request_status",
+   "fieldname": "source",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Service Request Status",
@@ -21,12 +25,8 @@
    "reqd": 1
   },
   {
-   "fieldname": "column_break_wizp",
-   "fieldtype": "Column Break"
-  },
-  {
    "columns": 5,
-   "fieldname": "mapped_ticket_status",
+   "fieldname": "destination",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Mapped Ticket Status",
@@ -37,7 +37,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-03 23:36:15.682755",
+ "modified": "2024-07-18 00:01:33.939206",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request Status Mapping with Ticket Status",

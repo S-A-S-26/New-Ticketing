@@ -3,8 +3,12 @@
 
 import frappe
 from frappe.model.document import Document
+from ticketing.api import set_status
 
 class ServiceRequest(Document):
+	def validate(self):
+		set_status(self.status,self.doctype,self.name,"Ticket",self.ticket)
+
 	@frappe.whitelist()
 	def create_visit_request(self):
 		doc=frappe.get_doc({"doctype":"Visit Request"})

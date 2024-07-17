@@ -6,14 +6,18 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "visit_request_status",
+  "source",
   "column_break_etwn",
-  "mapped_repair_request_status"
+  "destination"
  ],
  "fields": [
   {
+   "fieldname": "column_break_etwn",
+   "fieldtype": "Column Break"
+  },
+  {
    "columns": 5,
-   "fieldname": "visit_request_status",
+   "fieldname": "source",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Visit Request Status",
@@ -21,12 +25,8 @@
    "reqd": 1
   },
   {
-   "fieldname": "column_break_etwn",
-   "fieldtype": "Column Break"
-  },
-  {
    "columns": 5,
-   "fieldname": "mapped_repair_request_status",
+   "fieldname": "destination",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Mapped Repair Request Status",
@@ -37,7 +37,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-03 23:37:09.533164",
+ "modified": "2024-07-18 00:02:47.043455",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Request Status Mapping with Repair Request",

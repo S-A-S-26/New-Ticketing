@@ -114,3 +114,17 @@ def create_opportunity(self):
     doc.custom_ticket=self.name
     doc.insert()
     return "Opportunity"
+
+@frappe.whitelist()
+def set_status(status,doctype,name,target_doc,target_doc_name):
+    mapping={
+        ("Service Request","Ticket"):"Service Request Status Mapping with Ticket Status",
+        ("Visit Request","Service Request"):"Visit Status Mapping to Service Request",
+        ("Visit Request","Repair Request"):"Visit Request Status Mapping with Repair Request",
+        ("Repair Request","Ticket"):"Repair Request Status Mapping with Ticket",
+    }
+    print("mapping",mapping[(doctype,target_doc)])
+    value=frappe.db.get_value(mapping[(doctype,target_doc)],{"source":status},['destination'])
+    if value:
+        print("set value",(mapping[(doctype,target_doc)],target_doc_name,"status",value))
+        frappe.db.set_value(target_doc,target_doc_name,"status",value)
