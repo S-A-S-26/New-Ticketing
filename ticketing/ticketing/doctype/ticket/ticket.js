@@ -25,10 +25,10 @@ frappe.ui.form.on("Ticket", {
                         frm.set_value("contract_status", "Inactive");
                     }
                 }else{
-                    frappe.msgprint("No contract found for this ticket.");
+                    // frappe.msgprint("No contract found for this ticket.");
                     frm.set_value("contract", null);
-                    frm.doc.contract_status=undefined
-                     frm.refresh_field('contract_status')
+                    frm.doc.contract_status="Not Found";
+                    frm.refresh_field('contract_status')
                 }
                 createButton(frm)
             }
@@ -48,20 +48,18 @@ function createButton(frm, status=undefined) {
             console.log('doc',val)
             if(['Expired'].includes(val.message.status) || frm.doc.type=="Project" || frm.doc.contract_status=="Inactive"){
                 console.log("inside if createButton")
-                frm.add_custom_button(__("Create Opportunity"), function() {
-                    
-                }, "Create");
+                add_opportunity_btn(frm)
             }else{
                 frm.remove_custom_button("Create Opportunity","Create");
             }
         })
     }else{
-        frm.add_custom_button(__("Create Opportunity"), function() {
-                    
-        }, "Create");
+        
+        add_opportunity_btn(frm)     
+       
     }
 
-   if(frm.doc.type=="Service Request"){
+   if(frm.doc.type=="Service Request" && frm.doc.contract){
         frm.add_custom_button(__("Create Service Request"), function() {
             frappe.call({
                 method:"create_service_req",
@@ -72,7 +70,8 @@ function createButton(frm, status=undefined) {
                     console.log("r.message=",r);
                     
                     if(r.message){
-                        frappe.msgprint("Service request created successfully.");
+                        frappe.msgprint(r.message+" created successfully.");
+                        frm.refresh_fields("service_request")
                     }else{
                         frappe.msgprint("Service request creation failed.");
                     }
@@ -132,4 +131,28 @@ function createButton(frm, status=undefined) {
     //     frm.remove_custom_button("Create Opportunity","Create"); 
     // }
 
+}
+
+
+function add_opportunity_btn(frm){
+    console.log("add_opportun")
+    frm.add_custom_button(__("Create Opportunity"), function() {
+        console.log("create opportunity")
+        frappe.call({
+            method:"create_opp",
+            doc:frm.doc,
+            freeze:true,
+            freeze_message:"Creating opportunity",
+            callback: function(r, rt){
+                console.log("r.message=",r);
+                
+                if(r.message){
+                    frappe.msgprint("Opportunity created successfully.");
+                    // frm.refresh_fields("service_request")
+                }else{
+                    frappe.msgprint("Opportunity creation failed.");
+                }
+            }
+        })
+    }, "Create");
 }

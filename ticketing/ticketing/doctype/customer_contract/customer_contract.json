@@ -161,6 +161,7 @@
    "options": "Contract Covered Services"
   },
   {
+   "depends_on": "eval:doc.__islocal",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -171,7 +172,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-08 22:47:32.249541",
+ "modified": "2024-07-17 21:53:58.907514",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Customer Contract",

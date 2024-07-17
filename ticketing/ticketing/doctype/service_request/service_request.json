@@ -64,6 +64,7 @@
    "label": "Details"
   },
   {
+   "depends_on": "eval:doc.__islocal",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -403,7 +404,7 @@
    "link_fieldname": "custom_service_request"
   }
  ],
- "modified": "2024-07-16 01:02:01.134597",
+ "modified": "2024-07-17 21:51:55.346419",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

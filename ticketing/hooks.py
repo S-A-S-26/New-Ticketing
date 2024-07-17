@@ -129,13 +129,13 @@ app_license = "MIT"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 #	"all": [
 #		"ticketing.tasks.all"
 #	],
-#	"daily": [
-#		"ticketing.tasks.daily"
-#	],
+	"daily": [
+		"ticketing.cron.set_visit_status"
+	],
 #	"hourly": [
 #		"ticketing.tasks.hourly"
 #	],
@@ -145,7 +145,7 @@ app_license = "MIT"
 #	"monthly": [
 #		"ticketing.tasks.monthly"
 #	],
-# }
+}
 
 # Testing
 # -------
@@ -235,6 +235,7 @@ fixtures = [
      {"dt":"Custom Field", "filters": [["name", "in",(
          "Sales Invoice-custom_ticket",
          "Sales Invoice-custom_service_request",
+         "Opportunity-custom_ticket",
       ),]]}
     ]
 

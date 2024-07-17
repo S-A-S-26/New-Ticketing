@@ -20,6 +20,7 @@
    "label": "Service Log"
   },
   {
+   "depends_on": "eval:doc.__islocal",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -82,7 +83,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-03 23:39:04.592860",
+ "modified": "2024-07-17 21:54:55.410023",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Log",

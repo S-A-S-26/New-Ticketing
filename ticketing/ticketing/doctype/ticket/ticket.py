@@ -30,6 +30,13 @@ class Ticket(Document):
 		pass
 
 	@frappe.whitelist()
+	def create_opp(self):
+		if check_if_exists("Opportunity",self.name):
+			frappe.throw(f"An opportunity already exists for this ticket to create new one delete the existing one")
+		else:
+			return create_opportunity(self)
+
+	@frappe.whitelist()
 	def validate_before_ticketInv(self):
 		print("validate_before_ticket",self.__dict__)
 		charge=frappe.db.get_value("Customer Contract",self.contract,'charge_per_ticket')
@@ -92,6 +99,18 @@ class Ticket(Document):
 			doc.item_name=self.item_name
 			doc.request_details=self.request_details
 			doc.insert()
+			self.service_request=1
+			self.save()
+			return "Service Request"
 		else:
 			print("opportunity creation",self.contract,self.contract_status)
-			create_opportunity(self)
+			return create_opportunity(self)
+
+
+def check_if_exists(doc,ticket):
+	print("check_if_opp_exists",ticket)
+	opp=frappe.db.exists(doc,{"custom_ticket":ticket})
+	if opp:
+		return True
+	else:
+		return False

@@ -25,6 +25,7 @@
    "label": "Visit Log"
   },
   {
+   "depends_on": "eval:doc.__islocal",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
@@ -116,7 +117,7 @@
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-03 23:33:24.419563",
+ "modified": "2024-07-17 21:54:34.456749",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Log",

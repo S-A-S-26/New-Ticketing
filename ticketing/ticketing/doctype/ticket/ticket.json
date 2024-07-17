@@ -31,6 +31,8 @@
   "priority",
   "created_documents_section",
   "ticket_invoice",
+  "column_break_kawo",
+  "service_request",
   "request_details_tab",
   "contract_section",
   "contract",
@@ -72,6 +74,7 @@
    "label": "Customer Information"
   },
   {
+   "depends_on": "eval:doc.__islocal",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -252,7 +255,7 @@
    "fieldtype": "Select",
    "label": "Contract Status",
    "no_copy": 1,
-   "options": "\nActive\nInactive",
+   "options": "\nActive\nInactive\nNot Found",
    "read_only": 1
   },
   {
@@ -426,6 +429,16 @@
    "fieldname": "ticket_invoice",
    "fieldtype": "Check",
    "label": "Ticket Invoice"
+  },
+  {
+   "fieldname": "column_break_kawo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "service_request",
+   "fieldtype": "Check",
+   "label": "Service Request"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -435,9 +448,19 @@
    "group": "Sales Invoice",
    "link_doctype": "Sales Invoice",
    "link_fieldname": "custom_ticket"
+  },
+  {
+   "group": "Service Request",
+   "link_doctype": "Service Request",
+   "link_fieldname": "ticket"
+  },
+  {
+   "group": "Opportunity",
+   "link_doctype": "Opportunity",
+   "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-07-15 22:31:45.209076",
+ "modified": "2024-07-17 21:42:54.282414",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",

@@ -23,7 +23,9 @@ class ServiceRequest(Document):
 		data=frappe.db.sql(f"""select cs.name,ccs.item_name,ccs.service_type,ccs.remaining_free_service  from `tabService Request` as sr join `tabTicket` as tk on sr.ticket = tk.name join `tabCustomer Contract` as cs on tk.contract=cs.name join `tabContract Covered Services` as ccs on cs.name=ccs.parent where tk.name="{self.ticket}" and ccs.service="{self.service}";""",as_dict=True)
 		if data:
 			data=data[0]
-		print("data",data,data.service_type)
+		print("data",data)
+		# if not data:
+		# 	return True
 		if data.service_type == "Free Service":
 			return False
 		elif data.service_type != "Free Service" and data.remaining_free_service == 0:

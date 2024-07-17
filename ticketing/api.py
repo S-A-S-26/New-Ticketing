@@ -111,4 +111,6 @@ def create_opportunity(self):
                 "rate":rate[0],
                 "amount":rate[0]
                 })
+    doc.custom_ticket=self.name
     doc.insert()
+    return "Opportunity"
