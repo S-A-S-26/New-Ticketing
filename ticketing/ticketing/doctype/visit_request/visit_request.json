@@ -164,7 +164,6 @@
    "in_standard_filter": 1,
    "label": "Status",
    "options": "To Schedule\nScheduled\nIn Progress\nCompleted\nCancelled\nOverdue",
-   "read_only": 1,
    "reqd": 1
   },
   {
@@ -371,7 +370,7 @@
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-07-17 23:13:04.987146",
+ "modified": "2024-07-19 01:23:30.529248",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Request",

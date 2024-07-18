@@ -126,5 +126,5 @@ def set_status(status,doctype,name,target_doc,target_doc_name):
     print("mapping",mapping[(doctype,target_doc)])
     value=frappe.db.get_value(mapping[(doctype,target_doc)],{"source":status},['destination'])
     if value:
-        print("set value",(mapping[(doctype,target_doc)],target_doc_name,"status",value))
+        print("set value",(target_doc,target_doc_name,"status",value))
         frappe.db.set_value(target_doc,target_doc_name,"status",value,update_modified=False)
