@@ -230,6 +230,7 @@
    "label": "Service Requested",
    "link_filters": "[[\"Item\",\"is_stock_item\",\"=\",0],[\"Item\",\"disabled\",\"=\",0]]",
    "mandatory_depends_on": "eval:doc.type=='Service Request'",
+   "no_copy": 1,
    "options": "Item"
   },
   {
@@ -271,6 +272,7 @@
    "label": "Equipment",
    "link_filters": "[[\"Item\",\"disabled\",\"=\",0],[\"Item\",\"is_stock_item\",\"=\",1]]",
    "mandatory_depends_on": "eval:doc.type=='Equipment Issue'",
+   "no_copy": 1,
    "options": "Item"
   },
   {
@@ -428,7 +430,8 @@
    "default": "0",
    "fieldname": "ticket_invoice",
    "fieldtype": "Check",
-   "label": "Ticket Invoice"
+   "label": "Ticket Invoice",
+   "no_copy": 1
   },
   {
    "fieldname": "column_break_kawo",
@@ -438,7 +441,8 @@
    "default": "0",
    "fieldname": "service_request",
    "fieldtype": "Check",
-   "label": "Service Request"
+   "label": "Service Request",
+   "no_copy": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -460,7 +464,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-07-17 21:42:54.282414",
+ "modified": "2024-07-18 23:42:24.358511",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",

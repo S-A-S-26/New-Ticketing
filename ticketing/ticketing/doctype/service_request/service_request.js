@@ -40,6 +40,10 @@ frappe.ui.form.on('Service Request', {
 		addLogTime(frm)
 	},
 
+	ticket:function(frm){
+		checkPayPerHour(frm)
+	},
+
 	status:function(frm){
 		// frappe.call({
 		// 	method:"ticketing.api.set_status",
@@ -77,7 +81,9 @@ function validateServiceInvoiceBtn(frm){
 }
 
 function addLogTime(frm){
-	if(frm.doc.type == "Hourly Service Request"){
+	let pph=checkPayPerHour(frm)
+	console.log("checkPayPerHour",pph)
+	if(frm.doc.type == "Hourly Service Request" || pph){
 		frm.add_custom_button(__("Log Time"), function (){
 			if (frm.doc.recent_log== undefined) {
 				frm.doc.recent_log= frappe.datetime.now_datetime()
@@ -89,7 +95,8 @@ function addLogTime(frm){
 				const staticDatetime = new Date(datetimeString.replace(" ", "T"));
 
 				// Get the current datetime
-				const now = new Date();
+				// const now = new Date();
+				const now = frappe.datetime.str_to_obj(frappe.datetime.now_datetime())
 
 				// Calculate the difference in milliseconds
 				const differenceInMillis = now - staticDatetime;
@@ -118,4 +125,29 @@ function addLogTime(frm){
 		frm.remove_custom_button("Reset Time","Time")
 	}
 	
+}
+
+function checkPayPerHour(frm){
+	let data=false
+	frappe.call({
+		method: "check_per_hour",
+		doc: frm.doc,
+        freeze: true,
+        freeze_message: "Checking service info",
+		async:false,
+        callback: function(r, rt) {
+            console.log("r.checkPayPerHour=", r);
+            if (r.message) {
+                data= true
+				frm.doc.pay_by_hour=1
+				frm.refresh_field("pay_by_hour")
+            } else {
+				data= false
+				frm.doc.pay_by_hour=0
+				frm.refresh_field("pay_by_hour")
+            }
+        }
+	})
+	
+	return data
 }

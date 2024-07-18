@@ -106,7 +106,7 @@ def create_opportunity(self):
         print(f"""select ccs.price from `tabCustomer Contract` as cc join `tabContract Covered Services` as ccs on cc.name = ccs.parent where cc.name = '{self.contract}' and ccs.service = '{self.service_requested}';""")
         rate=frappe.db.sql(f"""select ccs.price from `tabCustomer Contract` as cc join `tabContract Covered Services` as ccs on cc.name = ccs.parent where cc.name = '{self.contract}' and ccs.service = '{self.service_requested}';""",pluck=True)
         doc.append("items",{
-                "item_code":self.		service_requested,
+                "item_code":self.service_requested,
                 "qty":1,
                 "rate":rate[0],
                 "amount":rate[0]
@@ -127,4 +127,4 @@ def set_status(status,doctype,name,target_doc,target_doc_name):
     value=frappe.db.get_value(mapping[(doctype,target_doc)],{"source":status},['destination'])
     if value:
         print("set value",(mapping[(doctype,target_doc)],target_doc_name,"status",value))
-        frappe.db.set_value(target_doc,target_doc_name,"status",value)
+        frappe.db.set_value(target_doc,target_doc_name,"status",value,update_modified=False)

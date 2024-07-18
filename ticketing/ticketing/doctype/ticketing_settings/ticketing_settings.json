@@ -5,10 +5,14 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "status_mapping_tab",
   "visit_to_service",
   "service_to_ticket",
   "visit_to_repair",
-  "repair_to_ticket"
+  "repair_to_ticket",
+  "settings_tab",
+  "warranty_section",
+  "days_to_expire"
  ],
  "fields": [
   {
@@ -34,12 +38,34 @@
    "fieldtype": "Table",
    "label": "Repair Request Status Mapping with Ticket",
    "options": "Repair Request Status Mapping with Ticket"
+  },
+  {
+   "fieldname": "status_mapping_tab",
+   "fieldtype": "Tab Break",
+   "label": "Status Mapping"
+  },
+  {
+   "fieldname": "settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Settings"
+  },
+  {
+   "fieldname": "warranty_section",
+   "fieldtype": "Section Break",
+   "label": "Warranty"
+  },
+  {
+   "default": "0",
+   "fieldname": "days_to_expire",
+   "fieldtype": "Int",
+   "label": "Days to set status to Expiring",
+   "non_negative": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-07-17 23:47:15.131575",
+ "modified": "2024-07-18 18:10:15.515285",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticketing Settings",

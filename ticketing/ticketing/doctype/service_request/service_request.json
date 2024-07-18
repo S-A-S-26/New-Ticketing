@@ -21,6 +21,7 @@
   "subject",
   "priority",
   "duration",
+  "pay_by_hour",
   "column_break_iouw",
   "customer_address",
   "display_address",
@@ -382,18 +383,25 @@
    "label": "Is Visit Required?"
   },
   {
-   "depends_on": "eval:doc.type==\"Hourly Service Request\"",
+   "depends_on": "eval:doc.type==\"Hourly Service Request\" || doc.pay_by_hour",
    "fieldname": "duration",
    "fieldtype": "Duration",
    "label": "Duration",
    "read_only": 1
   },
   {
-   "depends_on": "eval:doc.type==\"Hourly Service Request\"",
+   "depends_on": "eval:doc.type==\"Hourly Service Request\" || doc.pay_by_hour",
    "fieldname": "recent_log",
    "fieldtype": "Datetime",
    "label": "Recent Time Log",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "pay_by_hour",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Pay by Hour"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -404,7 +412,7 @@
    "link_fieldname": "custom_service_request"
   }
  ],
- "modified": "2024-07-17 21:51:55.346419",
+ "modified": "2024-07-18 23:40:50.371702",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

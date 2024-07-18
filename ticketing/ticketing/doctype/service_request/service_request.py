@@ -24,7 +24,9 @@ class ServiceRequest(Document):
 
 	@frappe.whitelist()
 	def check_if_service_is_paid(self):
-		data=frappe.db.sql(f"""select cs.name,ccs.item_name,ccs.service_type,ccs.remaining_free_service  from `tabService Request` as sr join `tabTicket` as tk on sr.ticket = tk.name join `tabCustomer Contract` as cs on tk.contract=cs.name join `tabContract Covered Services` as ccs on cs.name=ccs.parent where tk.name="{self.ticket}" and ccs.service="{self.service}";""",as_dict=True)
+		print(f"""SELECT tk.name,ccs.name,cs.name,ccs.item_name,ccs.service_type,ccs.remaining_free_service FROM `tabTicket` AS tk JOIN `tabCustomer Contract` AS cs ON tk.contract = cs.name JOIN `tabContract Covered Services` AS ccs ON cs.name = ccs.parent WHERE tk.name = "{self.ticket}" AND ccs.service = "{self.service}";""")
+		data=frappe.db.sql(f"""SELECT tk.name,ccs.name,cs.name,ccs.item_name,ccs.service_type,ccs.remaining_free_service FROM `tabTicket` AS tk JOIN `tabCustomer Contract` AS cs ON tk.contract = cs.name JOIN `tabContract Covered Services` AS ccs ON cs.name = ccs.parent WHERE tk.name = "{self.ticket}" AND ccs.service = "{self.service}";""",as_dict=True)
+		print("data",data)
 		if data:
 			data=data[0]
 		print("data",data)
@@ -37,3 +39,13 @@ class ServiceRequest(Document):
 		else:
 			return False
 		
+	@frappe.whitelist()
+	def check_per_hour(self):
+		if not self.service:
+			return False
+		data=frappe.db.sql(f"""SELECT ccs.service_type FROM `tabTicket` AS tk JOIN `tabCustomer Contract` AS cs ON tk.contract = cs.name JOIN `tabContract Covered Services` AS ccs ON cs.name = ccs.parent WHERE tk.name = "{self.ticket}" AND ccs.service = "{self.service}";""",pluck=True)
+		print("checkPayPerHour",data)
+		if not data:
+			return False
+		else:
+			return True if data[0] == "Pay by Hour" else False;

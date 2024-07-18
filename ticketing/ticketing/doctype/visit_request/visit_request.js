@@ -2,6 +2,9 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Visit Request", {
+    after_save(frm){
+        frm.reload()
+    },
 	refresh(frm) {
         let sch_d = new frappe.ui.Dialog({
             title: 'Schedule Visit',
@@ -26,28 +29,46 @@ frappe.ui.form.on("Visit Request", {
                 frm.refresh_field("status")
                 frm.dirty()
                 sch_d.hide();
+                frm.save()
             }
         });
         
-        
-        frm.add_custom_button("Schedule Visit",function(){
-            sch_d.show();
-        },"Set")
+        if (frm.doc.status == "To Schedule"){
+            frm.add_custom_button("Schedule Visit",function(){
+                sch_d.show();
+            },"Set")
+        }else{
+            frm.remove_custom_button("Schedule Visit","Set"); 
+        }
 
-        frm.add_custom_button("Re-Schedule Visit",function(){
-            sch_d.show();
-        },"Set")
+        if (frm.doc.status == "Overdue" || frm.doc.status == "Completed"){
+            frm.add_custom_button("Re-Schedule Visit",function(){
+                sch_d.show();
+            },"Set")
+        }else{
+            frm.remove_custom_button("Re-Schedule Visit","Set"); 
+        }
 
-        frm.add_custom_button("In-Progress",function(){
-            frm.doc.status="In Progress"
-            frm.refresh_field("status")
-            frm.dirty()
-        },"Set")
+        if (frm.doc.status == "Scheduled"){
+            frm.add_custom_button("In-Progress",function(){
+                frm.doc.status="In Progress"
+                frm.refresh_field("status")
+                frm.dirty()
+                frm.save()
+            },"Set")
+        }else{
+            frm.remove_custom_button("In-Progress","Set"); 
+        }
 
-        frm.add_custom_button("Completed",function(){
-            frm.doc.status="Completed"
-            frm.refresh_field("status")
-            frm.dirty()
-        },"Set")
+        if (frm.doc.status == "In Progress" && frm.doc.visit_completed_by && frm.doc.visit_duration){
+            frm.add_custom_button("Completed",function(){
+                frm.doc.status="Completed"
+                frm.refresh_field("status")
+                frm.dirty()
+                frm.save()
+            },"Set")
+        }else{
+            frm.remove_custom_button("Completed","Set"); 
+        }
 	},
 });
