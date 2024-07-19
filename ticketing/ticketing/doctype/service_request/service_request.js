@@ -14,7 +14,7 @@ frappe.ui.form.on('Service Request', {
 
 	is_visit_required:function(frm){
 		if(frm.doc.is_visit_required){
-            frm.add_custom_button("Create Visit Request",function(){
+            frm.add_custom_button("Visit Request",function(){
 				frappe.call({
 					method:"create_visit_request",
 					doc:frm.doc,
@@ -32,7 +32,7 @@ frappe.ui.form.on('Service Request', {
 				})
 			},"Create")
         }else{
-            frm.remove_custom_button("Create Visit Request","Create"); 
+            frm.remove_custom_button("Visit Request","Create"); 
         }
 	},
 
@@ -70,11 +70,11 @@ function validateServiceInvoiceBtn(frm){
 			console.log("r.message=",r);
 			
 			if(r.message){
-				frm.add_custom_button(__("Create Service Ticket Invoice"), function() {
+				frm.add_custom_button(__("Service Ticket Invoice"), function() {
 					
 				}, "Create");
 			}else{
-				frm.remove_custom_button("Create Service Ticket Invoice","Create");
+				frm.remove_custom_button("Service Ticket Invoice","Create");
 			}
 		}
 	})
@@ -107,15 +107,18 @@ function addLogTime(frm){
 					final_duration=frm.doc.duration+final_duration
 				}
 				frm.doc.duration=final_duration
+				frm.doc.billed_duration=(final_duration/3600).toFixed(2)
 				frm.doc.recent_log=frappe.datetime.now_datetime()
 			}
 			frm.refresh_field("recent_log")
 			frm.refresh_field("duration")
+			frm.refresh_field("billed_duration")
 			frm.dirty()
 		},"Time")
 		frm.add_custom_button(__("Reset Time"), function (){
 			frm.doc.duration=undefined
 			frm.doc.recent_log= undefined
+			frm.doc.billed_duration=undefined
 			frm.refresh_field("recent_log")
 			frm.refresh_field("duration")
 			frm.dirty()

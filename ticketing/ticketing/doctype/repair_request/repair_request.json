@@ -357,6 +357,7 @@
    "fieldname": "ticket",
    "fieldtype": "Link",
    "label": "Ticket",
+   "link_filters": "[[\"Ticket\",\"type\",\"=\",\"Equipment Issue\"]]",
    "options": "Ticket",
    "reqd": 1
   },
@@ -369,7 +370,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-17 21:55:32.318840",
+ "modified": "2024-07-19 21:23:31.951959",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Repair Request",

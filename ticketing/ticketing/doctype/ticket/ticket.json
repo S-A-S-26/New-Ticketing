@@ -65,7 +65,17 @@
   "feedback_option",
   "column_break_avfu",
   "feedback_extra",
-  "sla_tab"
+  "sla_tab",
+  "service_level_agreement_details_section",
+  "column_break_kdxs",
+  "service_level_agreement",
+  "response_by",
+  "column_break_dhbo",
+  "agreement_status",
+  "resolution_by",
+  "service_level_agreement_creation",
+  "on_hold_since",
+  "total_hold_time"
  ],
  "fields": [
   {
@@ -338,6 +348,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Today",
    "fieldname": "opening_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -362,7 +373,7 @@
   },
   {
    "fieldname": "resolution_time",
-   "fieldtype": "Time",
+   "fieldtype": "Duration",
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
@@ -443,6 +454,62 @@
    "fieldtype": "Check",
    "label": "Service Request",
    "no_copy": 1
+  },
+  {
+   "fieldname": "service_level_agreement_details_section",
+   "fieldtype": "Section Break",
+   "label": "Service Level Agreement Details"
+  },
+  {
+   "fieldname": "service_level_agreement",
+   "fieldtype": "Link",
+   "label": "Service Level Agreement",
+   "options": "Service Level Agreement"
+  },
+  {
+   "fieldname": "column_break_kdxs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "agreement_status",
+   "fieldtype": "Select",
+   "label": "Service Level Agreement Status",
+   "options": "First Response Due\nResolution Due\nFulfilled\nFailed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_dhbo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "response_by",
+   "fieldtype": "Datetime",
+   "label": "Response By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "resolution_by",
+   "fieldtype": "Datetime",
+   "label": "Resolution By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "service_level_agreement_creation",
+   "fieldtype": "Datetime",
+   "label": "Service Level Agreement Creation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "on_hold_since",
+   "fieldtype": "Datetime",
+   "label": "On Hold Since",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_hold_time",
+   "fieldtype": "Duration",
+   "label": "Total Hold Time",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -464,7 +531,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-07-18 23:42:24.358511",
+ "modified": "2024-07-20 00:34:30.795050",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",

@@ -15,12 +15,13 @@
   "customer_name",
   "type",
   "recent_log",
+  "duration",
   "column_break_gnhg",
   "status",
   "ticket",
   "subject",
   "priority",
-  "duration",
+  "billed_duration",
   "pay_by_hour",
   "column_break_iouw",
   "customer_address",
@@ -373,6 +374,7 @@
    "fieldname": "ticket",
    "fieldtype": "Link",
    "label": "Ticket",
+   "link_filters": "[[\"Ticket\",\"type\",\"=\",\"Service Request\"]]",
    "options": "Ticket",
    "reqd": 1
   },
@@ -402,6 +404,14 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "Pay by Hour"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Hourly Service Request\" || doc.pay_by_hour",
+   "fieldname": "billed_duration",
+   "fieldtype": "Float",
+   "label": "Billed Duration",
+   "precision": "2",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -412,7 +422,7 @@
    "link_fieldname": "custom_service_request"
   }
  ],
- "modified": "2024-07-18 23:40:50.371702",
+ "modified": "2024-07-19 21:33:35.733734",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

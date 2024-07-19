@@ -50,7 +50,7 @@ function createButton(frm, status=undefined) {
                 console.log("inside if createButton")
                 add_opportunity_btn(frm)
             }else{
-                frm.remove_custom_button("Create Opportunity","Create");
+                frm.remove_custom_button("Opportunity","Create");
             }
         })
     }else{
@@ -60,7 +60,7 @@ function createButton(frm, status=undefined) {
     }
 
    if(frm.doc.type=="Service Request" && frm.doc.contract){
-        frm.add_custom_button(__("Create Service Request"), function() {
+        frm.add_custom_button(__("Service Request"), function() {
             frappe.call({
                 method:"create_service_req",
                 doc:frm.doc,
@@ -79,7 +79,7 @@ function createButton(frm, status=undefined) {
             })
         }, "Create");
     }else{
-        frm.remove_custom_button("Create Service Request","Create"); 
+        frm.remove_custom_button("Service Request","Create"); 
     }
 
     frappe.call({
@@ -90,7 +90,7 @@ function createButton(frm, status=undefined) {
         callback: function(r, rt){
             console.log("validate before ticket",r);
             if (r.message){
-                frm.add_custom_button(__("Create Pay Per Ticket Invoice"), function() {
+                frm.add_custom_button(__("Pay Per Ticket Invoice"), function() {
                     frappe.call({
                         method:"create_ticket_invoice",
                         doc:frm.doc,
@@ -102,33 +102,33 @@ function createButton(frm, status=undefined) {
                             if(r.message){
                                 frappe.msgprint("Ticket Invoice created successfully.");
                             }else{
-                                frappe.msgprint("Failed to create Ticket Invoice.");
+                                frappe.msgprint("Failed to Ticket Invoice.");
                             }
                         }
                     })
             
                 }, "Create");
             }else{
-                frm.remove_custom_button("Create Pay Per Ticket Invoice","Create");
+                frm.remove_custom_button("Pay Per Ticket Invoice","Create");
             }
         }
     })
     
 
-    // frm.add_custom_button(__("Create Service Ticket Invoice"), function() {
+    // frm.add_custom_button(__("Service Ticket Invoice"), function() {
         
     // }, "Create");
 
-    // frm.add_custom_button(__("Create Warranty Invoice"), function() {
+    // frm.add_custom_button(__("Warranty Invoice"), function() {
         
     // }, "Create");
 
     // if(frm.doc.type=="Project" || frm.doc.contract_status=="Inactive"){
-    //     frm.add_custom_button(__("Create Opportunity"), function() {
+    //     frm.add_custom_button(__("Opportunity"), function() {
             
     //     }, "Create");
     // }else{
-    //     frm.remove_custom_button("Create Opportunity","Create"); 
+    //     frm.remove_custom_button("Opportunity","Create"); 
     // }
 
 }
@@ -136,8 +136,8 @@ function createButton(frm, status=undefined) {
 
 function add_opportunity_btn(frm){
     console.log("add_opportun")
-    frm.add_custom_button(__("Create Opportunity"), function() {
-        console.log("create opportunity")
+    frm.add_custom_button(__("Opportunity"), function() {
+        console.log("opportunity")
         frappe.call({
             method:"create_opp",
             doc:frm.doc,
