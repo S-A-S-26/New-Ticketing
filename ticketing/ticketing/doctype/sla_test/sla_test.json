@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-20 01:07:50.946327",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "priority",
+  "column_break_pbus",
+  "status",
+  "service_level_agreement_details_section",
+  "service_level_agreement",
+  "agreement_status",
+  "opening_date",
+  "opening_time",
+  "resolution_date",
+  "resolution_time",
+  "column_break_fmxr",
+  "response_by",
+  "resolution_by",
+  "service_level_agreement_creation",
+  "on_hold_since",
+  "total_hold_time"
+ ],
+ "fields": [
+  {
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "\nLow\nMedium\nHigh\nUrgent"
+  },
+  {
+   "fieldname": "column_break_pbus",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "New\nOpen\nIn Progress\nReplied\nResolved\nClosed\nCancelled"
+  },
+  {
+   "fieldname": "service_level_agreement_details_section",
+   "fieldtype": "Section Break",
+   "label": "Service Level Agreement Details"
+  },
+  {
+   "fieldname": "service_level_agreement",
+   "fieldtype": "Link",
+   "label": "Service Level Agreement",
+   "options": "Service Level Agreement"
+  },
+  {
+   "fieldname": "agreement_status",
+   "fieldtype": "Select",
+   "label": "Service Level Agreement Status",
+   "options": "First Response Due\nResolution Due\nFulfilled\nFailed"
+  },
+  {
+   "default": "Today",
+   "fieldname": "opening_date",
+   "fieldtype": "Date",
+   "label": "Opening Date"
+  },
+  {
+   "fieldname": "opening_time",
+   "fieldtype": "Time",
+   "label": "Opening Time"
+  },
+  {
+   "fieldname": "resolution_date",
+   "fieldtype": "Datetime",
+   "label": "Resolution Date"
+  },
+  {
+   "fieldname": "resolution_time",
+   "fieldtype": "Duration",
+   "label": "Resolution Time"
+  },
+  {
+   "fieldname": "column_break_fmxr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "response_by",
+   "fieldtype": "Datetime",
+   "label": "Response By"
+  },
+  {
+   "fieldname": "resolution_by",
+   "fieldtype": "Datetime",
+   "label": "Resolution By"
+  },
+  {
+   "fieldname": "service_level_agreement_creation",
+   "fieldtype": "Datetime",
+   "label": "Service Level Agreement Creation"
+  },
+  {
+   "fieldname": "on_hold_since",
+   "fieldtype": "Datetime",
+   "label": "On Hold Since"
+  },
+  {
+   "fieldname": "total_hold_time",
+   "fieldtype": "Duration",
+   "label": "Total Hold Time"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-07-20 01:29:45.363721",
+ "modified_by": "Administrator",
+ "module": "Ticketing",
+ "name": "Sla Test",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -23,6 +23,9 @@ class ServiceLevelAgreement(Document):
         if self.document_type in ["Issue","Ticket"]:
             return
         print("self",self.__dict__)
+        meta = frappe.get_meta(self.document_type, cached=False)
+        # frappe.throw("sla Custom Field {'fieldname': 'service_level_section'} not found")
+        print("meta",meta,meta.__dict__,meta.custom)
 
     def get_service_level_agreement_priority(self, priority):
         priority = frappe.get_doc("Service Level Priority", {"priority": priority, "parent": self.name})
