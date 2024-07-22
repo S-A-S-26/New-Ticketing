@@ -37,11 +37,14 @@
   "request_details",
   "sla_tab",
   "sla_details_section",
-  "sla",
-  "response_by",
-  "column_break_otps",
+  "service_level_agreement",
+  "first_responded_on",
+  "on_hold_since",
   "resolution_by",
-  "sla_status",
+  "column_break_otps",
+  "agreement_status",
+  "service_level_agreement_creation",
+  "response_by",
   "total_hold_time",
   "resolution_tab",
   "resolution_details_section",
@@ -236,55 +239,8 @@
    "label": "SLA Details"
   },
   {
-   "fieldname": "sla",
-   "fieldtype": "Link",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "SLA",
-   "options": "Service Level Agreement"
-  },
-  {
-   "fieldname": "response_by",
-   "fieldtype": "Datetime",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Response By"
-  },
-  {
    "fieldname": "column_break_otps",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "resolution_by",
-   "fieldtype": "Datetime",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Resolution By"
-  },
-  {
-   "fieldname": "sla_status",
-   "fieldtype": "Select",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "SLA Status",
-   "options": "Open\nClose\nFulfilled",
-   "reqd": 1
-  },
-  {
-   "fieldname": "total_hold_time",
-   "fieldtype": "Datetime",
-   "in_list_view": 1,
-   "in_preview": 1,
-   "label": "Total Hold Time",
-   "read_only": 1
   },
   {
    "fieldname": "resolution_tab",
@@ -330,7 +286,7 @@
   },
   {
    "fieldname": "resolution_time",
-   "fieldtype": "Time",
+   "fieldtype": "Duration",
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
@@ -412,6 +368,66 @@
    "label": "Billed Duration",
    "precision": "2",
    "read_only": 1
+  },
+  {
+   "fieldname": "service_level_agreement",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Service Level Agreement",
+   "options": "Service Level Agreement"
+  },
+  {
+   "fieldname": "first_responded_on",
+   "fieldtype": "Datetime",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "First Responded On"
+  },
+  {
+   "fieldname": "on_hold_since",
+   "fieldtype": "Datetime",
+   "label": "On Hold Since"
+  },
+  {
+   "default": "Now",
+   "fieldname": "service_level_agreement_creation",
+   "fieldtype": "Datetime",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Service Level Agreement Creation"
+  },
+  {
+   "fieldname": "resolution_by",
+   "fieldtype": "Datetime",
+   "label": "Resolution By"
+  },
+  {
+   "default": "First Response Due",
+   "fieldname": "agreement_status",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Service Level Agreement Status",
+   "options": "First Response Due\nResolution Due\nFulfilled\nFailed"
+  },
+  {
+   "fieldname": "response_by",
+   "fieldtype": "Datetime",
+   "label": "Response By"
+  },
+  {
+   "fieldname": "total_hold_time",
+   "fieldtype": "Duration",
+   "label": "Total Hold Time"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -422,7 +438,7 @@
    "link_fieldname": "custom_service_request"
   }
  ],
- "modified": "2024-07-19 21:33:35.733734",
+ "modified": "2024-07-22 14:32:15.510320",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

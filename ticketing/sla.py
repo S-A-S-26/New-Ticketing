@@ -20,7 +20,7 @@ class ServiceLevelAgreement(Document):
     def before_insert(self):
         print("custom method overridenn")
 		# no need to set up SLA fields for Issue dt as they are standard fields in Issue
-        if self.document_type in ["Issue","Ticket"]:
+        if self.document_type in ["Issue","Ticket","Service Request"]:
             return
         print("self",self.__dict__)
         meta = frappe.get_meta(self.document_type, cached=False)
@@ -39,8 +39,10 @@ class ServiceLevelAgreement(Document):
         )    
     
     def set_resolution_time(doc):
+        print("setting resolution date")
         start_date_time = get_datetime(doc.get("service_level_agreement_creation") or doc.creation)
         if doc.meta.has_field("resolution_time"):
             doc.resolution_time = time_diff_in_seconds(doc.resolution_date, start_date_time)
         if doc.meta.has_field("resolution_date"):
+            print("inside if con for res date")
             doc.resolution_date = add_to_date(start_date_time, seconds=doc.resolution_time)
