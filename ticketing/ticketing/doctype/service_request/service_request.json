@@ -330,7 +330,7 @@
    "fieldname": "ticket",
    "fieldtype": "Link",
    "label": "Ticket",
-   "link_filters": "[[\"Ticket\",\"type\",\"=\",\"Service Request\"]]",
+   "link_filters": "[[\"Ticket\",\"type\",\"=\",\"Service Request\"],[\"Ticket\",\"contract_status\",\"=\",\"Active\"]]",
    "options": "Ticket",
    "reqd": 1
   },
@@ -377,7 +377,7 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Service Level Agreement",
-   "options": "Service Level Agreement"
+   "options": "Ticket Service Level Agreement"
   },
   {
    "fieldname": "first_responded_on",
@@ -438,7 +438,7 @@
    "link_fieldname": "custom_service_request"
   }
  ],
- "modified": "2024-07-22 14:32:15.510320",
+ "modified": "2024-07-23 19:13:21.869476",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

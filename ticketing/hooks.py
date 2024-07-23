@@ -115,7 +115,7 @@ app_license = "MIT"
 # }
 
 override_doctype_class = {
-	"Service Level Agreement": "ticketing.sla.ServiceLevelAgreement"
+	"Service Level Agreement": "ticketing.sla.CustomServiceLevelAgreement"
 }
 
 # Document Events
