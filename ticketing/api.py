@@ -128,3 +128,22 @@ def set_status(status,doctype,name,target_doc,target_doc_name):
     if value:
         print("set value",(target_doc,target_doc_name,"status",value))
         frappe.db.set_value(target_doc,target_doc_name,"status",value,update_modified=False)
+
+def validate_resolution(self):
+    print("\n\nValidating",self.resolution_details,self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>')
+    if (self.status=="Resolved" or self.status=="Closed" or self.status=="Completed") and (self.resolution_details == None or self.resolution_details == "" or self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>'):
+            frappe.throw("Please fill out resolution details for status Resolved and Closed or Completed")
+
+from datetime import datetime
+def create_comment(self,method):
+    if self.reference_type not in ["Ticket","Service Request","Visit Request","Repair Request"]:
+        return
+    comment_doc=frappe.new_doc("Comment")
+    comment_doc.comment_type="Comment"
+    comment_doc.content=f"@{self.allocated_to} --> "+self.description
+    comment_doc.reference_doctype=self.reference_type
+    comment_doc.reference_name=self.reference_name
+    comment_doc.comment_email=self.allocated_to
+    comment_doc.insert()
+    frappe.db.set_value(self.reference_type,self.reference_name,'modified',datetime.now(),update_modified=False)
+    print("comment created",comment_doc.name)

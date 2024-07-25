@@ -122,13 +122,16 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+doc_events = {
+    "ToDo":{
+        "after_insert":"ticketing.api.create_comment"
+    }
 #	"*": {
 #		"on_update": "method",
 #		"on_cancel": "method",
 #		"on_trash": "method"
 #	}
-# }
+}
 
 # Scheduled Tasks
 # ---------------

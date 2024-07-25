@@ -37,16 +37,15 @@
   "request_details",
   "sla_tab",
   "sla_details_section",
-  "service_level_agreement_cus",
-  "first_responded_on_cus",
-  "on_hold_since_cus",
-  "resolution_by_cus",
   "service_level_agreement",
+  "first_responded_on",
+  "on_hold_since",
+  "resolution_by",
   "column_break_otps",
-  "agreement_status_cus",
-  "service_level_agreement_creation_cus",
-  "response_by_cus",
-  "total_hold_time_cus",
+  "agreement_status",
+  "service_level_agreement_creation",
+  "response_by",
+  "total_hold_time",
   "resolution_tab",
   "resolution_details_section",
   "resolution_details",
@@ -263,6 +262,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Today",
    "fieldname": "opening_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -371,70 +371,71 @@
    "read_only": 1
   },
   {
-   "fieldname": "service_level_agreement_cus",
+   "fieldname": "service_level_agreement",
    "fieldtype": "Link",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Service Level Agreement",
-   "options": "Ticket Service Level Agreement"
-  },
-  {
-   "fieldname": "service_level_agreement",
-   "fieldtype": "Link",
    "label": "Service Level Agreement",
    "options": "Service Level Agreement"
   },
   {
-   "fieldname": "first_responded_on_cus",
+   "fieldname": "first_responded_on",
    "fieldtype": "Datetime",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "First Responded On"
+   "label": "First Responded On",
+   "read_only": 1
   },
   {
-   "fieldname": "on_hold_since_cus",
+   "fieldname": "on_hold_since",
    "fieldtype": "Datetime",
-   "label": "On Hold Since"
+   "label": "On Hold Since",
+   "read_only": 1
   },
   {
-   "fieldname": "resolution_by_cus",
+   "fieldname": "resolution_by",
    "fieldtype": "Datetime",
-   "label": "Resolution By"
+   "label": "Resolution By",
+   "read_only": 1
   },
   {
    "default": "First Response Due",
-   "fieldname": "agreement_status_cus",
+   "fieldname": "agreement_status",
    "fieldtype": "Select",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Service Level Agreement Status",
-   "options": "First Response Due\nResolution Due\nFulfilled\nFailed"
+   "options": "First Response Due\nResolution Due\nFulfilled\nFailed",
+   "read_only": 1
   },
   {
    "default": "Now",
-   "fieldname": "service_level_agreement_creation_cus",
+   "fieldname": "service_level_agreement_creation",
    "fieldtype": "Datetime",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Service Level Agreement Creation"
+   "label": "Service Level Agreement Creation",
+   "read_only": 1
   },
   {
-   "fieldname": "response_by_cus",
+   "fieldname": "response_by",
    "fieldtype": "Datetime",
-   "label": "Response By"
+   "label": "Response By",
+   "read_only": 1
   },
   {
-   "fieldname": "total_hold_time_cus",
+   "fieldname": "total_hold_time",
    "fieldtype": "Duration",
-   "label": "Total Hold Time"
+   "label": "Total Hold Time",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -445,7 +446,7 @@
    "link_fieldname": "custom_service_request"
   }
  ],
- "modified": "2024-07-24 18:16:48.737654",
+ "modified": "2024-07-25 15:15:10.892648",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

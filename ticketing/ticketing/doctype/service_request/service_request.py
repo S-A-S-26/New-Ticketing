@@ -4,13 +4,14 @@
 import frappe
 from frappe.model.document import Document
 # from erpnext.support.doctype.service_level_agreement.service_level_agreement import ServiceLevelAgreement,apply,get_context
-from ticketing.api import set_status
+from ticketing.api import set_status,validate_resolution
 from ticketing.sla_methods import apply
 
 class ServiceRequest(Document):
 	def validate(self):
 		set_status(self.status,self.doctype,self.name,"Ticket",self.ticket)
-		apply(self)
+		# apply(self)
+		validate_resolution(self)
 
 	@frappe.whitelist()
 	def create_visit_request(self):
@@ -32,6 +33,8 @@ class ServiceRequest(Document):
 		print("data",data)
 		if data:
 			data=data[0]
+		else:
+			return True
 		print("data",data)
 		# if not data:
 		# 	return True

@@ -35,11 +35,14 @@
   "request_details",
   "sla_tab",
   "sla_details_section",
-  "link_plym",
+  "service_level_agreement",
   "response_by",
+  "first_responded_on",
+  "on_hold_since",
   "column_break_lmtx",
+  "agreement_status",
+  "service_level_agreement_creation",
   "resolution_by",
-  "sla_status",
   "total_hold_time",
   "resolution_tab",
   "resolution_details_section",
@@ -238,23 +241,14 @@
    "label": "SLA Details"
   },
   {
-   "fieldname": "link_plym",
-   "fieldtype": "Link",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "SLA",
-   "options": "Service Level Agreement"
-  },
-  {
    "fieldname": "response_by",
    "fieldtype": "Datetime",
    "in_filter": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Response By"
+   "label": "Response By",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_lmtx",
@@ -267,22 +261,12 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Resolution By"
-  },
-  {
-   "fieldname": "sla_status",
-   "fieldtype": "Select",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "SLA Status",
-   "options": "Open\nClose\nFulfilled",
-   "reqd": 1
+   "label": "Resolution By",
+   "read_only": 1
   },
   {
    "fieldname": "total_hold_time",
-   "fieldtype": "Time",
+   "fieldtype": "Duration",
    "in_list_view": 1,
    "in_preview": 1,
    "label": "Total Hold Time",
@@ -308,6 +292,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Today",
    "fieldname": "opening_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -331,7 +316,7 @@
   },
   {
    "fieldname": "resolution_time",
-   "fieldtype": "Time",
+   "fieldtype": "Duration",
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
@@ -365,12 +350,49 @@
    "fieldname": "feedback_extra",
    "fieldtype": "Small Text",
    "label": "Feedback (Extra)"
+  },
+  {
+   "fieldname": "service_level_agreement",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Service Level Agreement",
+   "options": "Service Level Agreement"
+  },
+  {
+   "fieldname": "first_responded_on",
+   "fieldtype": "Datetime",
+   "label": "First Responded On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "on_hold_since",
+   "fieldtype": "Datetime",
+   "label": "On Hold Since",
+   "read_only": 1
+  },
+  {
+   "default": "First Response Due",
+   "fieldname": "agreement_status",
+   "fieldtype": "Select",
+   "label": "Service Level Agreement Status",
+   "options": "First Response Due\nResolution Due\nFulfilled\nFailed",
+   "read_only": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "service_level_agreement_creation",
+   "fieldtype": "Datetime",
+   "label": "Service Level Agreement Creation",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-07-19 01:23:30.529248",
+ "modified": "2024-07-25 16:55:35.109020",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Request",

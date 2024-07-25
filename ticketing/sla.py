@@ -21,14 +21,14 @@ class CustomServiceLevelAgreement(ServiceLevelAgreement):
         print("custom method overridenn")
 		# no need to set up SLA fields for Issue dt as they are standard fields in Issue
         if self.document_type in ["Issue","Ticket","Service Request"]:
-            return
+            pass
         print("self",self.__dict__)
         meta = frappe.get_meta(self.document_type, cached=False)
         # frappe.throw("sla Custom Field {'fieldname': 'service_level_section'} not found")
         print("meta",meta,meta.__dict__,meta.custom)
 
     def get_service_level_agreement_priority(self, priority):
-        frappe.msgprint("get priority for service level agreement")
+        # frappe.msgprint("get priority for service level agreement")
         priority = frappe.get_doc("Service Level Priority", {"priority": priority, "parent": self.name})
 
         return frappe._dict(

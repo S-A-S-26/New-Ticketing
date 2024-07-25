@@ -3,11 +3,12 @@
 
 # import frappe
 from frappe.model.document import Document
-from ticketing.api import set_status
+from ticketing.api import set_status,validate_resolution
 
 
 class VisitRequest(Document):
 	def validate(self):
+		validate_resolution(self)
 		if self.reference_type == "Repair Request":
 			print("repair req")
 			set_status(self.status,self.doctype,self.name,"Repair Request",self.repair_request)

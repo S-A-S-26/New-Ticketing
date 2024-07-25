@@ -13,12 +13,15 @@ from frappe.utils import (
 	time_diff_in_seconds,
 	to_timedelta,
 )
-from ticketing.api import get_sla,create_opportunity
+from ticketing.api import get_sla,create_opportunity,validate_resolution
 
 
 
 class Ticket(Document):
 	def validate(self):
+		print("\n\nValidating",self.resolution_details,self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>')
+		validate_resolution(self)
+		
 		# already_ticket = False
 		# if self.contract:
 		# 	print(f"""select tk.name from `tabTicket` as tk join `tabCustomer Contract` as cc on tk.contract=cc.name where tk.creation BETWEEN cc.from_date AND cc.to_date and cc.customer='{self.customer}' AND cc.name='{self.contract}';
@@ -27,7 +30,7 @@ class Ticket(Document):
 		# 	""",pluck=True)
 		# if already_ticket:
 		# 	frappe.throw(f"A ticket already exists for the customer {self.customer} with contract {self.contract}")
-		pass
+		
 
 	@frappe.whitelist()
 	def create_opp(self):
