@@ -14,10 +14,16 @@ from frappe.utils import (
 	to_timedelta,
 )
 from ticketing.api import get_sla,create_opportunity,validate_resolution
+from erpnext.crm.utils import (
+	CRMNote,
+	copy_comments,
+	link_communications,
+	link_open_events,
+	link_open_tasks,
+)
 
 
-
-class Ticket(Document):
+class Ticket(CRMNote):
 	def validate(self):
 		print("\n\nValidating",self.resolution_details,self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>')
 		validate_resolution(self)
@@ -108,6 +114,9 @@ class Ticket(Document):
 		else:
 			print("opportunity creation",self.contract,self.contract_status)
 			return create_opportunity(self)
+
+	# @frappe.whitelist()
+	# def add_note(self):
 
 
 def check_if_exists(doc,ticket):

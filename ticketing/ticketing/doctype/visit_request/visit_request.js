@@ -6,6 +6,7 @@ frappe.ui.form.on("Visit Request", {
         frm.reload()
     },
 	refresh(frm) {
+        show_notes(frm)
         let sch_d = new frappe.ui.Dialog({
             title: 'Schedule Visit',
             fields: [
@@ -72,3 +73,14 @@ frappe.ui.form.on("Visit Request", {
         }
 	},
 });
+
+
+function show_notes(frm) {
+    const crm_notes = new erpnext.utils.CRMNotes({
+        frm: frm,
+        notes_wrapper: $(frm.fields_dict.notes_html.wrapper),
+    });
+    crm_notes.refresh();
+
+    frm.dirty();
+}

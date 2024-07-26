@@ -65,6 +65,9 @@
   "feedback_option",
   "column_break_avfu",
   "feedback_extra",
+  "comments_tab",
+  "notes_html",
+  "notes",
   "sla_tab",
   "service_level_agreement_details_section",
   "column_break_kdxs",
@@ -510,6 +513,24 @@
    "fieldtype": "Duration",
    "label": "Total Hold Time",
    "read_only": 1
+  },
+  {
+   "fieldname": "comments_tab",
+   "fieldtype": "Tab Break",
+   "label": "Comments"
+  },
+  {
+   "fieldname": "notes_html",
+   "fieldtype": "HTML",
+   "label": "Notes HTML"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Notes",
+   "no_copy": 1,
+   "options": "CRM Note"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -531,7 +552,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-07-20 00:34:30.795050",
+ "modified": "2024-07-26 13:25:42.904709",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",

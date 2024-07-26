@@ -140,7 +140,7 @@ def create_comment(self,method):
         return
     comment_doc=frappe.new_doc("Comment")
     comment_doc.comment_type="Comment"
-    comment_doc.content=f"@{self.allocated_to} --> "+self.description
+    comment_doc.content=f"{self.allocated_to} --> "+self.description
     comment_doc.reference_doctype=self.reference_type
     comment_doc.reference_name=self.reference_name
     comment_doc.comment_email=self.allocated_to

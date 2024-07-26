@@ -4,6 +4,7 @@
 frappe.ui.form.on("Ticket", {
 	refresh(frm) {
         createButton(frm)
+        show_notes(frm)
 	},
     after_save:function(frm){
         createButton(frm)
@@ -158,3 +159,98 @@ function add_opportunity_btn(frm){
         })
     }, "Create");
 }
+
+function show_notes(frm) {
+    const crm_notes = new erpnext.utils.CRMNotes({
+        frm: frm,
+        notes_wrapper: $(frm.fields_dict.notes_html.wrapper),
+    });
+    crm_notes.refresh();
+
+    frm.dirty();
+}
+
+// erpnext.crm.Opportunity = class Ticket extends frappe.ui.form.Controller {
+// 	onload() {
+// 		if (!this.frm.doc.status) {
+// 			this.frm.set_value("status", "Open");
+// 		}
+// 		if (!this.frm.doc.company && frappe.defaults.get_user_default("Company")) {
+// 			this.frm.set_value("company", frappe.defaults.get_user_default("Company"));
+// 		}
+// 		if (!this.frm.doc.currency) {
+// 			this.frm.set_value("currency", frappe.defaults.get_user_default("Currency"));
+// 		}
+
+// 		this.setup_queries();
+// 		this.frm.trigger("currency");
+// 	}
+
+// 	refresh() {
+// 		this.show_notes();
+// 		this.show_activities();
+// 	}
+
+// 	setup_queries() {
+// 		var me = this;
+
+// 		me.frm.set_query("customer_address", erpnext.queries.address_query);
+
+// 		this.frm.set_query("item_code", "items", function () {
+// 			return {
+// 				query: "erpnext.controllers.queries.item_query",
+// 				filters: { is_sales_item: 1 },
+// 			};
+// 		});
+
+// 		me.frm.set_query("contact_person", erpnext.queries["contact_query"]);
+
+// 		if (me.frm.doc.opportunity_from == "Lead") {
+// 			me.frm.set_query("party_name", erpnext.queries["lead"]);
+// 		} else if (me.frm.doc.opportunity_from == "Customer") {
+// 			me.frm.set_query("party_name", erpnext.queries["customer"]);
+// 		} else if (me.frm.doc.opportunity_from == "Prospect") {
+// 			me.frm.set_query("party_name", function () {
+// 				return {
+// 					filters: {
+// 						company: me.frm.doc.company,
+// 					},
+// 				};
+// 			});
+// 		}
+// 	}
+
+// 	create_quotation() {
+// 		frappe.model.open_mapped_doc({
+// 			method: "erpnext.crm.doctype.opportunity.opportunity.make_quotation",
+// 			frm: cur_frm,
+// 		});
+// 	}
+
+// 	make_customer() {
+// 		frappe.model.open_mapped_doc({
+// 			method: "erpnext.crm.doctype.opportunity.opportunity.make_customer",
+// 			frm: cur_frm,
+// 		});
+// 	}
+
+// 	show_notes() {
+// 		const crm_notes = new erpnext.utils.CRMNotes({
+// 			frm: this.frm,
+// 			notes_wrapper: $(this.frm.fields_dict.notes_html.wrapper),
+// 		});
+// 		crm_notes.refresh();
+// 	}
+
+// 	show_activities() {
+// 		const crm_activities = new erpnext.utils.CRMActivities({
+// 			frm: this.frm,
+// 			open_activities_wrapper: $(this.frm.fields_dict.open_activities_html.wrapper),
+// 			all_activities_wrapper: $(this.frm.fields_dict.all_activities_html.wrapper),
+// 			form_wrapper: $(this.frm.wrapper),
+// 		});
+// 		crm_activities.refresh();
+// 	}
+// };
+
+// extend_cscript(cur_frm.cscript, new erpnext.crm.Opportunity({ frm: cur_frm }));
