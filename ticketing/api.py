@@ -129,9 +129,19 @@ def set_status(status,doctype,name,target_doc,target_doc_name):
         print("set value",(target_doc,target_doc_name,"status",value))
         frappe.db.set_value(target_doc,target_doc_name,"status",value,update_modified=False)
 
+from bs4 import BeautifulSoup
 def validate_resolution(self):
+    resolution_details = False
+    if self.resolution_details:
+        print("b4",BeautifulSoup(self.resolution_details, "html.parser").get_text(strip=True))
+        if BeautifulSoup(self.resolution_details, "html.parser").get_text(strip=True):
+            print("data exists b4")
+            resolution_details=True
+        else:
+            print("data doesnt exists b4")
+            resolution_details=False
     print("\n\nValidating",self.resolution_details,self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>')
-    if (self.status=="Resolved" or self.status=="Closed" or self.status=="Completed") and (self.resolution_details == None or self.resolution_details == "" or self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>'):
+    if (self.status=="Resolved" or self.status=="Closed" or self.status=="Completed") and not (resolution_details):
             frappe.throw("Please fill out resolution details for status Resolved and Closed or Completed")
 
 from datetime import datetime
@@ -147,3 +157,69 @@ def create_comment(self,method):
     comment_doc.insert()
     frappe.db.set_value(self.reference_type,self.reference_name,'modified',datetime.now(),update_modified=False)
     print("comment created",comment_doc.name)
+
+def set_expiring():
+    print("set_expiring")
+    days_to_expire=frappe.db.get_single_value('Ticketing Settings', 'days_to_expire')
+    if days_to_expire and days_to_expire <=0:
+        return []
+    expired_docs=[]
+    items = frappe.db.get_all("Warranty Equipments",{"status":"Active"},pluck="name")
+    for name in items:
+        doc = frappe.get_doc("Warranty Equipments", name)
+        if not doc.warranty_expiry_date:
+            continue
+        print("comp",doc.equipment,datetime.now() ,doc.warranty_expiry_date)
+        days_remaining = (doc.warranty_expiry_date -datetime.now()).days
+        if days_remaining <= days_to_expire and days_remaining > 0:
+            print(f"days remaining {days_remaining} days_to_expire {days_to_expire}")
+            # doc.warranty_status = "Expiring"
+            # doc.save()
+            if doc.parent not in expired_docs:
+                expired_docs.append(doc.parent)
+            frappe.db.set_value("Warranty Equipments",name,'status',"Expiring",update_modified=False)
+    return expired_docs
+
+def set_expired():
+    print("set_expired")
+    expired_docs=[]
+    items = frappe.db.get_all("Warranty Equipments",{"status":['in',["Active","Expiring"]]},pluck="name")
+    for name in items:
+        doc = frappe.get_doc("Warranty Equipments", name)
+        if not doc.warranty_expiry_date:
+            continue
+        print("comp",doc.equipment,datetime.now() ,doc.warranty_expiry_date)
+        days_remaining = (doc.warranty_expiry_date -datetime.now()).days
+        if datetime.now() > doc.warranty_expiry_date:
+            print("expired",doc.equipment)
+            # doc.warranty_status = "Expiring"
+            # doc.save()
+            if doc.parent not in expired_docs:
+                expired_docs.append(doc.parent)
+            frappe.db.set_value("Warranty Equipments",name,'status',"Expired",update_modified=False)
+    return expired_docs
+
+def set_warranty_status():
+    docs=set_expiring()
+    set_expired()
+    print("docs",docs)
+    for name in docs:
+        doc=frappe.get_doc("Warranty",name)
+        doc.set_warranty_status()
+        doc.save()
+
+def create_sales_invoice_ticket(item_code,qty,rate,cust,doc_name):
+    sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
+    sales_inv.customer=cust
+    sales_inv.due_date=frappe.utils.nowdate()
+    qty=1
+    sales_inv.append("items", {
+        "item_code": item_code,
+        "qty": qty,
+        "rate":rate,
+    })
+    sales_inv.custom_ticket=doc_name   
+    sales_inv.insert()
+    return sales_inv.name
+       
+

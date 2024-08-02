@@ -45,6 +45,7 @@
   "equipment_request_details_section",
   "equipment",
   "equipment_name",
+  "purchase_warranty",
   "column_break_okes",
   "warranty",
   "warranty_status",
@@ -531,6 +532,13 @@
    "label": "Notes",
    "no_copy": 1,
    "options": "CRM Note"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.type=='Equipment Issue' && doc.equipment && doc.warranty_status!=\"Under Warranty\"",
+   "fieldname": "purchase_warranty",
+   "fieldtype": "Check",
+   "label": "Purchase Warranty"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -552,7 +560,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-07-26 13:25:42.904709",
+ "modified": "2024-08-02 12:58:05.407740",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",

@@ -2,7 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
-from datetime import timedelta 
+from datetime import timedelta ,datetime
 from frappe.model.document import Document
 from frappe.utils import (
 	add_to_date,
@@ -21,7 +21,7 @@ from erpnext.crm.utils import (
 	link_open_events,
 	link_open_tasks,
 )
-
+from ticketing.api import create_sales_invoice_ticket
 
 class Ticket(CRMNote):
 	def validate(self):
@@ -118,6 +118,56 @@ class Ticket(CRMNote):
 	# @frappe.whitelist()
 	# def add_note(self):
 
+	@frappe.whitelist()
+	def check_warranty(self):
+		print("check warranty")
+		print(f"""select we.status ,w.name from `tabWarranty` as w join `tabWarranty Address` as wa on w.name=wa.parent join `tabWarranty Equipments` as we on w.name=we.parent where we.equipment="{self.equipment}" and w.customer="{self.customer}" and wa.warranty_address="{self.customer_address}" order by w.creation desc;""")
+		data=frappe.db.sql(f"""select we.status ,w.name from `tabWarranty` as w join `tabWarranty Address` as wa on w.name=wa.parent join `tabWarranty Equipments` as we on w.name=we.parent where we.equipment="{self.equipment}" and w.customer="{self.customer}" and wa.warranty_address="{self.customer_address}" order by w.creation desc;""",as_dict=True)
+		print("data",data)
+		if data:
+			data=data[0]
+			if data.get('status') == 'Active':
+				self.warranty_status = "Under Warranty"
+			elif data.get('status') == 'Expired':
+				self.warranty_status = "Expired"
+			self.warranty=data.get('name')
+		else:
+			self.warranty_status = "No Warranty"
+			self.warranty=None
+
+	@frappe.whitelist()
+	def purchase_warranty_invoice(self):
+		print("purchase_warranty")
+		warr_list=frappe.db.exists("Price List",{"name":"Warranty","selling":1,"enabled":1})
+		if not warr_list:
+			frappe.throw("Please create a Price List named 'Warranty' with selling 1 and add item prices for the items whose warranty needs to be purchased")
+		# print("Item Price",{"price_list":"Warranty","item_name":self.equipment,"selling":1},['price_list_rate'])
+		price=frappe.db.get_value("Item Price",{"price_list":"Warranty","item_code":self.equipment,"selling":1},['price_list_rate'])
+		print("price",price)
+		if not price:
+			frappe.throw(f"Value missing for Equipment : '{self.equipment}' in Warranty Price List")
+		else:
+			sales_inv=create_sales_invoice_ticket(self.equipment,1,price,self.customer,self.name)
+			if sales_inv:
+				# print(f"""select we.status ,w.name,we.name from `tabWarranty` as w join `tabWarranty Address` as wa on w.name=wa.parent join `tabWarranty Equipments` as we on w.name=we.parent where we.equipment="{self.equipment}" and w.customer="{self.customer}" and wa.warranty_address="{self.customer_address}" order by w.creation desc;""")
+				# ex_warranty=frappe.db.sql(f"""select we.status ,we.name from `tabWarranty` as w join `tabWarranty Address` as wa on w.name=wa.parent join `tabWarranty Equipments` as we on w.name=we.parent where we.equipment="{self.equipment}" and w.customer="{self.customer}" and wa.warranty_address="{self.customer_address}" order by w.creation desc;""",as_dict=True)
+				# print("ex_warranty",ex_warranty)
+				war=frappe.get_doc({"doctype":"Warranty"})
+				war.customer=self.customer
+				war.customer_name=self.customer_name
+				war.company=self.company
+				war.warranty_status="Active"
+				war.from_date=datetime.now()
+				war.append("warranty_address",{
+					"warranty_address":self.customer_address,
+					
+				})
+				war.append("warranty_equipments",{
+					"equipment":self.equipment,
+					"warranty_expiry_date":datetime.now()+timedelta(days=365),
+					"status":"Active"
+				})
+				war.insert(ignore_mandatory=True)
 
 def check_if_exists(doc,ticket):
 	print("check_if_opp_exists",ticket)

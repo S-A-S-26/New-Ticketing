@@ -27,7 +27,8 @@
   "terms_and_conditions_tab_break",
   "terms_and_conditions_section",
   "terms_and_conditions_template",
-  "terms_and_conditions"
+  "terms_and_conditions",
+  "amended_from"
  ],
  "fields": [
   {
@@ -87,7 +88,6 @@
    "label": "Warranty Status",
    "no_copy": 1,
    "options": "Draft\nActive\nExpiring\nExpired",
-   "read_only": 1,
    "reqd": 1
   },
   {
@@ -176,13 +176,24 @@
    "in_preview": 1,
    "label": "Terms and Conditions",
    "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Warranty",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2024-07-17 21:55:51.976800",
+ "modified": "2024-07-29 17:32:07.152831",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Warranty",

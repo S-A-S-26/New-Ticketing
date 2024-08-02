@@ -5,6 +5,7 @@ frappe.ui.form.on("Ticket", {
 	refresh(frm) {
         createButton(frm)
         show_notes(frm)
+        createPurchaseWarranty(frm)
 	},
     after_save:function(frm){
         createButton(frm)
@@ -35,6 +36,43 @@ frappe.ui.form.on("Ticket", {
             }
         })
     },
+    equipment:function(frm){
+        frm.doc.purchase_warranty=0
+        frm.refresh_field('purchase_warranty')
+        frappe.call({
+            method:"check_warranty",
+            doc:frm.doc,
+            freeze:true,
+            freeze_message:"Checking Warranty",
+            callback: function(r, rt){
+                console.log("r.message=",r);
+                frm.refresh_field("warranty")
+                frm.refresh_field("warranty_status")
+                createButton(frm)
+                if(r.message){
+
+                }else{
+
+                }
+
+            }
+        })
+    },
+    ticket_type:function(frm){
+        frm.doc.contract=undefined
+        frm.doc.contract_status=undefined
+        frm.doc.service_requested=undefined
+        frm.doc.item_name=undefined
+        frm.doc.equipment=undefined
+        frm.doc.equipment_name=undefined
+        frm.doc.warranty=undefined
+        frm.doc.warranty_status=undefined
+
+        frm.refresh_fields(['contract','status','service_requested','item_name','equipment','equipment_name','warranty','warranty_status'])
+    },
+    purchase_warranty:function(frm){
+        createPurchaseWarranty(frm)
+    }
 
 
 });
@@ -56,7 +94,7 @@ function createButton(frm, status=undefined) {
                 frm.remove_custom_button("Opportunity","Create");
             }
         })
-    }else{
+    }else if (!frm.doc.contract && frm.doc.service_requested){
         
         add_opportunity_btn(frm)     
        
@@ -117,22 +155,21 @@ function createButton(frm, status=undefined) {
         }
     })
     
-
-    // frm.add_custom_button(__("Service Ticket Invoice"), function() {
-        
-    // }, "Create");
-
-    // frm.add_custom_button(__("Warranty Invoice"), function() {
-        
-    // }, "Create");
-
-    // if(frm.doc.type=="Project" || frm.doc.contract_status=="Inactive"){
-    //     frm.add_custom_button(__("Opportunity"), function() {
+    if (frm.doc.type == "Equipment Issue" && (frm.doc.warranty_status == "No Warranty" || frm.doc.warranty_status == "Expired")) {
+        frm.add_custom_button(__("Create Sales Invoice"), function() {
             
-    //     }, "Create");
-    // }else{
-    //     frm.remove_custom_button("Opportunity","Create"); 
-    // }
+        }, "Create");
+        frm.remove_custom_button("Create Repair Request","Create");
+    }else if (frm.doc.type == "Equipment Issue" && frm.doc.warranty_status == "Under Warranty") {
+        frm.add_custom_button(__("Create Repair Request"), function() {
+            
+        }, "Create");
+        frm.remove_custom_button("Create Sales Invoice","Create");
+    }else{
+        frm.remove_custom_button("Create Sales Invoice","Create");
+        frm.remove_custom_button("Create Repair Request","Create");
+    }
+
 
 }
 
@@ -170,87 +207,23 @@ function show_notes(frm) {
     frm.dirty();
 }
 
-// erpnext.crm.Opportunity = class Ticket extends frappe.ui.form.Controller {
-// 	onload() {
-// 		if (!this.frm.doc.status) {
-// 			this.frm.set_value("status", "Open");
-// 		}
-// 		if (!this.frm.doc.company && frappe.defaults.get_user_default("Company")) {
-// 			this.frm.set_value("company", frappe.defaults.get_user_default("Company"));
-// 		}
-// 		if (!this.frm.doc.currency) {
-// 			this.frm.set_value("currency", frappe.defaults.get_user_default("Currency"));
-// 		}
+function createPurchaseWarranty(frm) {
+    if (frm.doc.purchase_warranty){
+        frm.add_custom_button('Purchase Warranty',function(){
+            frappe.call({
+                method:"purchase_warranty_invoice",
+                doc:frm.doc,
+                freeze:true,
+                freeze_message:"Purchasing Warranty",
+                callback: function(r, rt){
+                    console.log("r.message=",r);
+                    
 
-// 		this.setup_queries();
-// 		this.frm.trigger("currency");
-// 	}
+                }
+            })
+        },"Create")
+    }else{
+        frm.remove_custom_button('Purchase Warranty','Create');
+    }
+}
 
-// 	refresh() {
-// 		this.show_notes();
-// 		this.show_activities();
-// 	}
-
-// 	setup_queries() {
-// 		var me = this;
-
-// 		me.frm.set_query("customer_address", erpnext.queries.address_query);
-
-// 		this.frm.set_query("item_code", "items", function () {
-// 			return {
-// 				query: "erpnext.controllers.queries.item_query",
-// 				filters: { is_sales_item: 1 },
-// 			};
-// 		});
-
-// 		me.frm.set_query("contact_person", erpnext.queries["contact_query"]);
-
-// 		if (me.frm.doc.opportunity_from == "Lead") {
-// 			me.frm.set_query("party_name", erpnext.queries["lead"]);
-// 		} else if (me.frm.doc.opportunity_from == "Customer") {
-// 			me.frm.set_query("party_name", erpnext.queries["customer"]);
-// 		} else if (me.frm.doc.opportunity_from == "Prospect") {
-// 			me.frm.set_query("party_name", function () {
-// 				return {
-// 					filters: {
-// 						company: me.frm.doc.company,
-// 					},
-// 				};
-// 			});
-// 		}
-// 	}
-
-// 	create_quotation() {
-// 		frappe.model.open_mapped_doc({
-// 			method: "erpnext.crm.doctype.opportunity.opportunity.make_quotation",
-// 			frm: cur_frm,
-// 		});
-// 	}
-
-// 	make_customer() {
-// 		frappe.model.open_mapped_doc({
-// 			method: "erpnext.crm.doctype.opportunity.opportunity.make_customer",
-// 			frm: cur_frm,
-// 		});
-// 	}
-
-// 	show_notes() {
-// 		const crm_notes = new erpnext.utils.CRMNotes({
-// 			frm: this.frm,
-// 			notes_wrapper: $(this.frm.fields_dict.notes_html.wrapper),
-// 		});
-// 		crm_notes.refresh();
-// 	}
-
-// 	show_activities() {
-// 		const crm_activities = new erpnext.utils.CRMActivities({
-// 			frm: this.frm,
-// 			open_activities_wrapper: $(this.frm.fields_dict.open_activities_html.wrapper),
-// 			all_activities_wrapper: $(this.frm.fields_dict.all_activities_html.wrapper),
-// 			form_wrapper: $(this.frm.wrapper),
-// 		});
-// 		crm_activities.refresh();
-// 	}
-// };
-
-// extend_cscript(cur_frm.cscript, new erpnext.crm.Opportunity({ frm: cur_frm }));

@@ -5,4 +5,19 @@
 from frappe.model.document import Document
 
 class Warranty(Document):
-	pass
+	
+	def validate(self):
+		self.set_warranty_status()
+	
+	def before_submit(self):
+		self.warranty_status = "Active"
+		for item in self.warranty_equipments:
+			if True or item.status == "Draft":
+				item.status = "Active"
+
+
+	def set_warranty_status(self):
+		for item in self.warranty_equipments:
+			if item.status == 'Expiring':
+				self.warranty_status = 'Expiring'
+				return
