@@ -3,6 +3,7 @@
 
 frappe.ui.form.on("Ticket", {
 	refresh(frm) {
+        frappe.provide("erpnext.utils");
         createButton(frm)
         show_notes(frm)
         createPurchaseWarranty(frm)
@@ -72,6 +73,22 @@ frappe.ui.form.on("Ticket", {
     },
     purchase_warranty:function(frm){
         createPurchaseWarranty(frm)
+    },
+    customer_address:function(frm){
+        console.log("customer_address")
+        erpnext.utils.get_address_display(frm, "customer_address","customer_address_display");
+        frm.refresh_field("address_html")
+        // frappe.call({
+        //     method:"frappe.contacts.doctype.address.address.get_address_display",
+        //     args: {address_dict:frm.doc.customer_address},
+        //     freeze:true,
+        //     freeze_message:"Fetching customer address",
+        //     callback: function(r, rt){
+        //         console.log("r.message=",r);
+        //         frm.set_value("address_html", r.message);
+        //         frm.refresh_field("address_html")
+        //     }
+        // })
     }
 
 
@@ -100,7 +117,7 @@ function createButton(frm, status=undefined) {
        
     }
 
-   if(frm.doc.type=="Service Request" && frm.doc.contract){
+   if(frm.doc.type=="Service Request" && frm.doc.contract && !frm.doc.service_request){
         frm.add_custom_button(__("Service Request"), function() {
             frappe.call({
                 method:"create_service_req",
@@ -112,6 +129,7 @@ function createButton(frm, status=undefined) {
                     
                     if(r.message){
                         frappe.msgprint(r.message+" created successfully.");
+                        frm.remove_custom_button("Service Request","Create"); 
                         frm.refresh_fields("service_request")
                     }else{
                         frappe.msgprint("Service request creation failed.");

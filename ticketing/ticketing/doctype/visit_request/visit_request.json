@@ -19,6 +19,7 @@
   "scheduled_date",
   "column_break_owef",
   "address",
+  "display_address",
   "company",
   "ticket",
   "column_break_ksxi",
@@ -170,6 +171,7 @@
    "in_standard_filter": 1,
    "label": "Status",
    "options": "To Schedule\nScheduled\nIn Progress\nCompleted\nCancelled\nOverdue",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -408,12 +410,18 @@
    "label": "Notes",
    "no_copy": 1,
    "options": "CRM Note"
+  },
+  {
+   "fieldname": "display_address",
+   "fieldtype": "Small Text",
+   "label": "Display Address",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-07-26 13:34:23.467151",
+ "modified": "2024-08-04 16:57:37.375270",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Request",

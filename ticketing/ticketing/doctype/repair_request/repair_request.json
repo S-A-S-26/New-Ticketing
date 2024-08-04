@@ -29,7 +29,7 @@
   "warranty_status",
   "warranty_expiry_date",
   "ticket_details_section",
-  "text_editor_uonl",
+  "request_details",
   "sla_tab",
   "sla_details_section",
   "service_level_agreement",
@@ -154,7 +154,8 @@
    "fetch_from": "ticket.address_display",
    "fieldname": "display_address",
    "fieldtype": "Small Text",
-   "label": "Address"
+   "label": "Address",
+   "read_only": 1
   },
   {
    "fieldname": "equipment_details_tab",
@@ -206,13 +207,6 @@
    "fieldname": "ticket_details_section",
    "fieldtype": "Section Break",
    "label": "Ticket Details"
-  },
-  {
-   "fetch_from": "ticket.request_details",
-   "fetch_if_empty": 1,
-   "fieldname": "text_editor_uonl",
-   "fieldtype": "Text Editor",
-   "label": "Request Details"
   },
   {
    "fieldname": "sla_tab",
@@ -407,11 +401,23 @@
    "fieldname": "service_level_agreement_creation",
    "fieldtype": "Datetime",
    "label": "Service Level Agreement Creation"
+  },
+  {
+   "fetch_from": "ticket.request_details",
+   "fetch_if_empty": 1,
+   "fieldname": "request_details",
+   "fieldtype": "Text Editor",
+   "label": "Request Details"
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-07-26 14:03:55.042431",
+ "links": [
+  {
+   "link_doctype": "Visit Request",
+   "link_fieldname": "repair_request"
+  }
+ ],
+ "modified": "2024-08-04 21:03:25.073162",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Repair Request",

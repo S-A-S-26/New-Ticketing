@@ -23,6 +23,7 @@ from erpnext.crm.utils import (
 )
 from ticketing.api import create_sales_invoice_ticket
 
+
 class Ticket(CRMNote):
 	def validate(self):
 		print("\n\nValidating",self.resolution_details,self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>')

@@ -10,7 +10,7 @@ from frappe.utils import (
 	time_diff_in_seconds,
 	to_timedelta,
 )
-
+# from frappe.contacts.doctype.address import get_address_display
 
 @frappe.whitelist()
 def get_sla(self,sla):
@@ -222,4 +222,5 @@ def create_sales_invoice_ticket(item_code,qty,rate,cust,doc_name):
     sales_inv.insert()
     return sales_inv.name
        
-
+# def get_address_custom():
+#     get_address_display()

@@ -3,11 +3,15 @@
 
 frappe.ui.form.on('Service Request', {
 	refresh: function(frm) {
+		frappe.provide("erpnext.utils");
+		if (!frm.doc.display_address){
+			frm.trigger("customer_address")
+		}
 		if (frm.doc.service){
 			validateServiceInvoiceBtn(frm)
 		}
 		frm.trigger('is_visit_required')
-	
+		
 		addLogTime(frm)
 
 	},
@@ -24,9 +28,9 @@ frappe.ui.form.on('Service Request', {
 						console.log("r.message=",r);
 						
 						if(r.message){
-		
+							frappe.msgprint("Visit Request Created Successfully")
 						}else{
-		
+							frappe.msgprint("Visit Request Failed")
 						}
 					}
 				})
@@ -42,6 +46,9 @@ frappe.ui.form.on('Service Request', {
 
 	ticket:function(frm){
 		checkPayPerHour(frm)
+		if (frm.doc.customer_address){
+			frm.trigger("customer_address")
+		}
 	},
 
 	status:function(frm){
@@ -57,6 +64,9 @@ frappe.ui.form.on('Service Request', {
         //     freeze:true,
         //     freeze_message:"Updating status",
 		// })
+	},
+	customer_address:function(frm){
+		erpnext.utils.get_address_display(frm, "customer_address","display_address");
 	}
 });
 
@@ -69,10 +79,8 @@ function validateServiceInvoiceBtn(frm){
 		callback: function(r, rt){
 			console.log("r.message=",r);
 			
-			if(r.message){
-				frm.add_custom_button(__("Service Ticket Invoice"), function() {
-					
-				}, "Create");
+			if(r.message ){
+				add_create_invoice(frm)
 			}else{
 				frm.remove_custom_button("Service Ticket Invoice","Create");
 			}
@@ -114,6 +122,9 @@ function addLogTime(frm){
 			frm.refresh_field("duration")
 			frm.refresh_field("billed_duration")
 			frm.dirty()
+			if (frm.doc.billed_duration >= 0.001){
+				add_create_invoice(frm)
+			}
 		},"Time")
 		frm.add_custom_button(__("Reset Time"), function (){
 			frm.doc.duration=undefined
@@ -153,4 +164,25 @@ function checkPayPerHour(frm){
 	})
 	
 	return data
+}
+
+function add_create_invoice(frm){
+	console.log("add_create_invoice",frm.doc.billed_duration)
+	frm.add_custom_button(__("Service Ticket Invoice"), function() {
+		frappe.call({
+			method:"check_if_service_is_paid",
+			doc:frm.doc,
+			freeze:true,
+			freeze_message:"Checking service info",
+			callback: function(r, rt){
+				console.log("r.message=",r);
+				
+				if(r.message ){
+					add_create_invoice(frm)
+				}else{
+					frm.remove_custom_button("Service Ticket Invoice","Create");
+				}
+			}
+		})
+	}, "Create");	
 }

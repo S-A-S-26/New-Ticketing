@@ -6,6 +6,10 @@ frappe.ui.form.on("Visit Request", {
         frm.reload()
     },
 	refresh(frm) {
+        frappe.provide("erpnext.utils");
+		if (!frm.doc.display_address){
+			frm.trigger("address")
+		}
         show_notes(frm)
         let sch_d = new frappe.ui.Dialog({
             title: 'Schedule Visit',
@@ -72,6 +76,9 @@ frappe.ui.form.on("Visit Request", {
             frm.remove_custom_button("Completed","Set"); 
         }
 	},
+    address:function(frm){
+        erpnext.utils.get_address_display(frm, "address","display_address");
+    }
 });
 
 

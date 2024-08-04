@@ -22,9 +22,10 @@ class ServiceRequest(Document):
 		doc.ticket=self.ticket
 		doc.service_request=self.name
 		doc.request_details=self.request_details
-		doc.sla=self.sla
-		doc.sla_status=self.sla_status
+		# doc.sla=self.sla
+		# doc.sla_status=self.sla_status
 		doc.insert()
+		return True
 
 	@frappe.whitelist()
 	def check_if_service_is_paid(self):

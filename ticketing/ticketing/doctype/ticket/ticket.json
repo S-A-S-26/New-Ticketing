@@ -24,7 +24,7 @@
   "type",
   "column_break_clfq",
   "customer_address",
-  "address_display",
+  "customer_address_display",
   "column_break_pfnn",
   "status",
   "company",
@@ -45,7 +45,6 @@
   "equipment_request_details_section",
   "equipment",
   "equipment_name",
-  "purchase_warranty",
   "column_break_okes",
   "warranty",
   "warranty_status",
@@ -180,12 +179,6 @@
    "label": "Customer Address",
    "options": "Address",
    "reqd": 1
-  },
-  {
-   "fieldname": "address_display",
-   "fieldtype": "Small Text",
-   "label": "Address",
-   "read_only": 1
   },
   {
    "fieldname": "column_break_pfnn",
@@ -446,7 +439,8 @@
    "fieldname": "ticket_invoice",
    "fieldtype": "Check",
    "label": "Ticket Invoice",
-   "no_copy": 1
+   "no_copy": 1,
+   "read_only": 1
   },
   {
    "fieldname": "column_break_kawo",
@@ -457,7 +451,8 @@
    "fieldname": "service_request",
    "fieldtype": "Check",
    "label": "Service Request",
-   "no_copy": 1
+   "no_copy": 1,
+   "read_only": 1
   },
   {
    "fieldname": "service_level_agreement_details_section",
@@ -534,11 +529,10 @@
    "options": "CRM Note"
   },
   {
-   "default": "0",
-   "depends_on": "eval:doc.type=='Equipment Issue' && doc.equipment && doc.warranty_status!=\"Under Warranty\"",
-   "fieldname": "purchase_warranty",
-   "fieldtype": "Check",
-   "label": "Purchase Warranty"
+   "fieldname": "customer_address_display",
+   "fieldtype": "Small Text",
+   "label": "Address",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -560,7 +554,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-08-02 12:58:05.407740",
+ "modified": "2024-08-04 22:02:04.345650",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",
