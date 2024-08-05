@@ -80,6 +80,7 @@ function validateServiceInvoiceBtn(frm){
 			console.log("r.message=",r);
 			
 			if(r.message ){
+				console.log("is paid service validation add service")
 				add_create_invoice(frm)
 			}else{
 				frm.remove_custom_button("Service Ticket Invoice","Create");
@@ -170,17 +171,17 @@ function add_create_invoice(frm){
 	console.log("add_create_invoice",frm.doc.billed_duration)
 	frm.add_custom_button(__("Service Ticket Invoice"), function() {
 		frappe.call({
-			method:"check_if_service_is_paid",
+			method:"create_sales_invoice_ticket",
 			doc:frm.doc,
 			freeze:true,
-			freeze_message:"Checking service info",
+			freeze_message:"Create Service Ticket Invoice",
 			callback: function(r, rt){
 				console.log("r.message=",r);
 				
 				if(r.message ){
-					add_create_invoice(frm)
+					frappe.msgprint("Service Ticket Invoice Created Successfully")
 				}else{
-					frm.remove_custom_button("Service Ticket Invoice","Create");
+					frappe.msgprint("Service Ticket Invoice Creation Failed")
 				}
 			}
 		})

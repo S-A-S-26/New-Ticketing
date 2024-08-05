@@ -39,7 +39,10 @@ class ServiceRequest(Document):
 		print("data",data)
 		# if not data:
 		# 	return True
+	
 		if data.service_type == "Free Service":
+			return False
+		elif data.service_type == "Pay by Hour":
 			return False
 		elif data.service_type != "Free Service" and data.remaining_free_service == 0:
 			return True
@@ -50,9 +53,39 @@ class ServiceRequest(Document):
 	def check_per_hour(self):
 		if not self.service:
 			return False
-		data=frappe.db.sql(f"""SELECT ccs.service_type FROM `tabTicket` AS tk JOIN `tabCustomer Contract` AS cs ON tk.contract = cs.name JOIN `tabContract Covered Services` AS ccs ON cs.name = ccs.parent WHERE tk.name = "{self.ticket}" AND ccs.service = "{self.service}";""",pluck=True)
+		data=frappe.db.sql(f"""SELECT ccs.service_type,ccs.remaining_free_service FROM `tabTicket` AS tk JOIN `tabCustomer Contract` AS cs ON tk.contract = cs.name JOIN `tabContract Covered Services` AS ccs ON cs.name = ccs.parent WHERE tk.name = "{self.ticket}" AND ccs.service = "{self.service}";""",as_dict=True)
 		print("checkPayPerHour",data)
 		if not data:
 			return False
 		else:
-			return True if data[0] == "Pay by Hour" else False;
+			return True if data[0].service_type == "Pay by Hour" else False;
+
+	@frappe.whitelist()
+	def create_sales_invoice_ticket(self):
+		item_detail=self.check_remainig_free_services()
+		print("item_detail",item_detail)
+		if (item_detail.get('status')):
+			return "Free Service"
+		sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
+		sales_inv.customer=self.customer
+		sales_inv.due_date=frappe.utils.nowdate()
+		sales_inv.append("items", {
+			"item_code": self.service,
+			"qty": self.billed_duration if self.billed_duration>=0.01 else 1,
+			"rate":item_detail.get('price'),
+		})
+		sales_inv.custom_service_request=self.name   
+		sales_inv.insert()
+		return sales_inv.name
+
+	def check_remainig_free_services(self):
+		data=frappe.db.sql(f"""SELECT ccs.name,ccs.service_type,ccs.remaining_free_service,ccs.price FROM `tabTicket` AS tk JOIN `tabCustomer Contract` AS cs ON tk.contract = cs.name JOIN `tabContract Covered Services` AS ccs ON cs.name = ccs.parent WHERE tk.name = "{self.ticket}" AND ccs.service = "{self.service}";""",as_dict=True)
+		print("check_remainig_free_services",data)
+		if not data:
+			return {"price":data[0].price,"status":False}
+		elif data[0].remaining_free_service == 0:
+			return {"price":data[0].price,"status":False}
+		else:
+			if data[0].remaining_free_service > 0:
+				frappe.db.set_value("Contract Covered Services",data[0].name,"remaining_free_service",data[0].remaining_free_service-1)
+				return {"price":data[0].price,"status":True}

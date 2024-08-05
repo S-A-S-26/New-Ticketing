@@ -212,7 +212,6 @@ def create_sales_invoice_ticket(item_code,qty,rate,cust,doc_name):
     sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
     sales_inv.customer=cust
     sales_inv.due_date=frappe.utils.nowdate()
-    qty=1
     sales_inv.append("items", {
         "item_code": item_code,
         "qty": qty,
