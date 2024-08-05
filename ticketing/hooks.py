@@ -141,7 +141,8 @@ scheduler_events = {
 #		"ticketing.tasks.all"
 #	],
 	"daily": [
-		"ticketing.cron.set_visit_status"
+		"ticketing.cron.set_visit_status",
+        "ticketing.api.set_warranty_status",
 	],
 #	"hourly": [
 #		"ticketing.tasks.hourly"

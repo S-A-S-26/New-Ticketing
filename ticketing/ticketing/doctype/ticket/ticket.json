@@ -45,6 +45,7 @@
   "equipment_request_details_section",
   "equipment",
   "equipment_name",
+  "purchase_warranty",
   "column_break_okes",
   "warranty",
   "warranty_status",
@@ -533,6 +534,13 @@
    "fieldtype": "Small Text",
    "label": "Address",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.type=='Equipment Issue' && doc.warranty_status=='No Warranty'",
+   "fieldname": "purchase_warranty",
+   "fieldtype": "Check",
+   "label": "Purchase Warranty"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -554,7 +562,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-08-04 22:02:04.345650",
+ "modified": "2024-08-05 16:59:20.682911",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",

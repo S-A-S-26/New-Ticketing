@@ -169,6 +169,11 @@ class Ticket(CRMNote):
 					"status":"Active"
 				})
 				war.insert(ignore_mandatory=True)
+				self.warranty_status = "Under Warranty"
+				self.warranty=war.name
+				self.purchase_warranty=0
+				self.save()
+				return war.name
 
 def check_if_exists(doc,ticket):
 	print("check_if_opp_exists",ticket)

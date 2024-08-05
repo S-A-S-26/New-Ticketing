@@ -235,7 +235,14 @@ function createPurchaseWarranty(frm) {
                 freeze_message:"Purchasing Warranty",
                 callback: function(r, rt){
                     console.log("r.message=",r);
-                    
+                    if (r.message){
+                        frappe.msgprint("Warranty Purchased successfully.");
+                        setTimeout(() => {
+                            frm.refresh();
+                        }, 1000);
+                    }else{
+                        frappe.msgprint("Failed to purchase warranty.");
+                    }
 
                 }
             })
