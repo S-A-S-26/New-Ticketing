@@ -185,5 +185,6 @@ function add_create_invoice(frm){
 				}
 			}
 		})
-	}, "Create");	
+	}, "Create");
+		
 }

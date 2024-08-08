@@ -97,6 +97,7 @@ class Ticket(CRMNote):
 		if self.contract_status == "Active":
 			doc=frappe.get_doc({"doctype":"Service Request"})
 			doc.service=self.service_requested
+			doc.customer_contract=self.contract
 			doc.customer=self.customer
 			doc.type="Service Under Contract"
 			doc.ticket=self.name

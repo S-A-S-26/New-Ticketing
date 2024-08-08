@@ -44,7 +44,7 @@ class ServiceRequest(Document):
 			return False
 		elif data.service_type == "Pay by Hour":
 			return False
-		elif data.service_type != "Free Service" and data.remaining_free_service == 0:
+		elif data.service_type != "Free Service":
 			return True
 		else:
 			return False
@@ -63,6 +63,7 @@ class ServiceRequest(Document):
 	@frappe.whitelist()
 	def create_sales_invoice_ticket(self):
 		item_detail=self.check_remainig_free_services()
+		self.create_service_log()
 		print("item_detail",item_detail)
 		if (item_detail.get('status')):
 			return "Free Service"
@@ -89,3 +90,11 @@ class ServiceRequest(Document):
 			if data[0].remaining_free_service > 0:
 				frappe.db.set_value("Contract Covered Services",data[0].name,"remaining_free_service",data[0].remaining_free_service-1)
 				return {"price":data[0].price,"status":True}
+			
+	def create_service_log(self):
+		print("inside create_service_log")
+		ser_log=frappe.get_doc({"doctype":"Service Log"})
+		ser_log.service_request=self.name
+		ser_log.ticket=self.ticket
+		ser_log.type=self.type
+		ser_log.insert()
