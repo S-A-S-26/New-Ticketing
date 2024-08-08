@@ -11,7 +11,9 @@ frappe.ui.form.on('Service Request', {
 			validateServiceInvoiceBtn(frm)
 		}
 		frm.trigger('is_visit_required')
-		
+		if (frm.doc.billed_duration >= 0.001){
+			add_create_invoice(frm)
+		}
 		addLogTime(frm)
 
 	},
@@ -80,9 +82,12 @@ function validateServiceInvoiceBtn(frm){
 			console.log("r.message=",r);
 			
 			if(r.message ){
-				console.log("is paid service validation add service")
-				add_create_invoice(frm)
+				if (frm.doc.pay_by_hour == 0){
+					console.log("is paid service validation add service")
+					add_create_invoice(frm)
+				}
 			}else{
+				console.log("is not paid service validation remove service")
 				frm.remove_custom_button("Service Ticket Invoice","Create");
 			}
 		}
@@ -122,10 +127,11 @@ function addLogTime(frm){
 			frm.refresh_field("recent_log")
 			frm.refresh_field("duration")
 			frm.refresh_field("billed_duration")
-			frm.dirty()
 			if (frm.doc.billed_duration >= 0.001){
 				add_create_invoice(frm)
 			}
+			frm.dirty()
+			frm.save()
 		},"Time")
 		frm.add_custom_button(__("Reset Time"), function (){
 			frm.doc.duration=undefined
@@ -134,6 +140,7 @@ function addLogTime(frm){
 			frm.refresh_field("recent_log")
 			frm.refresh_field("duration")
 			frm.dirty()
+			frm.save()
 		},"Time")
 	}else{
 		frm.remove_custom_button("Log Time","Time")
@@ -156,6 +163,10 @@ function checkPayPerHour(frm){
                 data= true
 				frm.doc.pay_by_hour=1
 				frm.refresh_field("pay_by_hour")
+				if ((frm.doc.billed_duration < 0.001)){
+					console.log("remove form pay per hour check")
+					frm.remove_custom_button("Service Ticket Invoice","Create");
+				}
             } else {
 				data= false
 				frm.doc.pay_by_hour=0
@@ -168,7 +179,7 @@ function checkPayPerHour(frm){
 }
 
 function add_create_invoice(frm){
-	console.log("add_create_invoice",frm.doc.billed_duration)
+	console.log("add_create_invoice-0-0",frm.doc.billed_duration)
 	frm.add_custom_button(__("Service Ticket Invoice"), function() {
 		frappe.call({
 			method:"create_sales_invoice_ticket",

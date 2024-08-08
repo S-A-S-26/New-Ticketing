@@ -42,8 +42,8 @@ class ServiceRequest(Document):
 	
 		if data.service_type == "Free Service":
 			return False
-		elif data.service_type == "Pay by Hour":
-			return False
+		# elif data.service_type == "Pay by Hour":
+		# 	return False
 		elif data.service_type != "Free Service":
 			return True
 		else:
@@ -87,8 +87,11 @@ class ServiceRequest(Document):
 		elif data[0].remaining_free_service == 0:
 			return {"price":data[0].price,"status":False}
 		else:
+			minus_val=1
+			if self.billed_duration>0.001:
+				minus_val=self.billed_duration
 			if data[0].remaining_free_service > 0:
-				frappe.db.set_value("Contract Covered Services",data[0].name,"remaining_free_service",data[0].remaining_free_service-1)
+				frappe.db.set_value("Contract Covered Services",data[0].name,"remaining_free_service",data[0].remaining_free_service-minus_val)
 				return {"price":data[0].price,"status":True}
 			
 	def create_service_log(self):

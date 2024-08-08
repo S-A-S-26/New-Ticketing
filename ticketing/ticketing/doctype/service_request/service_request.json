@@ -449,9 +449,13 @@
   {
    "link_doctype": "Visit Request",
    "link_fieldname": "service_request"
+  },
+  {
+   "link_doctype": "Service Log",
+   "link_fieldname": "service_request"
   }
  ],
- "modified": "2024-08-04 22:11:48.095770",
+ "modified": "2024-08-08 20:13:51.753712",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",
