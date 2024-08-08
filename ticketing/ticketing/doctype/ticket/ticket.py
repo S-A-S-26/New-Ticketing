@@ -149,6 +149,8 @@ class Ticket(CRMNote):
 			frappe.throw(f"Value missing for Equipment : '{self.equipment}' in Warranty Price List")
 		else:
 			sales_inv=create_sales_invoice_ticket(self.equipment,1,price,self.customer,self.name)
+			warr_days=frappe.db.get_value("Item",{"name":self.equipment},['warranty_period'])
+			print("warr_days",warr_days)
 			if sales_inv:
 				# print(f"""select we.status ,w.name,we.name from `tabWarranty` as w join `tabWarranty Address` as wa on w.name=wa.parent join `tabWarranty Equipments` as we on w.name=we.parent where we.equipment="{self.equipment}" and w.customer="{self.customer}" and wa.warranty_address="{self.customer_address}" order by w.creation desc;""")
 				# ex_warranty=frappe.db.sql(f"""select we.status ,we.name from `tabWarranty` as w join `tabWarranty Address` as wa on w.name=wa.parent join `tabWarranty Equipments` as we on w.name=we.parent where we.equipment="{self.equipment}" and w.customer="{self.customer}" and wa.warranty_address="{self.customer_address}" order by w.creation desc;""",as_dict=True)
@@ -165,7 +167,7 @@ class Ticket(CRMNote):
 				})
 				war.append("warranty_equipments",{
 					"equipment":self.equipment,
-					"warranty_expiry_date":datetime.now()+timedelta(days=365),
+					"warranty_expiry_date":datetime.now()+timedelta(days=(365 if not warr_days else int(warr_days))),
 					"status":"Active"
 				})
 				war.insert(ignore_mandatory=True)

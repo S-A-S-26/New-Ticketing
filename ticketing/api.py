@@ -204,9 +204,10 @@ def set_warranty_status():
     set_expired()
     print("docs",docs)
     for name in docs:
-        doc=frappe.get_doc("Warranty",name)
-        doc.set_warranty_status()
-        doc.save()
+        frappe.db.set_value("Warranty",name,'warranty_status',"Expired",update_modified=False)
+        # doc=frappe.get_doc("Warranty",name)
+        # doc.set_warranty_status()
+        # doc.save()
 
 def create_sales_invoice_ticket(item_code,qty,rate,cust,doc_name):
     sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})

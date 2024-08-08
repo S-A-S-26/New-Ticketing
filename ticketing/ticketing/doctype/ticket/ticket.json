@@ -537,7 +537,7 @@
   },
   {
    "default": "0",
-   "depends_on": "eval:doc.type=='Equipment Issue' && doc.warranty_status=='No Warranty'",
+   "depends_on": "eval:doc.type=='Equipment Issue' && (doc.warranty_status=='No Warranty'|| doc.warranty_status=='Expired')",
    "fieldname": "purchase_warranty",
    "fieldtype": "Check",
    "label": "Purchase Warranty"
@@ -562,7 +562,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-08-05 16:59:20.682911",
+ "modified": "2024-08-08 11:44:22.730414",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",

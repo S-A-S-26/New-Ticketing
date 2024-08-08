@@ -7,6 +7,11 @@ frappe.ui.form.on("Ticket", {
         createButton(frm)
         show_notes(frm)
         createPurchaseWarranty(frm)
+        console.log("refresh")
+        if (frm.doc.equipment && frm.doc.type == "Equipment Issue"){
+            console.log("purchase equipment")
+            frm.trigger("equipment")
+        }
 	},
     after_save:function(frm){
         createButton(frm)
