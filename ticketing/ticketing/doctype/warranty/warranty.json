@@ -193,7 +193,7 @@
  "is_calendar_and_gantt": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-29 17:32:07.152831",
+ "modified": "2024-08-08 20:40:47.238982",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Warranty",
@@ -210,6 +210,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   },
   {
@@ -221,6 +222,7 @@
    "report": 1,
    "role": "Sales Master Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   },
   {
@@ -232,6 +234,7 @@
    "report": 1,
    "role": "Sales Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

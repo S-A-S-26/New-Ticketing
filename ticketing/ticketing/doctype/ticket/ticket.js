@@ -122,7 +122,7 @@ function createButton(frm, status=undefined) {
        
     }
 
-   if(frm.doc.type=="Service Request" && frm.doc.contract){
+   if(frm.doc.type=="Service Request" && frm.doc.contract && frm.doc.contract_status=="Active"){
         frm.add_custom_button(__("Service Request"), function() {
             frappe.call({
                 method:"create_service_req",
