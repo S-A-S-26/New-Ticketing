@@ -155,7 +155,7 @@ def create_comment(self,method):
     comment_doc.reference_name=self.reference_name
     comment_doc.comment_email=self.allocated_to
     comment_doc.insert()
-    frappe.db.set_value(self.reference_type,self.reference_name,'modified',datetime.now(),update_modified=False)
+    frappe.db.set_value(self.reference_type,self.reference_name,'modified',datetime.now())
     print("comment created",comment_doc.name)
 
 def set_expiring():

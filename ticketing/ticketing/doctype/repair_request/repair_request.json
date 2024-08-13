@@ -72,6 +72,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "ticket.customer",
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_filter": 1,
@@ -151,7 +152,6 @@
    "reqd": 1
   },
   {
-   "fetch_from": "ticket.address_display",
    "fieldname": "display_address",
    "fieldtype": "Small Text",
    "label": "Address",
@@ -417,7 +417,7 @@
    "link_fieldname": "repair_request"
   }
  ],
- "modified": "2024-08-04 21:03:25.073162",
+ "modified": "2024-08-13 13:46:24.463442",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Repair Request",

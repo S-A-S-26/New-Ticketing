@@ -8,11 +8,17 @@ frappe.ui.form.on('Repair Request', {
 			frm.trigger("address")
 		}
 		show_notes(frm)
+		if (!frm.doc.__islocal){
+			frm.trigger('is_visit_required')
+		}
 	},
     address:function(frm){
         erpnext.utils.get_address_display(frm, "address","display_address");
     },
     is_visit_required:function(frm){
+		if (frm.doc.__islocal){
+			return
+		}
 		if(frm.doc.is_visit_required){
             frm.add_custom_button("Visit Request",function(){
 				frappe.call({
