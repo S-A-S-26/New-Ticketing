@@ -15,7 +15,7 @@ from erpnext.crm.utils import (
 class RepairRequest(CRMNote):
 	def validate(self):
 		validate_resolution(self)
-		set_status(self.status,self.doctype,self.name,"Ticket",self.ticket)
+		set_status(self,self.status,self.doctype,self.name,"Ticket",self.ticket)
 
 	@frappe.whitelist()
 	def create_visit_request(self):

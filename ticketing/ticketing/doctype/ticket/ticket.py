@@ -128,7 +128,7 @@ class Ticket(CRMNote):
 		print("data",data)
 		if data:
 			data=data[0]
-			if data.get('status') == 'Active':
+			if data.get('status') == 'Active' or data.get('status') == 'Expiring':
 				self.warranty_status = "Under Warranty"
 			elif data.get('status') == 'Expired':
 				self.warranty_status = "Expired"
@@ -168,7 +168,7 @@ class Ticket(CRMNote):
 				})
 				war.append("warranty_equipments",{
 					"equipment":self.equipment,
-					"warranty_expiry_date":datetime.now()+timedelta(days=(365 if not warr_days else int(warr_days))),
+					"warranty_expiry_date":datetime.now()+timedelta(days=(365 if not warr_days else float(warr_days))),
 					"status":"Active"
 				})
 				war.insert(ignore_mandatory=True)

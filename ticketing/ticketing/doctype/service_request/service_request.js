@@ -82,6 +82,11 @@ function validateServiceInvoiceBtn(frm){
 			console.log("r.message=",r);
 			
 			if(r.message ){
+				
+				if (frm.doc.type == "Hourly Service Request" && frm.doc.billed_duration < 0.01) {
+					console.log("hourly service and duration less than zero");
+					return
+				}
 				if (frm.doc.pay_by_hour == 0){
 					console.log("is paid service validation add service")
 					add_create_invoice(frm)

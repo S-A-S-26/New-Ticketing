@@ -9,7 +9,7 @@ from ticketing.sla_methods import apply
 
 class ServiceRequest(Document):
 	def validate(self):
-		set_status(self.status,self.doctype,self.name,"Ticket",self.ticket)
+		set_status(self,self.status,self.doctype,self.name,"Ticket",self.ticket)
 		# apply(self)
 		validate_resolution(self)
 

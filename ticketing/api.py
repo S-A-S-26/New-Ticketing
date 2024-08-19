@@ -116,7 +116,10 @@ def create_opportunity(self):
     return "Opportunity"
 
 @frappe.whitelist()
-def set_status(status,doctype,name,target_doc,target_doc_name):
+def set_status(self,status,doctype,name,target_doc,target_doc_name):
+    print("self",self.__dict__)
+    if self.get('__islocal') == True:
+        return
     mapping={
         ("Service Request","Ticket"):"Service Request Status Mapping with Ticket Status",
         ("Visit Request","Service Request"):"Visit Status Mapping to Service Request",
@@ -126,8 +129,13 @@ def set_status(status,doctype,name,target_doc,target_doc_name):
     print("mapping",mapping[(doctype,target_doc)])
     value=frappe.db.get_value(mapping[(doctype,target_doc)],{"source":status},['destination'])
     if value:
+        print("if value set status",target_doc,target_doc_name)
+        doc=frappe.get_doc(target_doc,target_doc_name)
+        doc.status=value
+        doc.save()
         print("set value",(target_doc,target_doc_name,"status",value))
-        frappe.db.set_value(target_doc,target_doc_name,"status",value,update_modified=False)
+        return value
+        # frappe.db.set_value(target_doc,target_doc_name,"status",value,update_modified=False)
 
 from bs4 import BeautifulSoup
 def validate_resolution(self):
@@ -142,7 +150,7 @@ def validate_resolution(self):
             resolution_details=False
     print("\n\nValidating",self.resolution_details,self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>')
     if (self.status=="Resolved" or self.status=="Closed" or self.status=="Completed") and not (resolution_details):
-            frappe.throw("Please fill out resolution details for status Resolved and Closed or Completed")
+            frappe.throw(f"Please fill out resolution details for {self.doctype} with statuses Resolved , Closed or Completed")
 
 from datetime import datetime
 def create_comment(self,method):
