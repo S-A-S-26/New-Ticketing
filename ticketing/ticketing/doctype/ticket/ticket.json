@@ -22,6 +22,7 @@
   "subject",
   "ticket_type",
   "type",
+  "h_name",
   "column_break_clfq",
   "customer_address",
   "customer_address_display",
@@ -178,6 +179,7 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Customer Address",
+   "link_filters": "[[\"Address\",\"link_name\",\"=\",\"eval:doc.customer\"]]",
    "options": "Address",
    "reqd": 1
   },
@@ -471,9 +473,13 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "agreement_status",
    "fieldtype": "Select",
-   "label": "Service Level Agreement Status",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "SLA Status",
    "options": "First Response Due\nResolution Due\nFulfilled\nFailed",
    "read_only": 1
   },
@@ -541,6 +547,12 @@
    "fieldname": "purchase_warranty",
    "fieldtype": "Check",
    "label": "Purchase Warranty"
+  },
+  {
+   "fieldname": "h_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "h_name"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -562,7 +574,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-08-08 11:44:22.730414",
+ "modified": "2024-08-20 14:52:46.165074",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",
@@ -603,6 +615,7 @@
  "sort_order": "DESC",
  "states": [],
  "subject_field": "subject",
+ "title_field": "h_name",
  "track_changes": 1,
  "track_seen": 1,
  "track_views": 1

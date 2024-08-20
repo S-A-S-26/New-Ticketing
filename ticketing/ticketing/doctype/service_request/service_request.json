@@ -161,6 +161,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Customer Address",
+   "link_filters": "[[\"Address\",\"link_name\",\"=\",\"eval:doc.customer\"]]",
    "options": "Address",
    "reqd": 1
   },
@@ -455,7 +456,7 @@
    "link_fieldname": "service_request"
   }
  ],
- "modified": "2024-08-08 20:13:51.753712",
+ "modified": "2024-08-20 11:59:10.639140",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

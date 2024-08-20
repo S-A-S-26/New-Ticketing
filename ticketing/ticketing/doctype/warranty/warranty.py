@@ -34,9 +34,14 @@ class Warranty(Document):
 	def warranty_period_val(self,selected):
 		selected=frappe._dict(selected)
 		print("selected",selected,type(selected))
-		days=round((datetime.strptime(selected.warranty_expiry_date, '%Y-%m-%d %H:%M:%S')-datetime.now()).total_seconds()/86400,1)
+		print("self from date",self.from_date)
+		if not self.from_date:
+			frappe.throw("Please add the From Date")
+		self.from_date=self.from_date.split(".")[0]
+		from_date= datetime.strptime(self.from_date, '%Y-%m-%d %H:%M:%S')
+		days=round((datetime.strptime(selected.warranty_expiry_date, '%Y-%m-%d %H:%M:%S')-from_date).total_seconds()/86400,1)
 		print("warranty period",selected.warranty_expiry_date,datetime.now(),datetime.strptime(selected.warranty_expiry_date, '%Y-%m-%d %H:%M:%S')-datetime.now(),type(selected.warranty_expiry_date),type(selected.warranty_period),days,selected.warranty_period)
-		if selected.warranty_period and int(selected.warranty_period) > 0 and days > int(selected.warranty_period):
+		if selected.warranty_period and float(selected.warranty_period) > 0 and days > float(selected.warranty_period):
 			frappe.throw(f"Warranty period should be less than or equal to the remaining days currently {days} days")
 			
 		# for i in self.warranty_equipments:

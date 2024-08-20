@@ -26,6 +26,8 @@ from ticketing.api import create_sales_invoice_ticket
 
 class Ticket(CRMNote):
 	def validate(self):
+		print("self.name ticket",self.name)
+		self.h_name=self.name
 		print("\n\nValidating",self.resolution_details,self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>')
 		validate_resolution(self)
 		
