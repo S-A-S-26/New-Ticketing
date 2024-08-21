@@ -100,6 +100,7 @@ class Ticket(CRMNote):
 			doc=frappe.get_doc({"doctype":"Service Request"})
 			doc.service=self.service_requested
 			doc.customer_contract=self.contract
+			doc.company=self.company
 			doc.customer=self.customer
 			doc.type="Service Under Contract"
 			doc.ticket=self.name
@@ -151,7 +152,7 @@ class Ticket(CRMNote):
 		if not price:
 			frappe.throw(f"Value missing for Equipment : '{self.equipment}' in Warranty Price List")
 		else:
-			sales_inv=create_sales_invoice_ticket(self.equipment,1,price,self.customer,self.name)
+			sales_inv=create_sales_invoice_ticket(self.equipment,1,price,self.customer,self.name,self.company)
 			warr_days=frappe.db.get_value("Item",{"name":self.equipment},['warranty_period'])
 			print("warr_days",warr_days)
 			if sales_inv:

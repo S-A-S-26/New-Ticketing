@@ -17,6 +17,7 @@ class ServiceRequest(Document):
 	def create_visit_request(self):
 		doc=frappe.get_doc({"doctype":"Visit Request"})
 		doc.customer=self.customer
+		doc.company=self.company
 		doc.reference_type="Service Request"
 		doc.address=self.customer_address
 		doc.ticket=self.ticket

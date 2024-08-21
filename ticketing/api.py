@@ -100,6 +100,7 @@ def create_opportunity(self):
     doc.opportunity_from="Customer"
     doc.party_name=self.customer
     doc.status="Open"
+    doc.company_name=self.company
     rate=[0]
     if self.contract:
         print("inside if for rate")
@@ -217,9 +218,10 @@ def set_warranty_status():
         # doc.set_warranty_status()
         # doc.save()
 
-def create_sales_invoice_ticket(item_code,qty,rate,cust,doc_name):
+def create_sales_invoice_ticket(item_code,qty,rate,cust,doc_name,cmpny):
     sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
     sales_inv.customer=cust
+    sales_inv.company=cmpny
     sales_inv.due_date=frappe.utils.nowdate()
     sales_inv.append("items", {
         "item_code": item_code,

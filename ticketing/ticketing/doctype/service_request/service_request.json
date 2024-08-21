@@ -27,6 +27,7 @@
   "customer_address",
   "display_address",
   "is_visit_required",
+  "company",
   "service_details_tab",
   "service",
   "item_name",
@@ -438,6 +439,12 @@
    "fieldtype": "Duration",
    "label": "Total Hold Time",
    "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -456,7 +463,7 @@
    "link_fieldname": "service_request"
   }
  ],
- "modified": "2024-08-20 11:59:10.639140",
+ "modified": "2024-08-21 03:30:27.721257",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",
