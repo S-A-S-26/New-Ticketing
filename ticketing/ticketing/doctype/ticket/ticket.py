@@ -65,6 +65,7 @@ class Ticket(CRMNote):
 			sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
 			sales_inv.customer=self.customer
 			sales_inv.due_date=frappe.utils.nowdate()
+			sales_inv.company=self.company
 			qty=1
 			# if self.billing_based_on=="Timesheet":
 			# 	qty=round(self.total_duration/3600,1)#convert to hours

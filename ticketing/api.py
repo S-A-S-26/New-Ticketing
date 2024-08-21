@@ -100,7 +100,7 @@ def create_opportunity(self):
     doc.opportunity_from="Customer"
     doc.party_name=self.customer
     doc.status="Open"
-    doc.company_name=self.company
+    doc.company=self.company
     rate=[0]
     if self.contract:
         print("inside if for rate")
@@ -159,6 +159,7 @@ def create_comment(self,method):
         return
     comment_doc=frappe.new_doc("Comment")
     comment_doc.comment_type="Comment"
+    comment_doc.comment_by="ERPNext"
     comment_doc.content=f"{self.allocated_to} --> "+self.description
     comment_doc.reference_doctype=self.reference_type
     comment_doc.reference_name=self.reference_name
