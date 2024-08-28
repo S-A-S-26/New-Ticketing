@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-22 09:58:34.017822",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "field_1",
+  "field_2"
+ ],
+ "fields": [
+  {
+   "fieldname": "field_1",
+   "fieldtype": "Data",
+   "label": "Field 1"
+  },
+  {
+   "fieldname": "field_2",
+   "fieldtype": "Data",
+   "label": "Field 2"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-08-22 09:59:10.561877",
+ "modified_by": "Administrator",
+ "module": "Ticketing",
+ "name": "Test Web Form",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

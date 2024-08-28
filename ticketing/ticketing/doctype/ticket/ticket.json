@@ -574,7 +574,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-08-20 14:52:46.165074",
+ "modified": "2024-08-22 10:22:53.935554",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",
@@ -590,6 +590,7 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
    "share": 1,
    "write": 1
   },
