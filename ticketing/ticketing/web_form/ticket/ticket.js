@@ -16,6 +16,7 @@ frappe.ready(function() {
 	});
 
     frappe.web_form.on('equipment', async () =>{
+        onPageLoad()
         console.log("equipment",frappe.web_form.get_value('equipment'))
         if (!frappe.web_form.get_value('equipment')){
             console.log("no equipment request data")
@@ -43,6 +44,7 @@ frappe.ready(function() {
 	});
 
     frappe.web_form.on('service_requested', async () =>{
+        onPageLoad()
         console.log("service requested",frappe.web_form.get_value('service_requested'))
         if (!frappe.web_form.get_value('service_requested')){
             console.log("no service request data")
@@ -85,10 +87,12 @@ frappe.ready(function() {
 	});
 
     frappe.web_form.on('ticket_type', async () =>{
+        fetchItems()
         clearAll()
 	});
 
     frappe.web_form.on('customer', () =>{
+        frappe.web_form.set_value('customer_address',undefined)
         fetchCustomerAddress()
 	});
 
@@ -110,12 +114,16 @@ frappe.ready(function() {
             },
             callback: function(r) {
                 console.log("res address",r)
-                frappe.web_form.fields_dict.customer_address.set_data(r.message)
+                if (r.message){
+                    frappe.web_form.fields_dict.customer_address.set_data(r.message)
+                }else{
+                    frappe.web_form.fields_dict.customer_address.set_data([])
+                }
             }
         })
     }
 
-    function fetchCustomer(){
+    function fetchCustomer(){     
         frappe.call({
             method: 'ticketing.ticket_wform_api.get_customer',
             args: {
@@ -123,10 +131,63 @@ frappe.ready(function() {
             },
             callback: function(r) {
                 console.log("res address",r)
-                frappe.web_form.fields_dict.customer.set_data(r.message)
+                
+                if(r.message){
+                    frappe.web_form.fields_dict.customer.set_data(r.message)
+                }
             }
         })
     }
     fetchCustomer()
+
+    function onPageLoad(){
+        frappe.web_form.fields_dict.customer_address.set_data([])
+        const service_requested =frappe.web_form.get_value('service_requested')
+        const equipment =frappe.web_form.get_value('equipment')
+        if (!service_requested){
+            frappe.web_form.set_df_property('contract_status', 'hidden',true);
+            frappe.web_form.set_df_property('contract', 'hidden',true);
+            frappe.web_form.set_df_property('item_name', 'hidden',true);
+        }else{
+            frappe.web_form.set_df_property('contract_status', 'hidden',false);
+            frappe.web_form.set_df_property('contract', 'hidden',false);
+            frappe.web_form.set_df_property('item_name', 'hidden',false);
+        }
+
+        if (!equipment){
+            frappe.web_form.set_df_property('warranty', 'hidden',true);
+            frappe.web_form.set_df_property('warranty_status', 'hidden',true);
+            frappe.web_form.set_df_property('equipment_name', 'hidden',true);
+        }else{
+            frappe.web_form.set_df_property('warranty', 'hidden',false);
+            frappe.web_form.set_df_property('warranty_status', 'hidden',false);
+            frappe.web_form.set_df_property('equipment_name', 'hidden',false);
+        }
+    }
+    onPageLoad()
+
+    function fetchItems(){
+        let tType = frappe.web_form.get_value('ticket_type')
+        let stock = 0
+        let target= ['service_requested']
+        if (tType == "Service Request"){
+            stock = 0
+            target = 'service_requested'
+        }else{
+            stock = 1
+            target = 'equipment'
+        }
+
+        frappe.call({
+            method: 'ticketing.ticket_wform_api.get_items_filtered',
+            args: {
+                mstock: stock
+            },
+            callback: function(r) {
+                console.log("res f items",r)
+                frappe.web_form.fields_dict[target].set_data(r.message)
+            }
+        })
+    }
 })
 

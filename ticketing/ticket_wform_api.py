@@ -52,3 +52,13 @@ def get_customer(user):
         return data
     else:
         return []
+
+@frappe.whitelist()
+def get_items_filtered(mstock=0):
+    
+    data=frappe.db.get_all("Item",[["is_stock_item","=",mstock]],pluck='name')
+    print("data sql",data)
+    if data:
+        return data
+    else:
+        return []
