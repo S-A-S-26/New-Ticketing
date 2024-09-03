@@ -93,6 +93,7 @@
    "non_negative": 1
   },
   {
+   "default": "0",
    "fieldname": "visit_requested",
    "fieldtype": "Int",
    "in_list_view": 1,
@@ -172,7 +173,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-17 21:53:58.907514",
+ "modified": "2024-09-03 08:45:06.350502",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Customer Contract",

@@ -366,7 +366,7 @@
    "label": "Pay by Hour"
   },
   {
-   "depends_on": "eval:doc.type==\"Hourly Service Request\" || doc.pay_by_hour",
+   "depends_on": "eval:doc.duration>1 && doc.type==\"Hourly Service Request\" || doc.pay_by_hour",
    "fieldname": "billed_duration",
    "fieldtype": "Float",
    "label": "Billed Duration",
@@ -463,7 +463,7 @@
    "link_fieldname": "service_request"
   }
  ],
- "modified": "2024-08-21 03:30:27.721257",
+ "modified": "2024-09-03 08:57:44.786126",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

@@ -235,3 +235,55 @@ def create_sales_invoice_ticket(item_code,qty,rate,cust,doc_name,cmpny):
        
 # def get_address_custom():
 #     get_address_display()
+
+
+# Get today's date and format it
+
+def set_expired_customer_contract():
+    print("set_expired for customer contract")
+    expired_docs=[]
+    today = datetime.today().strftime('%Y-%m-%d')
+    items = frappe.db.get_all("Customer Contract",{'to_date':[ '<', today]},pluck="name")
+    for name in items:
+        doc = frappe.get_doc("Customer Contract", name)
+        doc.status = "Expired"
+        doc.save()
+
+@frappe.whitelist()
+def deduction_on_visit_req(reference_type,service_request=None,repair_request=None):
+    print(f"""select cc.name,cc.free_visit,cc.price_per_visit,cc.remaining_free_visits from `tabService Request` as sr join `tabCustomer Contract` as cc on cc.name=sr.customer_contract join `tabVisit Request` as vr on sr.name=vr.{reference_type.replace(' ',"_").lower()} where vr.{reference_type.replace(' ',"_").lower()}="{service_request if reference_type=='Service Request' else repair_request}";""")
+    visitData=frappe.db.sql(f"""select cc.name,cc.free_visit,cc.price_per_visit,cc.remaining_free_visits,cc.visit_requested from `tabService Request` as sr join `tabCustomer Contract` as cc on cc.name=sr.customer_contract join `tabVisit Request` as vr on sr.name=vr.{reference_type.replace(' ',"_").lower()} where vr.{reference_type.replace(' ',"_").lower()}="{service_request if reference_type=='Service Request' else repair_request}";""",as_dict=True)
+    print("visit Data",visitData)
+    # visitData= frappe.db.get_value("Customer Contract", self.name,['free_visit',"price_per_visit"])
+    if not visitData:
+        return
+    visitData=frappe._dict(visitData[0])
+    availVisits=visitData.remaining_free_visits
+    charge=visitData.price_per_visit
+    cc_name= visitData.name
+    visit_requested=visitData.visit_requested
+
+    
+    if not charge:
+        frappe.throw("Visit Charge is zero in Customer Contract Doctype")
+
+    if availVisits and availVisits>0:
+        print("deduct from existing",cc_name)
+        frappe.db.set_value("Customer Contract",cc_name,'remaining_free_visits',availVisits-1,update_modified=False)
+        # return True
+    # else:
+    #     sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
+    #     sales_inv.customer=self.customer
+    #     sales_inv.company=self.company
+    #     sales_inv.due_date=frappe.utils.nowdate()
+    #     sales_inv.append("items", {
+    #         "item_code": item_code,
+    #         "qty": qty,
+    #         "rate":rate,
+    #     })
+    #     sales_inv.custom_ticket=doc_name   
+    #     sales_inv.insert()
+    #     return sales_inv.name
+    print("visit req",visit_requested)
+    frappe.db.set_value("Customer Contract",cc_name,'visit_requested',visit_requested+1,update_modified=False)
+    return True

@@ -3,7 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
-from ticketing.api import set_status,validate_resolution
+from ticketing.api import set_status,validate_resolution,deduction_on_visit_req
 from erpnext.crm.utils import (
 	CRMNote,
 	copy_comments,
@@ -29,3 +29,5 @@ class VisitRequest(CRMNote):
 			print("value visit Request",value)
 			if value:
 				set_status(self,self.status,'Service Request',self.name,"Ticket",self.ticket)
+
+		# deduction_on_visit_req(self)

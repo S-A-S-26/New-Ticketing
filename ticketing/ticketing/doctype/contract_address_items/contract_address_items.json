@@ -22,6 +22,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Customer Address",
+   "link_filters": "[[\"Address\",\"link_name\",\"=\",\"eval:parent.customer\"]]",
    "options": "Address",
    "reqd": 1
   },
@@ -68,7 +69,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-08-04 22:37:56.590677",
+ "modified": "2024-09-03 09:05:28.077427",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Contract Address Items",

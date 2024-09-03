@@ -143,6 +143,7 @@ scheduler_events = {
 	"daily": [
 		"ticketing.cron.set_visit_status",
         "ticketing.api.set_warranty_status",
+        "ticketing.api.set_expired_customer_contract",
 	],
 #	"hourly": [
 #		"ticketing.tasks.hourly"

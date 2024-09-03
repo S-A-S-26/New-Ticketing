@@ -144,6 +144,7 @@ function addLogTime(frm){
 			frm.doc.billed_duration=undefined
 			frm.refresh_field("recent_log")
 			frm.refresh_field("duration")
+			frm.refresh_field("billed_duration")
 			frm.dirty()
 			frm.save()
 		},"Time")

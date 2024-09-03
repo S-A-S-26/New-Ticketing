@@ -75,10 +75,45 @@ frappe.ui.form.on("Visit Request", {
         }else{
             frm.remove_custom_button("Completed","Set"); 
         }
+
+        frm.add_custom_button("Create Sales Invoice",function(){
+            frappe.call({
+                method:"ticketing.api.deduction_on_visit_req",
+                args:{
+                    reference_type:frm.doc.reference_type,
+                    service_request:frm.doc.service_request,
+                    repair_request:frm.doc.repair_request,
+                },
+                callback: function(r) {
+                    if(r.message){
+                        frappe.msgprint("Visit Invoice created successfully.");
+                    } else{
+                        frappe.msgprint("Failed to Create Visit Invoice.");
+                    }
+                }
+            })
+        },"Create")
+
+        frm.set_query('ticket', () => {
+            if(frm.doc.reference_type == "Service Request"){
+                return {
+                    filters: {
+                        type: ['in', ['Service Request']]
+                    }
+                }
+            }else{
+                return {
+                    filters: {
+                        type: ['in', ['Equipment Issue']]
+                    }
+                }
+            }
+        })
 	},
     address:function(frm){
         erpnext.utils.get_address_display(frm, "address","display_address");
-    }
+    },
+    
 });
 
 

@@ -401,8 +401,9 @@
   },
   {
    "fieldname": "feedback_option",
-   "fieldtype": "Data",
-   "label": "Feedback (Option)"
+   "fieldtype": "Link",
+   "label": "Feedback (Option)",
+   "options": "Ticket Feedback Options"
   },
   {
    "fieldname": "column_break_avfu",
@@ -574,7 +575,7 @@
    "link_fieldname": "custom_ticket"
   }
  ],
- "modified": "2024-08-22 10:22:53.935554",
+ "modified": "2024-09-03 02:03:53.114896",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",
