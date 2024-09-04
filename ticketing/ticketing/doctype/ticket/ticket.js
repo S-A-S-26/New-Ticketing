@@ -6,12 +6,12 @@ frappe.ui.form.on("Ticket", {
         frappe.provide("erpnext.utils");
         createButton(frm)
         show_notes(frm)
-        createPurchaseWarranty(frm)
         console.log("refresh")
-        if (frm.doc.equipment && frm.doc.type == "Equipment Issue"){
-            console.log("purchase equipment")
-            frm.trigger("equipment")
-        }
+        createPurchaseWarranty(frm)
+        // if (frm.doc.equipment && frm.doc.type == "Equipment Issue"){
+        //     console.log("purchase equipment")
+        //     frm.trigger("equipment")
+        // }
 	},
     after_save:function(frm){
         createButton(frm)
@@ -231,6 +231,7 @@ function show_notes(frm) {
 }
 
 function createPurchaseWarranty(frm) {
+    console.log("createPurchaseWarranty",frm.doc.purchase_warranty)
     if (frm.doc.purchase_warranty){
         frm.add_custom_button('Purchase Warranty',function(){
             frappe.call({
@@ -242,9 +243,9 @@ function createPurchaseWarranty(frm) {
                     console.log("r.message=",r);
                     if (r.message){
                         frappe.msgprint("Warranty Purchased successfully.");
-                        setTimeout(() => {
-                            frm.refresh();
-                        }, 1000);
+                        // setTimeout(() => {
+                        //     frm.refresh();
+                        // }, 1000);
                     }else{
                         frappe.msgprint("Failed to purchase warranty.");
                     }

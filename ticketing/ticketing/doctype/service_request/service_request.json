@@ -333,6 +333,7 @@
   {
    "fieldname": "ticket",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Ticket",
    "link_filters": "[[\"Ticket\",\"type\",\"=\",\"Service Request\"],[\"Ticket\",\"contract_status\",\"=\",\"Active\"]]",
    "options": "Ticket",
@@ -443,6 +444,7 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Company",
    "options": "Company"
   }
@@ -463,7 +465,7 @@
    "link_fieldname": "service_request"
   }
  ],
- "modified": "2024-09-03 08:57:44.786126",
+ "modified": "2024-09-04 08:56:18.338180",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Service Request",

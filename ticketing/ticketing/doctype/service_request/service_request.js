@@ -9,6 +9,7 @@ frappe.ui.form.on('Service Request', {
 		}
 		if (frm.doc.service){
 			validateServiceInvoiceBtn(frm)
+			checkFreeService(frm)
 		}
 		frm.trigger('is_visit_required')
 		if (frm.doc.billed_duration >= 0.001){
@@ -204,4 +205,38 @@ function add_create_invoice(frm){
 		})
 	}, "Create");
 		
+}
+
+function checkFreeService(frm){
+	frappe.call({
+		method:"check_if_free_service",
+		doc:frm.doc,
+		freeze:true,
+		freeze_message:"Check if service is free",
+		callback: function(r, rt){
+			console.log("r.message=",r);
+			
+			if(r.message ){
+				frm.add_custom_button(__("Log Free Service"), function() {
+					frappe.call({
+						method:"create_service_log",
+						doc:frm.doc,
+						freeze:true,
+						freeze_message:"Creating free service log",
+						callback: function(r, rt){
+							console.log("r.message=",r);
+							
+							if(r.message ){
+								frappe.msgprint("Log Created Successfully")
+							}else{
+								frappe.msgprint("Log Creation Failed")
+							}
+						}
+					})
+				},"Create")
+			}else{
+				frm.remove_custom_button("Log Free Service","Create");
+			}
+		}
+	})
 }

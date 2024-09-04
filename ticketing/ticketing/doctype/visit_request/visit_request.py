@@ -15,6 +15,8 @@ from erpnext.crm.utils import (
 
 class VisitRequest(CRMNote):
 	def validate(self):
+		if not self.visit_duration:
+			self.visit_duration = 0
 		validate_resolution(self)
 		if self.reference_type == "Repair Request":
 			print("repair req")

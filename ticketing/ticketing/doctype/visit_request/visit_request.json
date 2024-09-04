@@ -111,7 +111,7 @@
    "reqd": 1
   },
   {
-   "default": "Today",
+   "default": "Now",
    "fieldname": "requested_date",
    "fieldtype": "Datetime",
    "in_standard_filter": 1,
@@ -122,7 +122,8 @@
   {
    "fieldname": "scheduled_date",
    "fieldtype": "Datetime",
-   "label": "Scheduled Date"
+   "label": "Scheduled Date",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_owef",
@@ -178,16 +179,17 @@
    "reqd": 1
   },
   {
-   "depends_on": "eval:doc.reference_type=='Repair Request'",
+   "depends_on": "eval:doc.reference_type=='Repair Request' && doc.ticket",
    "fieldname": "repair_request",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Repair Request",
+   "link_filters": "[[\"Repair Request\",\"ticket\",\"=\",\"eval:doc.ticket\"]]",
    "mandatory_depends_on": "eval:doc.reference_type=='Repair Request'",
    "options": "Repair Request"
   },
   {
-   "depends_on": "eval:doc.reference_type=='Service Request'",
+   "depends_on": "eval:doc.reference_type=='Service Request'  && doc.ticket",
    "fieldname": "service_request",
    "fieldtype": "Link",
    "in_standard_filter": 1,
@@ -320,7 +322,8 @@
    "fieldtype": "Datetime",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Resolution Date"
+   "label": "Resolution Date",
+   "read_only": 1
   },
   {
    "fieldname": "resolution_time",
@@ -328,7 +331,8 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Resolution Time"
+   "label": "Resolution Time",
+   "read_only": 1
   },
   {
    "fieldname": "feedback_tab",
@@ -424,7 +428,7 @@
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-09-03 09:11:30.772669",
+ "modified": "2024-09-04 08:59:48.187855",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Request",

@@ -3,14 +3,25 @@
 
 frappe.ui.form.on("Visit Request", {
     after_save(frm){
-        frm.reload()
+        frm.refresh()
     },
 	refresh(frm) {
         frappe.provide("erpnext.utils");
-		if (!frm.doc.display_address){
-			frm.trigger("address")
+		if (frm.doc.address && !frm.doc.display_address){
+			// frm.trigger("address")
+            frappe.call({
+                method: 'frappe.contacts.doctype.address.address.get_address_display',
+                args: {
+                    address_dict: frm.doc.address
+                },
+                callback: function(r) {
+                    frm.doc.display_address=r.message
+                    frm.refresh_field("display_address")
+                }
+            })
 		}
         show_notes(frm)
+        
         let sch_d = new frappe.ui.Dialog({
             title: 'Schedule Visit',
             fields: [
@@ -28,6 +39,12 @@ frappe.ui.form.on("Visit Request", {
             primary_action_label: 'Submit',
             primary_action(values) {
                 console.log(values);
+                const req_date=frappe.datetime.str_to_obj(frm.doc.requested_date)
+                const sch_date=frappe.datetime.str_to_obj(values.schedule_date)
+                console.log(typeof(req_date),typeof(sch_date))
+                if (sch_date<req_date){
+                    frappe.throw("Schedule date must be greater than requested date")
+                }
                 frm.doc.scheduled_date=values.schedule_date
                 frm.doc.status="Scheduled"
                 frm.refresh_field("scheduled_date")
@@ -76,23 +93,25 @@ frappe.ui.form.on("Visit Request", {
             frm.remove_custom_button("Completed","Set"); 
         }
 
-        frm.add_custom_button("Create Sales Invoice",function(){
-            frappe.call({
-                method:"ticketing.api.deduction_on_visit_req",
-                args:{
-                    reference_type:frm.doc.reference_type,
-                    service_request:frm.doc.service_request,
-                    repair_request:frm.doc.repair_request,
-                },
-                callback: function(r) {
-                    if(r.message){
-                        frappe.msgprint("Visit Invoice created successfully.");
-                    } else{
-                        frappe.msgprint("Failed to Create Visit Invoice.");
+        if(frm.doc.reference_type=="Service Request"){
+            frm.add_custom_button("Create Sales Invoice",function(){
+                frappe.call({
+                    method:"ticketing.api.deduction_on_visit_req",
+                    args:{
+                        reference_type:frm.doc.reference_type,
+                        service_request:frm.doc.service_request,
+                        repair_request:frm.doc.repair_request,
+                    },
+                    callback: function(r) {
+                        if(r.message){
+                            frappe.msgprint("Visit Invoice created successfully.");
+                        } else{
+                            frappe.msgprint("Failed to Create Visit Invoice.");
+                        }
                     }
-                }
-            })
-        },"Create")
+                })
+            },"Create")
+        }
 
         frm.set_query('ticket', () => {
             if(frm.doc.reference_type == "Service Request"){
@@ -109,11 +128,18 @@ frappe.ui.form.on("Visit Request", {
                 }
             }
         })
+        
 	},
     address:function(frm){
         erpnext.utils.get_address_display(frm, "address","display_address");
+        console.log("frm.doc.__unsaved",frm.doc.__unsaved)
     },
-    
+    reference_type: function(frm){
+        frm.doc.ticket= undefined
+        frm.doc.repair_request=undefined
+        frm.doc.service_request=undefined
+        frm.refresh_fields(['ticket','repair_request','service_request'])
+    }
 });
 
 
@@ -124,5 +150,5 @@ function show_notes(frm) {
     });
     crm_notes.refresh();
 
-    frm.dirty();
+    // frm.dirty();
 }

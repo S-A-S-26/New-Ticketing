@@ -94,7 +94,8 @@ class ServiceRequest(Document):
 			if data[0].remaining_free_service > 0:
 				frappe.db.set_value("Contract Covered Services",data[0].name,"remaining_free_service",data[0].remaining_free_service-minus_val)
 				return {"price":data[0].price,"status":True}
-			
+	
+	@frappe.whitelist()		
 	def create_service_log(self):
 		print("inside create_service_log")
 		ser_log=frappe.get_doc({"doctype":"Service Log"})
@@ -102,3 +103,20 @@ class ServiceRequest(Document):
 		ser_log.ticket=self.ticket
 		ser_log.type=self.type
 		ser_log.insert()
+		return True
+
+	@frappe.whitelist()
+	def check_if_free_service(self):
+		print(f"""SELECT tk.name,ccs.name,cs.name,ccs.item_name,ccs.service_type,ccs.remaining_free_service FROM `tabTicket` AS tk JOIN `tabCustomer Contract` AS cs ON tk.contract = cs.name JOIN `tabContract Covered Services` AS ccs ON cs.name = ccs.parent WHERE tk.name = "{self.ticket}" AND ccs.service = "{self.service}";""")
+		data=frappe.db.sql(f"""SELECT tk.name,ccs.name,cs.name,ccs.item_name,ccs.service_type,ccs.remaining_free_service FROM `tabTicket` AS tk JOIN `tabCustomer Contract` AS cs ON tk.contract = cs.name JOIN `tabContract Covered Services` AS ccs ON cs.name = ccs.parent WHERE tk.name = "{self.ticket}" AND ccs.service = "{self.service}";""",as_dict=True)
+		print("data",data)
+		if data:
+			data=data[0]
+		else:
+			return True
+		print("data",data)
+		# if not data:
+		# 	return True
+	
+		if data.service_type == "Free Service":
+			return True
