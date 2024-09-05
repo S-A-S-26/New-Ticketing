@@ -179,13 +179,27 @@ function createButton(frm, status=undefined) {
     })
     
     if (frm.doc.type == "Equipment Issue" && (frm.doc.warranty_status == "No Warranty" || frm.doc.warranty_status == "Expired")) {
-        frm.add_custom_button(__("Create Sales Invoice"), function() {
+        // frm.add_custom_button(__("Create Sales Invoice"), function() {
             
-        }, "Create");
+        // }, "Create");
         frm.remove_custom_button("Create Repair Request","Create");
     }else if (frm.doc.type == "Equipment Issue" && frm.doc.warranty_status == "Under Warranty") {
         frm.add_custom_button(__("Create Repair Request"), function() {
-            
+            frappe.call({
+                method:"create_repair_request",
+                doc:frm.doc,
+                freeze:true,
+                freeze_message:"Creating Repair Request",
+                callback: function(r, rt){
+                    console.log("r.message=",r);
+                    
+                    if(r.message){
+                        frappe.msgprint("Repair Request created successfully.");
+                    }else{
+                        frappe.msgprint("Failed to Repair Request.");
+                    }
+                }
+            })
         }, "Create");
         frm.remove_custom_button("Create Sales Invoice","Create");
     }else{

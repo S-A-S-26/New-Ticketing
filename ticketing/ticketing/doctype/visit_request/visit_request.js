@@ -82,36 +82,27 @@ frappe.ui.form.on("Visit Request", {
             frm.remove_custom_button("In-Progress","Set"); 
         }
 
-        if (frm.doc.status == "In Progress" && frm.doc.visit_completed_by && frm.doc.visit_duration){
-            frm.add_custom_button("Completed",function(){
-                frm.doc.status="Completed"
-                frm.refresh_field("status")
-                frm.dirty()
-                frm.save()
-            },"Set")
-        }else{
-            frm.remove_custom_button("Completed","Set"); 
-        }
+        show_completed_button(frm)
 
-        if(frm.doc.reference_type=="Service Request"){
-            frm.add_custom_button("Create Sales Invoice",function(){
-                frappe.call({
-                    method:"ticketing.api.deduction_on_visit_req",
-                    args:{
-                        reference_type:frm.doc.reference_type,
-                        service_request:frm.doc.service_request,
-                        repair_request:frm.doc.repair_request,
-                    },
-                    callback: function(r) {
-                        if(r.message){
-                            frappe.msgprint("Visit Invoice created successfully.");
-                        } else{
-                            frappe.msgprint("Failed to Create Visit Invoice.");
+        frm.add_custom_button("Create Visit Invoice",function(){
+                if(frm.doc.reference_type=="Service Request"){
+                    frappe.call({
+                        method:"ticketing.api.deduction_on_visit_req",
+                        args:{
+                            reference_type:frm.doc.reference_type,
+                            service_request:frm.doc.service_request,
+                            repair_request:frm.doc.repair_request,
+                        },
+                        callback: function(r) {
+                            if(r.message){
+                                frappe.msgprint("Visit Invoice created successfully.");
+                            } else{
+                                frappe.msgprint("Failed to Create Visit Invoice.");
+                            }
                         }
-                    }
-                })
+                    })
+                }
             },"Create")
-        }
 
         frm.set_query('ticket', () => {
             if(frm.doc.reference_type == "Service Request"){
@@ -139,6 +130,12 @@ frappe.ui.form.on("Visit Request", {
         frm.doc.repair_request=undefined
         frm.doc.service_request=undefined
         frm.refresh_fields(['ticket','repair_request','service_request'])
+    },
+    visit_completed_by:function(frm){
+        show_completed_button(frm)
+    },
+    visit_duration:function(frm){
+        show_completed_button(frm)
     }
 });
 
@@ -151,4 +148,18 @@ function show_notes(frm) {
     crm_notes.refresh();
 
     // frm.dirty();
+}
+
+
+function show_completed_button(frm){
+    if (frm.doc.status == "In Progress" && frm.doc.visit_completed_by && frm.doc.visit_duration){
+        frm.add_custom_button("Completed",function(){
+            frm.doc.status="Completed"
+            frm.refresh_field("status")
+            frm.dirty()
+            frm.save()
+        },"Set")
+    }else{
+        frm.remove_custom_button("Completed","Set"); 
+    }
 }

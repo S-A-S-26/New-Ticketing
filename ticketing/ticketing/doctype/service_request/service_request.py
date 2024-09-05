@@ -70,6 +70,7 @@ class ServiceRequest(Document):
 			return "Free Service"
 		sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
 		sales_inv.customer=self.customer
+		sales_inv.company=self.company
 		sales_inv.due_date=frappe.utils.nowdate()
 		sales_inv.append("items", {
 			"item_code": self.service,
@@ -120,3 +121,5 @@ class ServiceRequest(Document):
 	
 		if data.service_type == "Free Service":
 			return True
+	
+

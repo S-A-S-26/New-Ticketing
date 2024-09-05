@@ -358,7 +358,6 @@
   {
    "fieldname": "opening_time",
    "fieldtype": "Time",
-   "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Opening Time"
@@ -573,9 +572,14 @@
    "group": "Opportunity",
    "link_doctype": "Opportunity",
    "link_fieldname": "custom_ticket"
+  },
+  {
+   "group": "Repair Request",
+   "link_doctype": "Repair Request",
+   "link_fieldname": "ticket"
   }
  ],
- "modified": "2024-09-03 02:03:53.114896",
+ "modified": "2024-09-05 09:15:12.383900",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",

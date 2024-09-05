@@ -4,8 +4,18 @@
 frappe.ui.form.on('Repair Request', {
 	refresh: function(frm) {
         frappe.provide("erpnext.utils");
-		if (!frm.doc.display_address){
-			frm.trigger("address")
+		if (frm.doc.address && !frm.doc.display_address){
+			// frm.trigger("address")
+			frappe.call({
+                method: 'frappe.contacts.doctype.address.address.get_address_display',
+                args: {
+                    address_dict: frm.doc.address
+                },
+                callback: function(r) {
+                    frm.doc.display_address=r.message
+                    frm.refresh_field("display_address")
+                }
+            })
 		}
 		show_notes(frm)
 		if (!frm.doc.__islocal){
@@ -15,11 +25,14 @@ frappe.ui.form.on('Repair Request', {
     address:function(frm){
         erpnext.utils.get_address_display(frm, "address","display_address");
     },
+	price_per_visit:function(frm){
+		frm.trigger('is_visit_required')
+	},
     is_visit_required:function(frm){
 		if (frm.doc.__islocal){
 			return
 		}
-		if(frm.doc.is_visit_required){
+		if(frm.doc.is_visit_required && frm.doc.price_per_visit > 0){
             frm.add_custom_button("Visit Request",function(){
 				frappe.call({
 					method:"create_visit_request",
@@ -50,5 +63,5 @@ function show_notes(frm) {
     });
     crm_notes.refresh();
 
-    frm.dirty();
+    // frm.dirty();
 }

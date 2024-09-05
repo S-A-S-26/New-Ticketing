@@ -15,6 +15,10 @@ from erpnext.crm.utils import (
 
 class VisitRequest(CRMNote):
 	def validate(self):
+		print("self visiwst",self.__dict__)
+		# print(self.__islocal)
+		if not self.is_new():
+			check_service_repair(self)
 		if not self.visit_duration:
 			self.visit_duration = 0
 		validate_resolution(self)
@@ -33,3 +37,13 @@ class VisitRequest(CRMNote):
 				set_status(self,self.status,'Service Request',self.name,"Ticket",self.ticket)
 
 		# deduction_on_visit_req(self)
+def check_service_repair(self):
+	if self.reference_type == "Service Request":
+		tk= frappe.db.get_value("Service Request",{"name":self.service_request},'ticket')
+		if not tk or self.ticket != tk:
+			frappe.throw(f"The Service Request '{self.service_request}' is not associated with ticket '{self.ticket}'")
+		pass
+	else:
+		tk= frappe.db.get_value("Repair Request",{"name":self.repair_request},'ticket')
+		if not tk or self.ticket != tk:
+			frappe.throw(f"The Service Request '{self.repair_request}' is not associated with ticket '{self.ticket}'")

@@ -181,6 +181,31 @@ class Ticket(CRMNote):
 				self.purchase_warranty=0
 				self.save()
 				return war.name
+	
+	# from_doctype,
+	# from_docname,
+	# table_maps,
+	# target_doc=None,
+	# postprocess=None,
+	# ignore_permissions=False,
+	# ignore_child_tables=False,
+	# cached=False,
+	@frappe.whitelist()
+	def create_repair_request(self):
+		doc = frappe.get_doc({"doctype":"Repair Request"})
+		doc.customer = self.customer
+		doc.type = "Repair"
+		doc.status = "New"
+		doc.ticket = self.name
+		doc.subject  = self.subject
+		doc.priority = self.priority
+		doc.customer_address = self.customer_address
+		doc.display_address = self.customer_address_display
+		doc.equipment = self.equipment
+		doc.company = self.company
+		doc.warranty_status = "Active"
+		doc.insert()
+		return True
 
 def check_if_exists(doc,ticket):
 	print("check_if_opp_exists",ticket)

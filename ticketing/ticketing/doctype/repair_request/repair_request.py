@@ -26,6 +26,8 @@ class RepairRequest(CRMNote):
 		doc.ticket=self.ticket
 		doc.repair_request=self.name
 		doc.request_details=self.request_details
+		doc.company = self.company
+		# doc.
 		# doc.sla=self.sla
 		# doc.sla_status=self.sla_status
 		doc.insert(ignore_mandatory=True)

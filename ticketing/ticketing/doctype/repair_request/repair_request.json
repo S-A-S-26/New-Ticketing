@@ -13,11 +13,13 @@
   "customer",
   "customer_name",
   "type",
+  "price_per_visit",
   "column_break_vqtw",
   "status",
   "ticket",
   "subject",
   "priority",
+  "company",
   "column_break_kahh",
   "address",
   "display_address",
@@ -226,7 +228,8 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Response By"
+   "label": "Response By",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_kisn",
@@ -239,7 +242,8 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Resolution By"
+   "label": "Resolution By",
+   "read_only": 1
   },
   {
    "fieldname": "total_hold_time",
@@ -290,7 +294,8 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Resolution Date"
+   "label": "Resolution Date",
+   "read_only": 1
   },
   {
    "fieldname": "resolution_time",
@@ -298,7 +303,8 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Resolution Time"
+   "label": "Resolution Time",
+   "read_only": 1
   },
   {
    "fieldname": "feedback_tab",
@@ -378,12 +384,14 @@
   {
    "fieldname": "first_responded_on",
    "fieldtype": "Datetime",
-   "label": "First Responded On"
+   "label": "First Responded On",
+   "read_only": 1
   },
   {
    "fieldname": "on_hold_since",
    "fieldtype": "Datetime",
-   "label": "On Hold Since"
+   "label": "On Hold Since",
+   "read_only": 1
   },
   {
    "default": "First Response Due",
@@ -395,13 +403,15 @@
    "in_standard_filter": 1,
    "label": "Service Level Agreement Status",
    "options": "First Response Due\nResolution Due\nFulfilled\nFailed",
+   "read_only": 1,
    "reqd": 1
   },
   {
    "default": "Now",
    "fieldname": "service_level_agreement_creation",
    "fieldtype": "Datetime",
-   "label": "Service Level Agreement Creation"
+   "label": "Service Level Agreement Creation",
+   "read_only": 1
   },
   {
    "fetch_from": "ticket.request_details",
@@ -409,6 +419,17 @@
    "fieldname": "request_details",
    "fieldtype": "Text Editor",
    "label": "Request Details"
+  },
+  {
+   "fieldname": "price_per_visit",
+   "fieldtype": "Currency",
+   "label": "Price Per Visit"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -418,7 +439,7 @@
    "link_fieldname": "repair_request"
   }
  ],
- "modified": "2024-08-20 12:01:30.614465",
+ "modified": "2024-09-05 08:00:28.149252",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Repair Request",
