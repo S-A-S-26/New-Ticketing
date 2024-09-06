@@ -62,3 +62,27 @@ def get_items_filtered(mstock=0):
         return data
     else:
         return []
+    
+@frappe.whitelist()
+def get_feedback_options(rating):
+    data=frappe.db.get_all("Ticket Feedback Options",[["rating","=",rating]],pluck='name')
+    print("data sql",data)
+    if data:
+        return data
+    else:
+        return []
+    
+@frappe.whitelist(allow_guest=True)
+def update_ticket_feedback(ticket,rating,option,resolution=None,text=None,extra=None):
+    print("update ticket_feedback",ticket)
+
+    doc=frappe.get_doc("Ticket",ticket)
+    doc.status="Closed"
+    doc.rating_motn=rating
+    doc.feedback_text=text
+    doc.feedback_option=option
+    doc.feedback_extra=extra
+    doc.resolution_details=resolution
+
+    doc.save()
+    return "Ticket Closed Successfully"

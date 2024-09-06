@@ -12,6 +12,7 @@ frappe.ui.form.on("Ticket", {
         //     console.log("purchase equipment")
         //     frm.trigger("equipment")
         // }
+        
 	},
     after_save:function(frm){
         createButton(frm)

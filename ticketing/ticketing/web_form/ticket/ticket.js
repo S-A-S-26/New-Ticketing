@@ -96,6 +96,23 @@ frappe.ready(function() {
         fetchCustomerAddress()
 	});
 
+    // frappe.web_form.on('rating_motn', async () =>{
+	// 	frappe.call({
+    //         method: 'ticketing.ticket_wform_api.get_feedback_options',
+    //         args: {
+    //             rating: frappe.web_form.get_value('rating_motn')
+    //         },
+    //         callback: function(r) {
+    //             console.log("res rating opt",r)
+    //             if (r.message){
+    //                 frappe.web_form.fields_dict.feedback_option.set_data(r.message)
+    //             }else{
+    //                 frappe.web_form.fields_dict.feedback_option.set_data([])
+    //             }
+    //         }
+    //     })
+	// });
+
     function clearAll(){
         frappe.web_form.set_value('warranty', undefined);
         frappe.web_form.set_value('warranty_status', undefined);
@@ -189,5 +206,154 @@ frappe.ready(function() {
             }
         })
     }
+
+    function addButtonFeedback() {
+        let button = $('<button class="btn btn-primary btn-xs">Close</button>');
+        button.css({
+            float: 'right',
+            marginLeft: 'auto'
+        });
+        $('div.breadcrumb-container').css({
+            display: 'flex',
+            alignItems: 'center', // vertically center the items
+            justifyContent:'space-between',
+        });
+        button.click(function() {
+            // add your button code here
+            console.log("hello there")
+            let d = new frappe.ui.Dialog({
+                title: 'Enter details',
+                fields: [
+                    {
+                        
+                        label: "Rating",
+                        fieldname: "dia_rating",
+                        fieldtype: "Rating",
+                        reqd: 1,
+                        change() { // Add a change listener to the rating field
+                            frappe.call({
+                                method: 'ticketing.ticket_wform_api.get_feedback_options',
+                                args: {
+                                    rating: d.get_value('dia_rating')
+                                },
+                                async: false,
+                                callback: function(r) {
+                                    console.log("res rating opt",r)
+                                    if (r.message){
+                                        d.set_df_property('dia_feedback_option', 'options', []);
+                                        d.set_df_property('dia_feedback_option', 'options', r.message);
+                                        // frappe.web_form.fields_dict.feedback_option.set_data(r.message)
+                                    }else{
+                                        d.set_df_property('dia_feedback_option', 'options', []);
+                                    }
+                                }
+                            })
+                             // Dynamically update the options
+                        }
+                    },
+                    {
+                        allow_read_on_all_link_options: 0,
+                        fieldname: "feedback_text",
+                        fieldtype: "Data",
+                        hidden: 0,
+                        label: "Feedback (Text)",
+                        max_length: 0,
+                        max_value: 0,
+                        precision: "",
+                        read_only: 0,
+                        reqd: 0,
+                        show_in_filter: 0
+                    },
+                    {
+                        fieldname: "dia_feedback_option",
+                        fieldtype: "Select",
+                        label: "Feedback (Option)",
+                        options:[],
+                        reqd: 1,
+                    },
+                    {
+                        "allow_read_on_all_link_options": 0,
+                        "fieldname": "feedback_extra",
+                        "fieldtype": "Small Text",
+                        "hidden": 0,
+                        "label": "Feedback (Extra)",
+                        "max_length": 0,
+                        "max_value": 0,
+                        "precision": "",
+                        "read_only": 0,
+                        "reqd": 0,
+                        "show_in_filter": 0
+                    },
+                    {
+                        "fieldname": "resolution_details",
+                        "fieldtype": "Text Editor",
+                        "label": "Resolution Details",
+                        "reqd": 0,
+                    },
+                    // {
+                    //     label: 'First Name',
+                    //     fieldname: 'first_name',
+                    //     fieldtype: 'Data'
+                    // },
+                    // {
+                    //     label: 'Last Name',
+                    //     fieldname: 'last_name',
+                    //     fieldtype: 'Data'
+                    // },
+                    // {
+                    //     label: 'Age',
+                    //     fieldname: 'age',
+                    //     fieldtype: 'Int'
+                    // }
+                ],
+                size: 'large', // small, large, extra-large 
+                primary_action_label: 'Submit',
+                primary_action(values) {
+                    console.log(values);
+                    console.log("values.",values.dia_rating)
+                    frappe.call({
+                        method: 'ticketing.ticket_wform_api.update_ticket_feedback',
+                        args: {
+                            ticket: frappe.web_form.doc.name,
+                            rating: values.dia_rating,
+                            option:values.dia_feedback_option,
+                            resolution:values.resolution_details,
+                            text:values.feedback_text,
+                            extra:values.feedback_extra,
+                        },
+                        callback: function(r) {
+                            console.log("res on closing",r)
+                            if (r.message){
+                                frappe.msgprint(r.message)
+                                d.hide();
+                                // frappe.web_form.fields_dict.feedback_option.set_data(r.message)
+                            }else{
+                                frappe.msgprint("Error: Failed to submit feedback.")
+                            }
+                        },
+                        // error: (r) => {
+                        //     // on error
+                        //     frappe.throw("Error: " + r.message)
+                        // }
+                    })
+                    
+                    
+                }
+            });
+            // d.$body.ready(()=>{
+            //     console.log("warpper ready")
+            //     let content=$('.form-layout')
+            //     // let content=$('div.modal-body').find('span.tooltip-content');
+            //     console.log("content",content)
+            // })
+            console.log("d.wrapper",d.$body)
+            d.show();
+        });
+        if (frappe.web_form_doc.in_view_mode){
+            $('div.breadcrumb-container').append(button);
+        }
+    }
+    addButtonFeedback()
+
 })
 

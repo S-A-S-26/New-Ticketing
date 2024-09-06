@@ -6,7 +6,8 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "option_name"
+  "option_name",
+  "rating"
  ],
  "fields": [
   {
@@ -18,11 +19,16 @@
    "label": "Option Name",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "rating",
+   "fieldtype": "Rating",
+   "label": "Rating"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-03 02:04:37.045137",
+ "modified": "2024-09-05 09:58:49.356427",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket Feedback Options",
