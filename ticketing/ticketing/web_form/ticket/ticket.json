@@ -25,6 +25,11 @@
    "label": "Subject"
   },
   {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status"
+  },
+  {
    "fieldname": "opening_date",
    "fieldtype": "Date",
    "label": "Opening Date"
@@ -58,7 +63,7 @@
  "list_title": "Tickets",
  "login_required": 1,
  "max_attachment_size": 0,
- "modified": "2024-09-06 09:01:22.149349",
+ "modified": "2024-09-06 09:27:06.370839",
  "modified_by": "asoral@dexciss.com",
  "module": "Ticketing",
  "name": "ticket",

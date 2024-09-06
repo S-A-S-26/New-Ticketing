@@ -73,7 +73,7 @@ def get_feedback_options(rating):
         return []
     
 @frappe.whitelist(allow_guest=True)
-def update_ticket_feedback(ticket,rating,option,resolution=None,text=None,extra=None):
+def update_ticket_feedback(ticket,rating,option,text=None,extra=None):
     print("update ticket_feedback",ticket)
 
     doc=frappe.get_doc("Ticket",ticket)
@@ -82,7 +82,7 @@ def update_ticket_feedback(ticket,rating,option,resolution=None,text=None,extra=
     doc.feedback_text=text
     doc.feedback_option=option
     doc.feedback_extra=extra
-    doc.resolution_details=resolution
+    doc.resolution_details="Ticket Closed Through Portal"
 
     doc.save()
     return "Ticket Closed Successfully"

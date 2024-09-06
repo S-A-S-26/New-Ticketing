@@ -30,7 +30,8 @@ class Ticket(CRMNote):
 		self.h_name=self.name
 		print("\n\nValidating",self.resolution_details,self.resolution_details == '<div class="ql-editor read-mode"><p><br></p></div>')
 		validate_resolution(self)
-		
+		if not self.status:
+			self.status = "New"
 		# already_ticket = False
 		# if self.contract:
 		# 	print(f"""select tk.name from `tabTicket` as tk join `tabCustomer Contract` as cc on tk.contract=cc.name where tk.creation BETWEEN cc.from_date AND cc.to_date and cc.customer='{self.customer}' AND cc.name='{self.contract}';

@@ -208,7 +208,7 @@ frappe.ready(function() {
     }
 
     function addButtonFeedback() {
-        let button = $('<button class="btn btn-primary btn-xs">Close</button>');
+        let button = $('<button class="btn btn-primary btn-xs" id="close_btn1234">Close</button>');
         button.css({
             float: 'right',
             marginLeft: 'auto'
@@ -284,12 +284,12 @@ frappe.ready(function() {
                         "reqd": 0,
                         "show_in_filter": 0
                     },
-                    {
-                        "fieldname": "resolution_details",
-                        "fieldtype": "Text Editor",
-                        "label": "Resolution Details",
-                        "reqd": 1,
-                    },
+                    // {
+                    //     "fieldname": "resolution_details",
+                    //     "fieldtype": "Text Editor",
+                    //     "label": "Resolution Details",
+                    //     "reqd": 1,
+                    // },
                     // {
                     //     label: 'First Name',
                     //     fieldname: 'first_name',
@@ -317,7 +317,6 @@ frappe.ready(function() {
                             ticket: frappe.web_form.doc.name,
                             rating: values.dia_rating,
                             option:values.dia_feedback_option,
-                            resolution:values.resolution_details,
                             text:values.feedback_text,
                             extra:values.feedback_extra,
                         },
@@ -326,6 +325,7 @@ frappe.ready(function() {
                             if (r.message){
                                 frappe.msgprint(r.message)
                                 d.hide();
+                                $("#close_btn1234").css('display', 'none');
                                 // frappe.web_form.fields_dict.feedback_option.set_data(r.message)
                             }else{
                                 frappe.msgprint("Error: Failed to submit feedback.")

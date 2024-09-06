@@ -368,7 +368,8 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Resolution Date"
+   "label": "Resolution Date",
+   "read_only": 1
   },
   {
    "fieldname": "resolution_time",
@@ -376,7 +377,8 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Resolution Time"
+   "label": "Resolution Time",
+   "read_only": 1
   },
   {
    "fieldname": "feedback_tab",
@@ -579,7 +581,7 @@
    "link_fieldname": "ticket"
   }
  ],
- "modified": "2024-09-05 09:15:12.383900",
+ "modified": "2024-09-06 09:19:59.532693",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Ticket",
