@@ -288,7 +288,7 @@ frappe.ready(function() {
                         "fieldname": "resolution_details",
                         "fieldtype": "Text Editor",
                         "label": "Resolution Details",
-                        "reqd": 0,
+                        "reqd": 1,
                     },
                     // {
                     //     label: 'First Name',
@@ -349,7 +349,8 @@ frappe.ready(function() {
             console.log("d.wrapper",d.$body)
             d.show();
         });
-        if (frappe.web_form_doc.in_view_mode){
+        console.log("status",frappe.web_form.get_value('status'))
+        if (frappe.web_form_doc.in_view_mode && !(['Closed', 'Resolved'].includes(frappe.web_form.get_value('status')))) {
             $('div.breadcrumb-container').append(button);
         }
     }
