@@ -22,6 +22,28 @@ frappe.ui.form.on("Visit Request", {
 		}
         show_notes(frm)
         
+        if(frm.doc.repair_request){
+            frappe.db.get_value('Repair Request', frm.doc.repair_request, 'price_per_visit')
+            .then(r => {
+                console.log(r.message.price_per_visit) // Open
+                if (r.message.price_per_visit>0){
+                    frm.add_custom_button("Create Repair Visit Invoice", function(){
+                        frappe.call({
+                            method:"create_visit_invoice",
+                            doc:frm.doc,
+                            callback: function(r) {
+                                if(r.message){
+                                    frappe.msgprint("Visit Invoice Successfully.");
+                                } else{
+                                    frappe.msgprint("Failed to Create Visit Invoice.");
+                                }
+                            }
+                        })
+                    },"Create")
+                }
+            })
+        }
+
         let sch_d = new frappe.ui.Dialog({
             title: 'Schedule Visit',
             fields: [
@@ -84,8 +106,8 @@ frappe.ui.form.on("Visit Request", {
 
         show_completed_button(frm)
 
-        frm.add_custom_button("Create Visit Invoice",function(){
-                if(frm.doc.reference_type=="Service Request"){
+        if(frm.doc.reference_type=="Service Request"){
+                frm.add_custom_button("Create Service Visit Invoice",function(){
                     frappe.call({
                         method:"ticketing.api.deduction_on_visit_req",
                         args:{
@@ -101,8 +123,8 @@ frappe.ui.form.on("Visit Request", {
                             }
                         }
                     })
-                }
-            },"Create")
+                },"Create")
+        }
 
         frm.set_query('ticket', () => {
             if(frm.doc.reference_type == "Service Request"){

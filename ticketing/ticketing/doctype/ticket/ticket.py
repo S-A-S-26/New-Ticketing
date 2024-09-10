@@ -204,6 +204,7 @@ class Ticket(CRMNote):
 		doc.display_address = self.customer_address_display
 		doc.equipment = self.equipment
 		doc.company = self.company
+		doc.warranty = self.warranty
 		doc.warranty_status = "Active"
 		doc.insert()
 		return True

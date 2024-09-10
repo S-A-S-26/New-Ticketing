@@ -244,6 +244,8 @@ fixtures = [
      {"dt":"Custom Field", "filters": [["name", "in",(
          "Sales Invoice-custom_ticket",
          "Sales Invoice-custom_service_request",
+         "Sales Invoice-custom_repair_request",
+         "Sales Invoice-custom_visit_request",
          "Opportunity-custom_ticket",
       ),]]}
     ]

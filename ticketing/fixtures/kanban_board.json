@@ -4,7 +4,7 @@
    {
     "column_name": "New",
     "indicator": "Gray",
-    "order": "[\"TK072425\", \"TK072418\", \"TK072417\", \"TK072416\", \"TK072415\", \"TK072414\", \"TK072413\", \"TK072412\", \"TK072411\", \"TK072410\", \"TK072409\", \"TK072408\", \"TK072402\", \"TK072401\", \"TK072403\"]",
+    "order": "[\"TK092421\", \"TK092415\", \"TK092413\", \"TK092412\", \"TK092411\", \"TK092408\", \"TK092407\", \"TK092406\", \"TK092405\", \"TK092404\", \"TK092403\", \"TK092402\", \"TK092401\", \"TK082462\", \"TK082461\", \"TK082460\", \"TK082459\", \"TK082458\", \"TK082457\", \"TK082456\", \"TK082455\", \"TK082454\", \"TK082453\", \"TK082452\", \"TK082451\", \"TK082450\", \"TK082449\", \"TK082448\", \"TK082447\", \"TK082446\", \"TK082445\", \"TK082444\", \"TK082443\", \"TK082441\", \"TK082440\", \"TK082439\", \"TK082438\", \"TK082437\", \"TK082436\", \"TK082435\", \"TK082434\", \"TK082433\", \"TK082432\", \"TK082431\", \"TK082430\", \"TK082428\", \"TK082427\", \"TK082423\", \"TK082422\", \"TK082421\", \"TK082420\", \"TK082417\"]",
     "parent": "Ticket Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -13,7 +13,7 @@
    {
     "column_name": "Open",
     "indicator": "Gray",
-    "order": "[\"TK072426\", \"TK072424\", \"TK072423\", \"TK072422\", \"TK072421\", \"TK072420\", \"TK072419\", \"TK072404\"]",
+    "order": "[\"TK082418\", \"TK092410\", \"TK082442\", \"TK082429\", \"TK082419\"]",
     "parent": "Ticket Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -22,7 +22,7 @@
    {
     "column_name": "In Progress",
     "indicator": "Gray",
-    "order": "[\"TK072407\", \"TK072406\"]",
+    "order": "[\"TK092409\", \"TK082424\"]",
     "parent": "Ticket Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -31,7 +31,7 @@
    {
     "column_name": "Replied",
     "indicator": "Gray",
-    "order": "[\"TK072405\"]",
+    "order": "[]",
     "parent": "Ticket Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -49,7 +49,7 @@
    {
     "column_name": "Closed",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\"TK092420\", \"TK092419\", \"TK082425\", \"TK092418\", \"TK092414\", \"TK092417\", \"TK092416\", \"TK082426\"]",
     "parent": "Ticket Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -68,10 +68,10 @@
   "docstatus": 0,
   "doctype": "Kanban Board",
   "field_name": "status",
-  "fields": "[\"customer_name\",\"opening_date\",\"priority\",\"subject\",\"type\",\"status\"]",
+  "fields": "[\"customer_name\",\"opening_date\",\"priority\",\"status\",\"subject\",\"ticket_type\"]",
   "filters": null,
   "kanban_board_name": "Ticket Board",
-  "modified": "2024-07-17 20:31:13.335326",
+  "modified": "2024-09-10 06:24:28.297035",
   "name": "Ticket Board",
   "private": 0,
   "reference_doctype": "Ticket",
@@ -82,7 +82,7 @@
    {
     "column_name": "New",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\n \"RR082405\",\n \"RR082404\",\n \"RR082401\",\n \"RR072404\",\n \"RR072403\",\n \"RR072402\"\n]",
     "parent": "Repair Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -91,7 +91,7 @@
    {
     "column_name": "Open",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\n \"RR082403\",\n \"RR072405\"\n]",
     "parent": "Repair Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -100,7 +100,7 @@
    {
     "column_name": "In Progress",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\n \"RR082402\",\n \"RR072408\",\n \"RR072407\",\n \"RR072406\",\n \"RR072401\"\n]",
     "parent": "Repair Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -160,7 +160,7 @@
    {
     "column_name": "New",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\"SR0052\", \"SR0051\", \"SR0047\", \"SR0048\", \"SR0046\", \"SR0045\", \"SR0044\", \"SR0043\", \"SR0041\", \"SR0040\", \"SR0038\", \"SR0037\", \"SR0036\", \"SR0034\", \"SR0032\", \"SR0026\", \"SR0025\", \"SR0024\", \"SR0020\", \"SR0019\", \"SR0014\", \"SR0015\", \"SR0013\", \"SR0012\", \"SR0011\", \"SR0010\", \"SR0009\", \"SR0008\", \"SR0007\", \"SR0006\", \"SR0005\", \"SR0004\", \"SR0002\"]",
     "parent": "Service Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -169,7 +169,7 @@
    {
     "column_name": "Open",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\"SR0030\", \"SR0027\", \"SR0022\"]",
     "parent": "Service Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -178,7 +178,7 @@
    {
     "column_name": "In Progress",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\"SR0050\", \"SR0039\", \"SR0035\", \"SR0033\", \"SR0029\", \"SR0028\", \"SR0023\", \"SR0017\", \"SR0003\", \"SR0001\"]",
     "parent": "Service Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -196,7 +196,7 @@
    {
     "column_name": "Resolved",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\"SR0049\", \"SR0016\"]",
     "parent": "Service Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -205,7 +205,7 @@
    {
     "column_name": "Closed",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\"SR0042\", \"SR0031\", \"SR0021\", \"SR0018\"]",
     "parent": "Service Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -224,21 +224,21 @@
   "docstatus": 0,
   "doctype": "Kanban Board",
   "field_name": "status",
-  "fields": null,
+  "fields": "[\"service\", \"ticket\", \"company\", \"customer\", \"service_level_agreement\"]",
   "filters": null,
   "kanban_board_name": "Service Request Board",
-  "modified": "2024-07-04 00:03:36.939151",
+  "modified": "2024-09-04 08:57:26.765014",
   "name": "Service Request Board",
   "private": 0,
   "reference_doctype": "Service Request",
-  "show_labels": 0
+  "show_labels": 1
  },
  {
   "columns": [
    {
     "column_name": "To Schedule",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\n \"VR082414\",\n \"VR082412\"\n]",
     "parent": "Visit Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -247,7 +247,7 @@
    {
     "column_name": "Scheduled",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\n \"VR082415\"\n]",
     "parent": "Visit Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -256,7 +256,7 @@
    {
     "column_name": "In Progress",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\n \"VR082411\",\n \"VR082410\",\n \"VR082409\",\n \"VR082408\"\n]",
     "parent": "Visit Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",
@@ -265,7 +265,7 @@
    {
     "column_name": "Completed",
     "indicator": "Gray",
-    "order": "[]",
+    "order": "[\n \"VR082406\"\n]",
     "parent": "Visit Request Board",
     "parentfield": "columns",
     "parenttype": "Kanban Board",

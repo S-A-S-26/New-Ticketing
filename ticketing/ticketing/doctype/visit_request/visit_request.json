@@ -428,8 +428,14 @@
  ],
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
- "links": [],
- "modified": "2024-09-05 03:53:05.715337",
+ "links": [
+  {
+   "group": "Sales Invoice",
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "custom_visit_request"
+  }
+ ],
+ "modified": "2024-09-10 09:30:07.704381",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Request",

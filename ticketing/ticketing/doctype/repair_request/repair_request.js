@@ -21,6 +21,21 @@ frappe.ui.form.on('Repair Request', {
 		if (!frm.doc.__islocal){
 			frm.trigger('is_visit_required')
 		}
+		if(frm.doc.type=="Repair" && frm.doc.price_per_repair > 0){ 
+			frm.add_custom_button("Create Repair Invoice",function(){
+				frappe.call({
+					method:"create_repair_invoice",
+					doc:frm.doc,
+					callback: function(r) {
+						if(r.message){
+							frappe.msgprint("Repair Invoice created successfully.");
+						} else{
+							frappe.msgprint("Failed to Create Repair Invoice.");
+						}
+					}
+				})
+			},"Create")
+		}
 	},
     address:function(frm){
         erpnext.utils.get_address_display(frm, "address","display_address");

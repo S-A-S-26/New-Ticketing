@@ -36,6 +36,37 @@ class VisitRequest(CRMNote):
 			if value:
 				set_status(self,self.status,'Service Request',self.name,"Ticket",self.ticket)
 
+	@frappe.whitelist()
+	def create_visit_invoice(self):
+		print("create visit invoice")
+		item={'name':"",'price':""}
+		sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
+		if self.reference_type == "Repair Request":
+			item['name'] = frappe.db.get_value("Repair Request",self.repair_request,'equipment')
+			item['price'] = frappe.db.get_value("Repair Request",self.repair_request,'price_per_visit')
+			sales_inv.custom_visit_request=self.name   
+			print("item in repair ",item)
+		else:
+			item['name'] = frappe.db.get_value("Service Request",self.service_request,'service')
+			# select cc.name,cc.price_per_visit  from `tabVisit Request` as vr join `tabService Request` as sr on vr.service_request=sr.name join `tabTicket` as tk on sr.ticket=tk.name join `tabCustomer Contract` as cc on tk.contract=cc.name where vr.service_request='SR0053';
+			data_customer= frappe.db.sql(f"select cc.name,cc.price_per_visit  from `tabVisit Request` as vr join `tabService Request` as sr on vr.service_request=sr.name join `tabTicket` as tk on sr.ticket=tk.name join `tabCustomer Contract` as cc on tk.contract=cc.name where vr.service_request='{self.service_request}';",as_dict=True)
+			item['price']= data_customer['price_per_request']
+			print("item in service",item)
+			
+		if not item: 
+			frappe.throw("No equipment or service found for the given reference.")
+
+		sales_inv.customer=self.customer
+		sales_inv.company=self.company
+		sales_inv.due_date=frappe.utils.nowdate()
+		sales_inv.append("items", {
+			"item_code": item['name'],
+			"qty": 1,
+			"rate": item['price'],
+		})
+		sales_inv.insert()
+		return sales_inv.name
+
 		# deduction_on_visit_req(self)
 def check_service_repair(self):
 	if self.reference_type == "Service Request":

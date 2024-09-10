@@ -30,6 +30,8 @@
   "column_break_yfek",
   "warranty_status",
   "warranty_expiry_date",
+  "warranty",
+  "price_per_repair",
   "ticket_details_section",
   "request_details",
   "sla_tab",
@@ -430,16 +432,36 @@
    "fieldtype": "Link",
    "label": "Company",
    "options": "Company"
+  },
+  {
+   "fieldname": "warranty",
+   "fieldtype": "Link",
+   "label": "Warranty",
+   "options": "Warranty",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "warranty.price_per_repair",
+   "fieldname": "price_per_repair",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Price Per Repair"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [
   {
+   "group": "Visit Request",
    "link_doctype": "Visit Request",
    "link_fieldname": "repair_request"
+  },
+  {
+   "group": "Sales Invoice",
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "custom_repair_request"
   }
  ],
- "modified": "2024-09-05 08:00:28.149252",
+ "modified": "2024-09-10 05:41:10.622859",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Repair Request",

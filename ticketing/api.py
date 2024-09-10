@@ -287,3 +287,4 @@ def deduction_on_visit_req(reference_type,service_request=None,repair_request=No
     print("visit req",visit_requested)
     frappe.db.set_value("Customer Contract",cc_name,'visit_requested',visit_requested+1,update_modified=False)
     return True
+

@@ -32,3 +32,18 @@ class RepairRequest(CRMNote):
 		# doc.sla_status=self.sla_status
 		doc.insert(ignore_mandatory=True)
 		return True
+
+	@frappe.whitelist()
+	def create_repair_invoice(self):
+		sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
+		sales_inv.customer=self.customer
+		sales_inv.company=self.company
+		sales_inv.due_date=frappe.utils.nowdate()
+		sales_inv.append("items", {
+			"item_code": self.equipment,
+			"qty": 1,
+			"rate":self.price_per_repair,
+		})
+		sales_inv.custom_repair_request=self.name   
+		sales_inv.insert()
+		return sales_inv.name
