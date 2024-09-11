@@ -110,14 +110,14 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Service Request",
-   "options": "Issue"
+   "options": "Service Request"
   }
  ],
  "hide_toolbar": 1,
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-17 21:54:34.456749",
+ "modified": "2024-09-11 06:09:15.274142",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Log",

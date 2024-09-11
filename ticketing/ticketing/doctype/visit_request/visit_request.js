@@ -31,6 +31,8 @@ frappe.ui.form.on("Visit Request", {
                         frappe.call({
                             method:"create_visit_invoice",
                             doc:frm.doc,
+                            freeze:true,
+                            freeze_message:"Creating Visit Invoice",
                             callback: function(r) {
                                 if(r.message){
                                     frappe.msgprint("Visit Invoice Successfully.");
@@ -107,14 +109,30 @@ frappe.ui.form.on("Visit Request", {
         show_completed_button(frm)
 
         if(frm.doc.reference_type=="Service Request"){
+                // frm.add_custom_button("Create Service Visit Invoice",function(){
+                //     frappe.call({
+                //         method:"ticketing.api.deduction_on_visit_req",
+                //         args:{
+                //             reference_type:frm.doc.reference_type,
+                //             service_request:frm.doc.service_request,
+                //             repair_request:frm.doc.repair_request,
+                //             name:frm.doc.name,
+                //         },
+                //         callback: function(r) {
+                //             if(r.message){
+                //                 frappe.msgprint("Visit Invoice created successfully.");
+                //             } else{
+                //                 frappe.msgprint("Failed to Create Visit Invoice.");
+                //             }
+                //         }
+                //     })
+                // },"Create")
                 frm.add_custom_button("Create Service Visit Invoice",function(){
                     frappe.call({
-                        method:"ticketing.api.deduction_on_visit_req",
-                        args:{
-                            reference_type:frm.doc.reference_type,
-                            service_request:frm.doc.service_request,
-                            repair_request:frm.doc.repair_request,
-                        },
+                        method:"deduction_on_visit_req",
+                        doc:frm.doc,
+                        freeze:true,
+                        freeze_message:"Creating Visit Invoice",
                         callback: function(r) {
                             if(r.message){
                                 frappe.msgprint("Visit Invoice created successfully.");

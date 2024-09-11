@@ -433,9 +433,19 @@
    "group": "Sales Invoice",
    "link_doctype": "Sales Invoice",
    "link_fieldname": "custom_visit_request"
+  },
+  {
+   "group": "Visit Log",
+   "link_doctype": "Visit Log",
+   "link_fieldname": "visit_request"
+  },
+  {
+   "group": "Material Request",
+   "link_doctype": "Material Request",
+   "link_fieldname": "custom_visit_request"
   }
  ],
- "modified": "2024-09-10 09:30:07.704381",
+ "modified": "2024-09-11 07:52:53.345706",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Visit Request",
