@@ -95,6 +95,10 @@ frappe.ui.form.on("Ticket", {
         //         frm.refresh_field("address_html")
         //     }
         // })
+    },
+    customer:function(frm){
+        frm.doc.customer_address=undefined;
+        frm.refresh_field("customer_address")
     }
 
 
@@ -242,7 +246,7 @@ function show_notes(frm) {
     });
     crm_notes.refresh();
 
-    frm.dirty();
+    // frm.dirty();
 }
 
 function createPurchaseWarranty(frm) {

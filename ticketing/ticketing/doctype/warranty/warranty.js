@@ -5,6 +5,10 @@ frappe.ui.form.on('Warranty', {
 	// refresh: function(frm) {
 
 	// },
+    customer:function(frm){
+        frm.doc.warranty_address=[];
+        frm.refresh_field("warranty_address")
+    }
 });
 
 

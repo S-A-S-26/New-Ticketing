@@ -1,6 +1,7 @@
 // Copyright (c) 2024, Dexciss and contributors
 // For license information, please see license.txt
 
+var invoice_created = false;
 frappe.ui.form.on("Visit Request", {
     after_save(frm){
         frm.refresh()
@@ -19,14 +20,30 @@ frappe.ui.form.on("Visit Request", {
                     frm.refresh_field("display_address")
                 }
             })
+        
 		}
+
+        if (!frm.doc.__islocal){
+            frappe.call({
+                method: 'check_sales_exists',
+                doc:frm.doc,
+                async:false,
+                freeze:true,
+                freeze_message:"Checking Sales Invoices",
+                callback: function(r) {
+                    console.log("check sales",r)
+                    invoice_created=!r.message
+                }
+            })
+        }
+
         show_notes(frm)
         
         if(frm.doc.repair_request){
             frappe.db.get_value('Repair Request', frm.doc.repair_request, 'price_per_visit')
             .then(r => {
                 console.log(r.message.price_per_visit) // Open
-                if (r.message.price_per_visit>0){
+                if (r.message.price_per_visit>0 && invoice_created){
                     frm.add_custom_button("Create Repair Visit Invoice", function(){
                         frappe.call({
                             method:"create_visit_invoice",
@@ -108,7 +125,8 @@ frappe.ui.form.on("Visit Request", {
 
         show_completed_button(frm)
 
-        if(frm.doc.reference_type=="Service Request"){
+        console.log("invoice created",invoice_created)
+        if(frm.doc.reference_type=="Service Request" && invoice_created){
                 // frm.add_custom_button("Create Service Visit Invoice",function(){
                 //     frappe.call({
                 //         method:"ticketing.api.deduction_on_visit_req",

@@ -4,8 +4,18 @@
 frappe.ui.form.on('Service Request', {
 	refresh: function(frm) {
 		frappe.provide("erpnext.utils");
-		if (!frm.doc.display_address){
-			frm.trigger("customer_address")
+		if (frm.doc.customer_address && !frm.doc.display_address){
+			// frm.trigger("customer_address")
+			frappe.call({
+                method: 'frappe.contacts.doctype.address.address.get_address_display',
+                args: {
+                    address_dict: frm.doc.customer_address
+                },
+                callback: function(r) {
+                    frm.doc.display_address=r.message
+                    frm.refresh_field("display_address")
+                }
+            })
 		}
 		if (frm.doc.service){
 			validateServiceInvoiceBtn(frm)

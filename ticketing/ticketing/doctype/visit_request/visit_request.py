@@ -147,6 +147,13 @@ class VisitRequest(CRMNote):
 		})
 		mr.insert()
 
+	@frappe.whitelist()
+	def check_sales_exists(self,item):
+		inv=frappe.db.exists("Sales Invoice",{"custom_visit_request":self.name})
+		print("inv",inv)
+		if inv:
+			return True
+		return False
 
 		# deduction_on_visit_req(self)
 def check_service_repair(self):

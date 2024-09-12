@@ -9,6 +9,10 @@ frappe.ui.form.on("Customer Contract", {
                 console.log("free_visit")
                 frm.doc.remaining_free_visits =frm.doc.free_visit
                 frm.refresh_field('remaining_free_visits')
+        },
+        customer:function(frm){ 
+                frm.doc.contract_address_items=[];
+                frm.refresh_field("contract_address_items")
         }
 });
 
