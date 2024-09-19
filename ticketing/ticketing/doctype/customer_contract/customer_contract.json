@@ -102,7 +102,6 @@
    "read_only": 1
   },
   {
-   "depends_on": "eval:doc.visit_requested>0",
    "fieldname": "remaining_free_visits",
    "fieldtype": "Int",
    "label": "Remaining Free Visits",
@@ -173,7 +172,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-03 08:45:06.350502",
+ "modified": "2024-09-19 03:35:13.774222",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Customer Contract",

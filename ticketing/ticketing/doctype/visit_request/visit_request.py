@@ -39,6 +39,7 @@ class VisitRequest(CRMNote):
 
 	@frappe.whitelist()
 	def create_visit_log(self):
+		print("create_visit_log")
 		if not self.visit_completed_by:
 			frappe.throw("Please add VisitCompleted by")
 		visit_log=frappe.get_doc({"doctype":"Visit Log"})
@@ -109,6 +110,7 @@ class VisitRequest(CRMNote):
 		if availVisits and availVisits>0:
 			print("deduct from existing",cc_name)
 			frappe.db.set_value("Customer Contract",cc_name,'remaining_free_visits',availVisits-1,update_modified=False)
+			self.create_visit_log()
 			# return True
 		else:
 		#     sales_inv=frappe.get_doc({"doctype":"Sales Invoice"})
@@ -126,7 +128,6 @@ class VisitRequest(CRMNote):
 			self.create_visit_invoice()
 		print("visit req",visit_requested)
 		frappe.db.set_value("Customer Contract",cc_name,'visit_requested',visit_requested+1,update_modified=False)
-		self.create_visit_log()
 		return True
 
 	@frappe.whitelist()

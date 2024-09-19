@@ -246,6 +246,7 @@ fixtures = [
          "Sales Invoice-custom_service_request",
          "Sales Invoice-custom_repair_request",
          "Sales Invoice-custom_visit_request",
+         "Material Request-custom_visit_request",
          "Opportunity-custom_ticket",
       ),]]}
     ]

@@ -89,11 +89,20 @@ class ServiceRequest(Document):
 		elif data[0].remaining_free_service == 0:
 			return {"price":data[0].price,"status":False}
 		else:
-			minus_val=1
-			if self.billed_duration>0.001:
-				minus_val=self.billed_duration
+			print("inside else con for ck rem fserv")
+			final_val=0
+			if data[0].service_type=='Pay by Hour' and self.billed_duration>0.001:
+				print("for time")
+				if self.billed_duration > data[0].remaining_free_service:
+					final_val=0
+				else:
+					final_val=data[0].remaining_free_service-self.billed_duration
+			else:
+				print("for normal service without time")
+				final_val=data[0].remaining_free_service-1
 			if data[0].remaining_free_service > 0:
-				frappe.db.set_value("Contract Covered Services",data[0].name,"remaining_free_service",data[0].remaining_free_service-minus_val)
+				print("final deduction",final_val)
+				frappe.db.set_value("Contract Covered Services",data[0].name,"remaining_free_service",final_val)
 				return {"price":data[0].price,"status":True}
 	
 	@frappe.whitelist()		

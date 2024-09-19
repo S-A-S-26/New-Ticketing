@@ -60,14 +60,14 @@
    "depends_on": "eval:doc.service_type!='Free Service'",
    "description": "Enter hours if the Service Type is pay per hour otherwise Enter Maximum Service Requests to be offered free. Leave zero for no free service/hour.",
    "fieldname": "max_free_services",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Max Free Services"
   },
   {
    "fieldname": "remaining_free_service",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Remaining Free Service",
    "non_negative": 1,
    "read_only": 1
@@ -76,7 +76,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-09-05 09:51:24.213795",
+ "modified": "2024-09-19 06:49:56.288159",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Contract Covered Services",
