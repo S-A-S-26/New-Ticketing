@@ -288,3 +288,10 @@ def deduction_on_visit_req(reference_type,service_request=None,repair_request=No
     frappe.db.set_value("Customer Contract",cc_name,'visit_requested',visit_requested+1,update_modified=False)
     return True
 
+
+@frappe.whitelist()
+def get_quotation_items(names):
+    print("names",names)
+    items = frappe.db.get_list("Quotation Template Child Table",{'parent':['in',names]},['*'])
+    print("items",items)
+    return items

@@ -13,9 +13,13 @@ frappe.ui.form.on("Ticket", {
         //     frm.trigger("equipment")
         // }
         console.log("hello work")
+        clearCustomButtons(frm)
     },
     after_save: function(frm) {
         createButton(frm)
+    },
+    status: function(frm) {
+        clearCustomButtons(frm)
     },
     service_requested: function(frm) {
         frappe.call({
@@ -277,3 +281,10 @@ function createPurchaseWarranty(frm) {
     }
 }
 
+function clearCustomButtons(frm) {
+    console.log("clear custom buttons func trigg", frm.doc.status)
+    if (["Closed", "Resolved", "Cancelled"].includes(frm.doc.status)) {
+        console.log("clear custom buttons inside if ")
+        frm.clear_custom_buttons();
+    }
+}

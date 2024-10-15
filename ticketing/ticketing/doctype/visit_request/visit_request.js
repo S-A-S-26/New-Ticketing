@@ -178,6 +178,7 @@ frappe.ui.form.on("Visit Request", {
             }
         })
 
+        clearCustomButtons(frm)
     },
     address: function(frm) {
         erpnext.utils.get_address_display(frm, "address", "display_address");
@@ -194,7 +195,10 @@ frappe.ui.form.on("Visit Request", {
     },
     visit_duration: function(frm) {
         show_completed_button(frm)
-    }
+    },
+    status: function(frm) {
+        clearCustomButtons(frm)
+    },
 });
 
 
@@ -219,5 +223,13 @@ function show_completed_button(frm) {
         }, "Set")
     } else {
         frm.remove_custom_button("Completed", "Set");
+    }
+}
+
+function clearCustomButtons(frm) {
+    console.log("clear custom buttons func trigg", frm.doc.status)
+    if (["Closed", "Resolved", "Cancelled"].includes(frm.doc.status)) {
+        console.log("clear custom buttons inside if ")
+        frm.clear_custom_buttons();
     }
 }

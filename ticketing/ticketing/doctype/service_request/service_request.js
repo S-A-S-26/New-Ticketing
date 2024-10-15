@@ -19,7 +19,7 @@ frappe.ui.form.on('Service Request', {
 		}
 		if (frm.doc.service) {
 			validateServiceInvoiceBtn(frm)
-			checkFreeService(frm)
+			checkFreeService(frm)//adds button log free services
 		}
 		frm.trigger('is_visit_required')
 		if (frm.doc.billed_duration >= 0.001) {
@@ -27,10 +27,13 @@ frappe.ui.form.on('Service Request', {
 		}
 		addLogTime(frm)
 
+		clearCustomButtons(frm)
+
 	},
 
 	is_visit_required: function(frm) {
-		if (frm.doc.is_visit_required) {
+		console.log("__islocal", frm.doc.__islocal)
+		if (frm.doc.is_visit_required && !frm.doc.__islocal && !["Closed", "Resolved", "Cancelled"].includes(frm.doc.status)) {
 			frm.add_custom_button("Visit Request", function() {
 				frappe.call({
 					method: "create_visit_request",
@@ -65,6 +68,7 @@ frappe.ui.form.on('Service Request', {
 	},
 
 	status: function(frm) {
+		clearCustomButtons(frm)
 		// frappe.call({
 		// 	method:"ticketing.api.set_status",
 		// 	args:{
@@ -230,6 +234,7 @@ function checkFreeService(frm) {
 		doc: frm.doc,
 		freeze: true,
 		freeze_message: "Check if service is free",
+		async: false,
 		callback: function(r, rt) {
 			console.log("r.message=", r);
 
@@ -256,4 +261,12 @@ function checkFreeService(frm) {
 			}
 		}
 	})
+}
+
+function clearCustomButtons(frm) {
+	console.log("clear custom buttons func trigg", frm.doc.status)
+	if (["Closed", "Resolved", "Cancelled"].includes(frm.doc.status)) {
+		console.log("clear custom buttons inside if ")
+		frm.clear_custom_buttons();
+	}
 }

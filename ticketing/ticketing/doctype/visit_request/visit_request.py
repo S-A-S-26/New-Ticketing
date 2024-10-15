@@ -18,6 +18,7 @@ class VisitRequest(CRMNote):
 	def validate(self):
 		print("self visiwst",self.__dict__)
 		# print(self.__islocal)
+		check_service_repair(self)
 		if not self.is_new():
 			check_service_repair(self)
 		if not self.visit_duration:
@@ -164,6 +165,8 @@ def check_service_repair(self):
 			frappe.throw(f"The Service Request '{self.service_request}' is not associated with ticket '{self.ticket}'")
 		pass
 	else:
+		print("validation check for repair req in visit")
 		tk= frappe.db.get_value("Repair Request",{"name":self.repair_request},'ticket')
+		print("tk",tk)
 		if not tk or self.ticket != tk:
-			frappe.throw(f"The Service Request '{self.repair_request}' is not associated with ticket '{self.ticket}'")
+			frappe.throw(f"The Repair Request '{self.repair_request}' is not associated with ticket '{self.ticket}'")
