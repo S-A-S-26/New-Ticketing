@@ -26,6 +26,20 @@ frappe.ui.form.on('Quotation', {
 						freeze_message: "Fetching Items For Quotation",
 						callback: (res) => {
 							console.log("res", res)
+							if (!res.message) return
+							frm.doc.items = []
+							for (let i of res.message) {
+								var row = frappe.model.add_child(
+									frm.doc,
+									"Quotation Item",
+									"items"
+								);
+								frappe.model.set_value(row.doctype, row.name, "item_code", i.item);
+								frappe.model.set_value(row.doctype, row.name, "qty", i.qty);
+								// frappe.model.set_value(row.doctype, row.name, "item", i.uom);
+							}
+							frm.refresh_field("items");
+							dia.dialog.hide()
 						}
 					})
 				}

@@ -1,4 +1,5 @@
 import frappe
+import json
 from datetime import timedelta 
 from frappe.model.document import Document
 from frappe.utils import (
@@ -291,7 +292,11 @@ def deduction_on_visit_req(reference_type,service_request=None,repair_request=No
 
 @frappe.whitelist()
 def get_quotation_items(names):
+    if not names: return
+    names = json.loads(names)
     print("names",names)
-    items = frappe.db.get_list("Quotation Template Child Table",{'parent':['in',names]},['*'])
+    print("filter with qu",{'parent':['in',f"{names}"]})
+    print("filter without qu",{'parent':['in',names]})
+    items = frappe.db.get_all("Quotation Template Child Table",{'parent':['in',names]},['item','qty','uom'])
     print("items",items)
     return items
