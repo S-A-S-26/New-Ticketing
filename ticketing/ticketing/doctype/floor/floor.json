@@ -13,11 +13,8 @@
   "floor_details_section",
   "floor_name",
   "customer",
-  "column_break_pjbx",
   "customer_address",
-  "address_diplay",
-  "floor_rooms_section",
-  "floor_rooms"
+  "insurance_status"
  ],
  "fields": [
   {
@@ -30,24 +27,10 @@
    "bold": 1,
    "fieldname": "floor_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Floor Name",
    "reqd": 1,
    "unique": 1
-  },
-  {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
-   "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_pjbx",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "customer_address",
@@ -57,31 +40,29 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Customer Address",
+   "link_filters": "[[\"Address\",\"link_name\",\"=\",\"eval:doc.customer\"]]",
    "options": "Address",
    "reqd": 1
   },
   {
-   "fieldname": "address_diplay",
-   "fieldtype": "Small Text",
-   "label": "Address",
+   "fieldname": "insurance_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Insurance Status",
+   "options": "Not Covered\nCovered",
    "read_only": 1
   },
   {
-   "fieldname": "floor_rooms_section",
-   "fieldtype": "Section Break",
-   "label": "Floor Rooms"
-  },
-  {
-   "fieldname": "floor_rooms",
-   "fieldtype": "Table",
-   "label": "Floor Rooms",
-   "options": "Floor Rooms",
-   "reqd": 1
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-02 22:28:08.318372",
+ "modified": "2024-10-17 05:55:14.960450",
  "modified_by": "Administrator",
  "module": "Ticketing",
  "name": "Floor",
