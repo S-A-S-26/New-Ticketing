@@ -1,6 +1,6 @@
 import frappe
 import json
-from datetime import timedelta 
+from datetime import timedelta ,datetime
 from frappe.model.document import Document
 from frappe.utils import (
 	add_to_date,
@@ -300,3 +300,43 @@ def get_quotation_items(names):
     items = frappe.db.get_all("Quotation Template Child Table",{'parent':['in',names]},['item','qty','uom'])
     print("items",items)
     return items
+
+def set_site_addresses(sites,val):
+    for i in sites:
+        frappe.db.set_value("Address",i,"custom_insurance_status",val,update_modified=False)
+
+def set_floor(floor,val):
+    for i in floor:
+        frappe.db.set_value("Floor",i,"insurance_status",val,update_modified=False)
+
+def certificate_insurance(active):
+    today = datetime.now().date()
+    print("date",today)
+    if active:
+        certificates = frappe.db.get_all("Certificate of Insurance",{'start_date': ['<=', today],'end_date': ['>=', today]},pluck='name')
+    else:
+        certificates = frappe.db.get_all("Certificate of Insurance",{'end_date': ['<', today]},pluck='name')
+    print("certificates",certificates)
+    sites =[]
+    floors=[]
+    for i in certificates:
+        all_floor = frappe.db.get_value("Certificate of Insurance",i,'all_floors_covered')
+        site= frappe.db.get_all("Site Address MultiSelect",{"parent":i},pluck='address')
+        if all_floor:
+            print("all floor")
+            floor= frappe.db.get_all("Floor",{"customer_address":['in',site]},pluck='floor_name')
+            pass
+        else:
+            floor= frappe.db.get_all("Floor MultiSelect Table",{"parent":i},pluck='floor')
+        sites.extend(site)
+        floors.extend(floor)
+    print("sites,floor before",sites,floors)
+    sites= list(set(sites))
+    floors= list(set(floors))
+    set_site_addresses(sites,val)
+    set_floor(sites,val)
+    print("sites,floor",sites,floors)
+
+def certificate_insurance_process():
+    certificate_insurance(True)
+    certificate_insurance(False)
