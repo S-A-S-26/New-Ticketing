@@ -145,6 +145,9 @@ scheduler_events = {
         "ticketing.api.set_warranty_status",
         "ticketing.api.set_expired_customer_contract",
 	],
+	"daily_long": [
+        "ticketing.api.certificate_insurance_process",
+	],
 #	"hourly": [
 #		"ticketing.tasks.hourly"
 #	],

@@ -303,10 +303,12 @@ def get_quotation_items(names):
 
 def set_site_addresses(sites,val):
     for i in sites:
+        print("setting site",i)
         frappe.db.set_value("Address",i,"custom_insurance_status",val,update_modified=False)
 
 def set_floor(floor,val):
     for i in floor:
+        print("setting floor",i)
         frappe.db.set_value("Floor",i,"insurance_status",val,update_modified=False)
 
 def certificate_insurance(active):
@@ -314,8 +316,10 @@ def certificate_insurance(active):
     print("date",today)
     if active:
         certificates = frappe.db.get_all("Certificate of Insurance",{'start_date': ['<=', today],'end_date': ['>=', today]},pluck='name')
+        val = "Covered"
     else:
         certificates = frappe.db.get_all("Certificate of Insurance",{'end_date': ['<', today]},pluck='name')
+        val = "Not Covered"
     print("certificates",certificates)
     sites =[]
     floors=[]
@@ -334,9 +338,9 @@ def certificate_insurance(active):
     sites= list(set(sites))
     floors= list(set(floors))
     set_site_addresses(sites,val)
-    set_floor(sites,val)
+    set_floor(floors,val)
     print("sites,floor",sites,floors)
 
 def certificate_insurance_process():
-    certificate_insurance(True)
     certificate_insurance(False)
+    certificate_insurance(True)
